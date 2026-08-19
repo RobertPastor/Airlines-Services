@@ -1,0 +1,1 @@
+## a library used to convert XML to javascript key values syntax
