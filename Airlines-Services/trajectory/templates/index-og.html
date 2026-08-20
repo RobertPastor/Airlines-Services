@@ -1,0 +1,144 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+    
+    <link rel='shortcut icon' type='image/x-icon' href="{% static 'images/favicon.ico' %}" />  
+    
+    <link type="text/css" rel="stylesheet" href="/static/css/jquery/jquery-ui.css" />
+    <link type="text/css" rel="stylesheet" href="/static/css/jquery/datatables/datatables.min.css" />
+    
+    <link type="text/css" rel="stylesheet" href="/static/css/w3/w3.css" />
+    <link type="text/css" rel="stylesheet" href="/static/css/main/main.css" />
+    <link type="text/css" rel="stylesheet" href="/static/css/main/fold-unfold.css" />
+    <link type="text/css" rel="stylesheet" href="/static/css/og/og.css" />
+    
+    <!-- 1st October 2023 - sortable -->
+    <link type="text/css" rel="stylesheet" href="/static/css/sortable/sortable.css" />
+    
+    <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-2.2.1.js"></script>
+    <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-migrate-1.4.1.min.js"></script>
+    <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-ui-patch-browser.js"></script>
+
+ 	<script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-ui.js"></script>
+    <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/datatables/datatables.min.js"></script>
+    
+
+    <script charset="utf-8" type="module" src="/static/js/og/og.es.js" ></script>
+ 	
+ 	<script charset="utf-8" type="text/javascript" src="/static/js/d3/d3.min.js"></script>
+ 	<!--  convert JSON to XML and XML to JSON -->
+ 	<script charset="utf-8" type="text/javascript" src="/static/js/x2js/x2js.js"></script>
+ 	
+ 	<script   charset="utf-8" type="text/javascript" src="/static/js/main/draggableDiv.js"></script>
+ 	
+ 	<!-- 1st October 2023 - sortable -->
+ 	<script   charset="utf-8" type="text/javascript" src="/static/js/sortable/sortable.js"></script>
+ 	
+ 	<!-- 31st May 2023 - download Pdf Presentation -->
+ 	<script   charset="utf-8" type="module" src="/static/js/main/downloadPdfPresentation.js"></script>
+    
+    <script   charset="utf-8" type="module" src="/static/js/help/helpControl.js"></script>
+    <script   charset="utf-8" type="text/javascript" src="/static/js/help/help.js"></script>
+    
+    <script   charset="utf-8" type="module" src="/static/js/d3/d3Control.js"></script>
+    
+    <script   charset="utf-8" type="module" src="/static/js/airlineFleet/airlineFleetControl.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/airlineFleet/airlineFleet.js"></script>
+
+    <script   charset="utf-8" type="module" src="/static/js/airlineAirports/airlineAirportsRoutesControl.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/airlineAirports/airlineAirports.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/airlineWayPoints/airlineWayPoints.js"></script>
+    
+    <!-- Show flight profile not used anymore
+    <script charset="utf-8" type="text/javascript" src="/static/js/flightProfile/showFlightProfile.js"></script>
+    -->
+    
+    <script   charset="utf-8" type="module" src="/static/js/flightProfile/verticalProfile.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/flightProfile/flightProfileControl.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/flightProfile/computeFlightProfile.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/flightProfile/dowloadVerticalProfile.js"></script>
+    
+    <!-- 24th June 2023 add download KML file -->
+    <script   charset="utf-8" type="module" src="/static/js/flightProfile/downloadKMLfile.js"></script>
+    
+    <!-- June 2023 cost control inputs are now merged with flight profile inputs
+    <script charset="utf-8" type="module" src="/static/js/airlineCosts/airlineCostsControl.js"></script>
+    -->
+    
+    <script   charset="utf-8" type="module" src="/static/js/airlineFlightLegCosts/airlineFlightLegCostsResultsControl.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/airlineFlightLegCosts/airlineFlightLegCosts.js"></script>
+    
+    <script   charset="utf-8" type="module" src="/static/js/airlineRoutes/airlineRoutesControl.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/airlineRoutes/airlineRoutes.js"></script>
+    
+    <script   charset="utf-8" type="module" src="/static/js/airlineCosts/airlineCosts.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/airlineCosts/airlineCostsControl.js"></script>
+    
+    <script   charset="utf-8" type="module" src="/static/js/airlineCostsOptimization/airlineCostsOptimization.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/airlineCostsOptimization/airlineCostsOptimizationControl.js"></script>
+    
+    <script   charset="utf-8" type="module" src="/static/js/airlineCASM/airlineCasmControl.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/airlineCASM/airlineCASM.js"></script>
+    
+    <script   charset="utf-8" type="module" src="/static/js/airlineCasmOptimization/airlineCasmOptimizationControl.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/airlineCasmOptimization/airlineCasmOptimization.js"></script>
+    
+    <script   charset="utf-8" type="module" src="/static/js/airlineSeatMilesMaximization/airlineSeatMilesMaximization.js"></script>
+    
+    <!--  13th May 2023 - add fuel Planner -->
+    <script   charset="utf-8" type="module" src="/static/js/fuelPlanner/fuelPlannerControl.js"></script>
+    <script   charset="utf-8" type="module" src="/static/js/fuelPlanner/fuelPlanner.js"></script>
+    
+    <!-- 30th December 2023 - add Fuel Efficiency -->
+ 	<script   charset="utf-8" type="module" src="/static/js/fuelPlanner/fuelEfficiency.js"></script>
+
+ 	<!-- 8th June 2023 - SID STAR -->
+ 	<script   charset="utf-8" type="module" src="/static/js/SidStar/SidStar.js"></script>
+ 	<script   charset="utf-8" type="module" src="/static/js/SidStar/polyline.js"></script>
+ 	
+	<!-- 19th July 2023 - Main Singleton Class -->
+	<script   charset="utf-8" type="module" src="/static/js/main/mainSingletonClass.js"></script>
+	
+	<script   charset="utf-8" type="module" src="/static/js/main/mainControl.js"></script>
+ 	<script   charset="utf-8" type="module" src="/static/js/main/dialogControl.js"></script>
+ 	<script   charset="utf-8" type="module" src="/static/js/main/subMenuAirwaysControl.js"></script>
+ 	<script   charset="utf-8" type="module" src="/static/js/main/subMenuOptimizations.js"></script>
+ 	
+ 	<!-- 30th December 2023 - sub menu Fuel Efficiency Fuel Planner -->
+ 	<script   charset="utf-8" type="module" src="/static/js/main/subMenuFuelControl.js"></script>
+ 	
+  	<!-- 22nd August 2024 - sub menu Metar and WInd Temperature -->
+ 	<script   charset="utf-8" type="module" src="/static/js/main/subMenuMeteo.js"></script>
+ 	
+ 	<!--  30th June 2023 - temporary feature - add layer cleaner -->
+ 	<script   charset="utf-8" type="module" src="/static/js/ogLayerCleaner/ogLayerCleanerControl.js"></script>
+ 	<script   charset="utf-8" type="module" src="/static/js/ogLayerCleaner/ogLayerCleaner.js"></script>
+ 	
+ 	<!-- 29th September 2023 - Metars -->
+ 	<script   charset="utf-8" type="module" src="/static/js/metars/metars.js"></script>
+ 	<script   charset="utf-8" type="module" src="/static/js/metars/metarsOgControl.js"></script>
+ 	
+ 	<!-- 23rd August 2024 - Wind Temperature -->
+ 	<script   charset="utf-8" type="module" src="/static/js/windTemperature/windTemperature.js"></script>
+
+    <script   charset="utf-8" type="module" src="/static/js/main/main.js"></script>
+
+    <!--  June 2023 - airlines configuration are provided by the /flight-profile/FlightProfile/views/views.py - function index -->
+    <script>
+    	const airlines = JSON.parse('{{ airlines|escapejs }}');
+	</script>
+    
+</head>
+<body>
+	
+	<div id="parentDivId" style="width: 100%; height: 100%;" >
+		<div id="globusDivId"></div>
+	</div>
+	
+</body>
+</html>
