@@ -1,9 +1,9 @@
 
 ## browser freezing during layer remove
 
-og version is 0.16.3 ?
+## in which og version : og version is 0.16.3 ?
 
-if brower proposes to debug it is lot of time spent in og following function
+## if brower proposes to debug it is lot of time spent in og following function
 
 function spliceTypedArray(arr, starting, deleteCount, elements = []) {
         if (arr.length === 0) {

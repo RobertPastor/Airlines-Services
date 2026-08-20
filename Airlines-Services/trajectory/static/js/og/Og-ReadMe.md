@@ -20,8 +20,8 @@ rober@RobertPastor MINGW64 ~/node.js
 $
 
 ## ===== in the node.js target folder -> git clone 
+## in gitBash launch 
 
-in gitBash launch 
 $ git clone https://github.com/openglobus/openglobus.git
 
 rober@RobertPastor MINGW64 ~/node.js
@@ -50,7 +50,8 @@ go to the repo and launch PowerShelll
 
 PS D:\Node.js\openglobus.0.13.7> npm install
 
-this command should create a node_modules folder
+## this command should create a node_modules folder
+## this node_modules folder with its node libraries are useful when running og
 
 ## ============== if needed upgrade the node.js version
 
@@ -60,6 +61,7 @@ v22.14.0
 rober@RobertPastor MINGW64 ~/node.js/openglobus (master)
 
 ## =================== npm run build ==============================
+## the build target creates a csss and a js (minified)
 
 PS D:\Node.js\openglobus.0.13.7> npm run buildd
 

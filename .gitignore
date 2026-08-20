@@ -217,12 +217,17 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-## ignore the virtual environment -> do not track the content of the virtual environment
+
+## ignore the virtual environment è> do not track the content of the virtual environment
 virtualEnv/
 
 ## ignore the content of the ResultsFiles
 Airlines-Services/trajectory/ResultsFiles/
 
 ## do not push og open globus into GitHub
-Airlines-Services/trajectory/static/css/og
-AirlinAirlines-Services/trajectory/static/js/og/
+Airlines-Services/trajectory/static/css/og.css.0.12.4
+Airlines-Services/trajectory/static/css/og.css.0.16.3
+Airlines-Services/trajectory/static/css/og.css.0.17.0
+
+## do not push og css 
+Airlines-Services/trajectory/static/js/og/
