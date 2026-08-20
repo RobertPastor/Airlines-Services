@@ -23,7 +23,6 @@ from django.http import JsonResponse
 
 from airlines.models import Airline, AirlineRoute, AirlineAircraft
 from trajectory.BadaAircraftPerformance.BadaAircraftJsonPerformanceFile import AircraftJsonPerformance
-from trajectory.Guidance.FlightPathFile import FlightPath
 from trajectory.models import AirlineAirport
 
 from trajectory.models import BadaSynonymAircraft
@@ -31,8 +30,8 @@ from trajectory.views.utils import getAircraftFromRequest, getAdepRunwayFromRequ
 from trajectory.views.utils import getAdesRunwayFromRequest , getMassFromRequest, getFlightLevelFromRequest
 from trajectory.views.utils import getReducedClimbPowerCoeffFromRequest , getDirectRouteFromRequest
 
-from trajectory.Environment.Earth import Earth
-from trajectory.Environment.Atmosphere import Atmosphere
+from trajectory.Environment.Earth.EarthFile import Earth
+from trajectory.Environment.Atmosphere.AtmosphereFile import Atmosphere
 
 from trajectory.GuidanceOpenap.FlightPathOpenapFile import FlightPathOpenap
 from trajectory.Openap.AircraftMainFile import OpenapAircraft

@@ -16,8 +16,6 @@ dir_dragpolar = os.path.join(curr_path, "data/dragpolar/")
 file_synonym = os.path.join(curr_path, "data/dragpolar/_synonym.csv")
 
 
-
-
 class Drag(object):
     """Compute the drag of an aircraft."""
 

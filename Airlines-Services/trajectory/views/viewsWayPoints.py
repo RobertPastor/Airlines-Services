@@ -12,10 +12,10 @@ from airlines.models import AirlineRoute, AirlineAircraft, Airline,    AirlineRo
 from trajectory.models import AirlineWayPoint, AirlineAirport
 from trajectory.models import BadaSynonymAircraft
 from trajectory.BadaAircraftPerformance.BadaAircraftJsonPerformanceFile import AircraftJsonPerformance
-from trajectory.Guidance.FlightPathFile import FlightPath
+from trajectory.GuidanceOpenap.FlightPathOpenapFile import FlightPathOpenap
 
-from trajectory.views.utils import  getAirlineAircraftsFromDB, getAirlineRoutesFromDB,\
-    getRouteFromRequest, getAircraftFromRequest
+from trajectory.views.utils import  getAirlineAircraftsFromDB, getAirlineRoutesFromDB 
+from trajectory.views.utils import  getRouteFromRequest, getAircraftFromRequest
 
 
 # Create your views here.
@@ -33,7 +33,6 @@ def indexTrajectory(request):
     context = {'siteMessages' : siteMessages}
     return HttpResponse(template.render(context, request))
 
-    
 def getPlaceMarks(XmlDocument):
     placeMarksList = []
     #print ( BASE_DIR )
@@ -183,7 +182,7 @@ def computeFlightProfile(request):
                     logger.debug ( "Max TakeOff Weight kilograms = {0}".format(acPerformance.getMaximumMassKilograms() ) )   
                     logger.debug ( "Max Operational Altitude Feet = {0}".format(acPerformance.getMaxOpAltitudeFeet() ) )   
     
-                    flightPath = FlightPath(
+                    flightPath = FlightPathOpenap(
                                     route = routeAsString, 
                                     aircraftICAOcode = aircraftICAOcode,
                                     RequestedFlightLevel = acPerformance.getMaxOpAltitudeFeet() / 100., 

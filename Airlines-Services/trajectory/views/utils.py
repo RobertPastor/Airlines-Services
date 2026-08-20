@@ -18,8 +18,8 @@ from trajectory.models import AirlineStandardDepartureArrivalRoute, AirlineAirpo
 
 from openap import prop
 from trajectory.Openap.AircraftMainFile import OpenapAircraft
-from trajectory.Environment.Earth import Earth
-from trajectory.Environment.Atmosphere import Atmosphere
+from trajectory.Environment.Earth.EarthFile import Earth
+from trajectory.Environment.Atmosphere.AtmosphereFile import Atmosphere
 
 def getAircraftFromRequest(request):
     return request.GET['aircraft']

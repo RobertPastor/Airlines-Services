@@ -71,7 +71,7 @@ Successfully installed xlrd-2.0.2
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 
-## jsonschema
+## install jsonschema
 
 $ pip install jsonschema
 Collecting jsonschema
@@ -95,6 +95,133 @@ Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
 Installing collected packages: typing-extensions, rpds-py, attrs, referencing, jsonschema-specifications, jsonschema
 
 Successfully installed attrs-26.1.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 referencing-0.37.0 rpds-py-2026.6.3 typing-extensions-4.16.0
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+## install module called yaml
+
+$ pip install pyyaml
+Collecting pyyaml
+  Downloading pyyaml-6.0.3-cp311-cp311-win_amd64.whl.metadata (2.4 kB)
+Downloading pyyaml-6.0.3-cp311-cp311-win_amd64.whl (158 kB)
+Installing collected packages: pyyaml
+Successfully installed pyyaml-6.0.3
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+## install matplotlib
+
+$ pip install matplotlib
+Collecting matplotlib
+  Downloading matplotlib-3.11.1-cp311-cp311-win_amd64.whl.metadata (80 kB)
+Collecting contourpy>=1.0.1 (from matplotlib)
+  Downloading contourpy-1.3.3-cp311-cp311-win_amd64.whl.metadata (5.5 kB)
+Collecting cycler>=0.10 (from matplotlib)
+  Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.28.2 (from matplotlib)
+  Downloading fonttools-4.63.0-cp311-cp311-win_amd64.whl.metadata (121 kB)
+Collecting kiwisolver>=1.3.1 (from matplotlib)
+  Downloading kiwisolver-1.5.0-cp311-cp311-win_amd64.whl.metadata (5.2 kB)
+Requirement already satisfied: numpy>=1.25 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from matplotlib) (2.4.6)
+Collecting packaging>=20.0 (from matplotlib)
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pillow>=9 (from matplotlib)
+  Downloading pillow-12.3.0-cp311-cp311-win_amd64.whl.metadata (9.3 kB)
+Collecting pyparsing>=3 (from matplotlib)
+  Downloading pyparsing-3.3.2-py3-none-any.whl.metadata (5.8 kB)
+Requirement already satisfied: python-dateutil>=2.7 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from matplotlib) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from python-dateutil>=2.7->matplotlib) (1.17.0)
+Downloading matplotlib-3.11.1-cp311-cp311-win_amd64.whl (9.3 MB)
+   ---------------------------------------- 9.3/9.3 MB 17.5 MB/s  0:00:00
+Downloading contourpy-1.3.3-cp311-cp311-win_amd64.whl (225 kB)
+Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.63.0-cp311-cp311-win_amd64.whl (2.4 MB)
+   ---------------------------------------- 2.4/2.4 MB 16.8 MB/s  0:00:00
+Downloading kiwisolver-1.5.0-cp311-cp311-win_amd64.whl (73 kB)
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pillow-12.3.0-cp311-cp311-win_amd64.whl (7.2 MB)
+   ---------------------------------------- 7.2/7.2 MB 18.6 MB/s  0:00:00
+Downloading pyparsing-3.3.2-py3-none-any.whl (122 kB)
+Installing collected packages: pyparsing, pillow, packaging, kiwisolver, fonttools, cycler, contourpy, matplotlib
+
+Successfully installed contourpy-1.3.3 cycler-0.12.1 fonttools-4.63.0 kiwisolver-1.5.0 matplotlib-3.11.1 packaging-26.3 pillow-12.3.0 pyparsing-3.3.2
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+## scipy
+
+$ pip install scipy
+Collecting scipy
+  Downloading scipy-1.17.1-cp311-cp311-win_amd64.whl.metadata (60 kB)
+Requirement already satisfied: numpy<2.7,>=1.26.4 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from scipy) (2.4.6)
+Downloading scipy-1.17.1-cp311-cp311-win_amd64.whl (36.6 MB)
+   ---------------------------------------- 36.6/36.6 MB 19.9 MB/s  0:00:01
+Installing collected packages: scipy
+Successfully installed scipy-1.17.1
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+## install xlsxwriter
+
+$ pip install xlsxwriter
+Collecting xlsxwriter
+  Downloading xlsxwriter-3.2.9-py3-none-any.whl.metadata (2.7 kB)
+Downloading xlsxwriter-3.2.9-py3-none-any.whl (175 kB)
+Installing collected packages: xlsxwriter
+Successfully installed xlsxwriter-3.2.9
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+
+$ pip install pytz
+Collecting pytz
+  Downloading pytz-2026.3.post1-py2.py3-none-any.whl.metadata (22 kB)
+Downloading pytz-2026.3.post1-py2.py3-none-any.whl (508 kB)
+Installing collected packages: pytz
+Successfully installed pytz-2026.3.post1
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+$ pip install xarray
+Collecting xarray
+  Downloading xarray-2026.7.0-py3-none-any.whl.metadata (12 kB)
+Requirement already satisfied: numpy>=1.26 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from xarray) (2.4.6)
+Requirement already satisfied: packaging>=24.2 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from xarray) (26.3)
+Requirement already satisfied: pandas>=2.2 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from xarray) (3.0.5)
+Requirement already satisfied: python-dateutil>=2.8.2 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from pandas>=2.2->xarray) (2.9.0.post0)
+Requirement already satisfied: tzdata in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from pandas>=2.2->xarray) (2026.3)
+Requirement already satisfied: six>=1.5 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from python-dateutil>=2.8.2->pandas>=2.2->xarray) (1.17.0)
+Downloading xarray-2026.7.0-py3-none-any.whl (1.4 MB)
+   ---------------------------------------- 1.4/1.4 MB 10.7 MB/s  0:00:00
+Installing collected packages: xarray
+Successfully installed xarray-2026.7.0
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+
+$ pip install tabulate
+Collecting tabulate
+  Downloading tabulate-0.10.0-py3-none-any.whl.metadata (40 kB)
+Downloading tabulate-0.10.0-py3-none-any.whl (39 kB)
+Installing collected packages: tabulate
+Successfully installed tabulate-0.10.0
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+$ pip install xmltodict
+Collecting xmltodict
+  Downloading xmltodict-1.0.4-py3-none-any.whl.metadata (14 kB)
+Downloading xmltodict-1.0.4-py3-none-any.whl (13 kB)
+Installing collected packages: xmltodict
+Successfully installed xmltodict-1.0.4
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $

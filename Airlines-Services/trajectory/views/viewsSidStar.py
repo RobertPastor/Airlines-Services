@@ -10,7 +10,6 @@ from django.http import  JsonResponse
 
 from trajectory.models import AirlineStandardDepartureArrivalRoute, AirlineAirport, AirlineRunWay, AirlineWayPoint
 
-
 def getSidStarFromDB( SidOrStar , airport , runway, waypoint ):
     
     ''' Sid Star Id is used to loop through the existing Sid Star '''

@@ -13,8 +13,8 @@ import logging
 logger = logging.getLogger(__name__)
 from django.http import  JsonResponse
 
-from trajectory.Environment.Atmosphere import Atmosphere
-from trajectory.Environment.Earth import Earth
+from trajectory.Environment.Atmosphere.AtmosphereFile import Atmosphere
+from trajectory.Environment.Earth.EarthFile import Earth
 
 from trajectory.BadaAircraftPerformance.BadaAircraftFile import BadaAircraft
 from trajectory.BadaAircraftPerformance.BadaAircraftDatabaseFile import BadaAircraftDatabase

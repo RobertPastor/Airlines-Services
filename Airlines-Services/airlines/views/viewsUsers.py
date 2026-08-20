@@ -8,9 +8,8 @@ https://www.youtube.com/watch?v=hm9PcJwgqJg
 
 '''
 
-from airline.models import User
+from airlines.models import User
 from django.http import  JsonResponse
-
 
 def viewUsers(request):
     

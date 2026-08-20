@@ -18,10 +18,10 @@ from trajectory.views.utils import getMassFromRequest , getFlightLevelFromReques
 
 from trajectory.models import BadaSynonymAircraft
 from trajectory.BadaAircraftPerformance.BadaAircraftJsonPerformanceFile import AircraftJsonPerformance
-from trajectory.Guidance.FlightPathFile import FlightPath
+from trajectory.GuidanceOpenap.FlightPathOpenapFile import FlightPathOpenap
 
-from trajectory.Environment.Earth import Earth
-from trajectory.Environment.Atmosphere import Atmosphere
+from trajectory.Environment.Earth.EarthFile import Earth
+from trajectory.Environment.Atmosphere.AtmosphereFile import Atmosphere
 from trajectory.Openap.AircraftMainFile import OpenapAircraft
 from trajectory.GuidanceOpenap.FlightPathOpenapFile import FlightPathOpenap
 

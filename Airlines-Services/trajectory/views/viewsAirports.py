@@ -6,7 +6,7 @@ from django.template import loader
 from django.core import serializers
 from django.http import HttpResponse , JsonResponse
 
-from airline.models import Airline
+from airlines.models import Airline
 from trajectory.views.utils import getAirportsFromDB
 
 # Create your views here.
