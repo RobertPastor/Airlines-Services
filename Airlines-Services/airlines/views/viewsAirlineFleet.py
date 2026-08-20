@@ -15,7 +15,7 @@ import logging
 logger = logging.getLogger(__name__)
 from openap import prop
 
-from trajectory.Environment.Earth import Earth
+from trajectory.Environment.Earth.EarthFile import Earth
 from trajectory.Environment.Atmosphere import Atmosphere
 
 from trajectory.Openap.AircraftMainFile import OpenapAircraft
