@@ -234,3 +234,8 @@ Airlines-Services/trajectory/static/css/og/
 ## do not push og javascript library
 Airlines-Services/trajectory/static/js/og/
 !Airlines-Services/trajectory/static/js/og/*.md
+
+## do not push the aircraft performance json files
+Airlines-Services/trajectory/Bada381DataFiles/A320.json
+Airlines-Services/trajectory/Bada381DataFiles/A332.json
+Airlines-Services/trajectory/Bada381DataFiles/B738.json
