@@ -228,6 +228,7 @@ Airlines-Services/trajectory/ResultsFiles/
 Airlines-Services/trajectory/static/css/og/
 ## push readme for the og css
 !Airlines-Services/trajectory/static/css/og/Og-css-ReadMe.md
+!Airlines-Services/trajectory/static/css/og/*.md
 
 ## do not push og javascript library
 Airlines-Services/trajectory/static/js/og/
