@@ -1,4 +1,7 @@
-from django.urls import  path
+from django.urls import path
+
+import sys
+sys.dont_write_bytecode = True
 
 from trajectory.views.viewsAirports import getAirports
 from trajectory.views.viewsWayPoints import getWayPoints

@@ -83,7 +83,6 @@ rober@RobertPastor MINGW64 ~/git/Airlines-Services (master)
 $ code .
 
 ## ignore the virtual environment from the git tracking
-
 ## activate the virtual environment in windows using GitBash
 
 $ . ./virtualEnv/Scripts/activate

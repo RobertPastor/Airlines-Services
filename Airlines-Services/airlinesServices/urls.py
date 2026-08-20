@@ -14,12 +14,27 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
+import sys
+sys.dont_write_bytecode = True
+
 from django.contrib import admin
 from django.urls import include , path
+
+from airlinesServices.views.views import index , doc
+from airlinesServices.views.downloadPdfPresentation import downloadPdfPresentation
 
 urlpatterns = [
     path("airlines/", include("airlines.urls")),
     path("trajectory/", include("trajectory.urls")),
 
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),   
+
+    path('doc/' , doc , name='doc'),
+    path('', index, name='index')
+]
+
+''' view to download a pdf Presentation file '''
+urlpatterns += [
+    path('pdf/downloadPresentation/', downloadPdfPresentation , name='downloadPdfPresentation'),
 ]

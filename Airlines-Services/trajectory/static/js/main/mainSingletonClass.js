@@ -1,0 +1,118 @@
+import { LonLat, Extent  } from "../og/og.es.js";
+ 
+    
+export const SingletonMainClass = (function () {
+	
+	let instance;
+    function createInstance() {
+        var object = new MainClass();
+        return object;
+    }
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+})();
+
+
+class MainClass {
+	
+	constructor( ) {
+	}
+	
+	init ( globus ) {
+		this.globus = globus;
+	}
+	
+	setExtent( waypointsArray ) {
+		
+		if ( Array.isArray ( waypointsArray ) == false ) {
+			return;
+		}
+		
+		let longitudeArr = [];
+		let latitudeArr = [];
+		for (let wayPointId = 0; wayPointId < waypointsArray.length; wayPointId++ ) {
+			
+			let waypoint = waypointsArray[wayPointId];
+			let longitude = 0.0;
+			if ( waypoint.hasOwnProperty("Longitude")) {
+				longitude = parseFloat(waypoint.Longitude);
+				longitudeArr.push(longitude);
+			}
+			let latitude = 0.0;
+			if ( waypoint.hasOwnProperty("Latitude")) {
+				latitude = parseFloat(waypoint.Latitude);
+				latitudeArr.push(latitude);
+			}
+		}
+		let MinLongitude = Math.min.apply(Math, longitudeArr);
+		// take some margin to see airports
+		MinLongitude = Math.min(MinLongitude - 2, MinLongitude);
+		
+		let MaxLongitude = Math.max.apply(Math, longitudeArr);
+		MaxLongitude = Math.max(MaxLongitude + 2, MaxLongitude);
+
+		let MinLatitude = Math.min.apply(Math, latitudeArr);
+		MinLatitude = Math.min(MinLatitude - 2, MinLatitude);
+		
+		let MaxLatitude = Math.max.apply(Math, latitudeArr);
+		MaxLatitude = Math.max(MaxLatitude + 2, MaxLatitude);
+		
+		let SouthWest = new LonLat( parseFloat(MinLongitude) , parseFloat(MinLatitude) , parseFloat("0.0") );
+		let NorthEast = new LonLat( parseFloat(MaxLongitude) , parseFloat(MaxLatitude) , parseFloat("0.0") );
+		let viewExtent = new Extent( SouthWest , NorthEast );
+		this.globus.planet.viewExtent(viewExtent);
+		
+	}
+	
+	// 30th July 2023 
+	getSelectedAirline() {
+		// encode URI component as this airline name will be used as a argument of an URL
+		return encodeURIComponent($("#airlineSelectId option:selected").val());
+	}
+	
+	// 10th September 2023 - get standard label
+	// outlineColor: "rgba(255,255,255,.4)",
+	getStandardOgLabel(name) {
+		return {text: name,
+				outline: 0.80,
+				outlineColor: "white",
+				size: 12,
+				color: "black",
+				align: "center",
+				style: "normal",
+				weight : "bold",
+				offset: [0, -2]};
+	}
+	
+	// retrieve a standardized marker
+	getStandardOgBillBoard() {
+		return {src: "/static/images/marker.png",
+				width: 12,
+				height: 12,
+				offset: [0,-2]};
+	}
+	/**
+	 * To disable or enable the buttons while a process is ongoing
+	 */
+	enableDisableMainMenuButtons(enable) {
+		const buttonNames = ["btnAirlineFleet","btnAirwaysId", "btnAirports",
+							"btnLaunchFlightProfile","btnLaunchAirlineCosts","btnOptimizationsId","btnLaunchCostsOptimization", "btnLaunchCASM",
+							"btnLaunchCasmOptimization","btnLaunchSeatMilesMaximization","btnSubMenuFuelId","btnSubMenuMeteoId", "btnMetar",
+							"btnComputeFlightProfileId","btnComputeCostsId","btnDownLoadVerticalProfileId","btnDownLoadKMLfileId"];
+		if ( enable ) {
+			for (const button of buttonNames) { 
+				document.getElementById(button).disabled = false;
+			}
+		} else {
+			for (const button of buttonNames) { 
+				document.getElementById(button).disabled = true;
+			}
+		}
+	}
+}

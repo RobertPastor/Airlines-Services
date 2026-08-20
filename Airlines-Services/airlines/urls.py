@@ -1,13 +1,8 @@
 from django.urls import path
-
-from . import views
-
-urlpatterns = [
-    path("", views.index, name="index"),
-]
+import sys
+sys.dont_write_bytecode = True
 
 from django.urls import  path
-
 
 from airlines.views.viewsAirlineFleet import getAirlineFleet
 from airlines.views.viewsAirlineRoutes import getAirlineRoutes

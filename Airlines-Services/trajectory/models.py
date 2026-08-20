@@ -1,7 +1,7 @@
 import os
 from django.db import models
 
-from trajectory.Environment.RunWayFile import RunWay
+from trajectory.Environment.Runways.RunWayFile import RunWay
 from trajectory.Guidance.WayPointFile import Airport
 
 BADA_381_DATA_FILES = 'Bada381DataFiles'

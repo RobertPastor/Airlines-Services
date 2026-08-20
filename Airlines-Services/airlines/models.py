@@ -5,13 +5,13 @@ from django.db import models
 
 # Create your models here.
 from trajectory.models import AirlineAirport, AirlineRunWay, AirlineStandardDepartureArrivalRoute
+from trajectory.models import AirlineWayPoint
 
-from trajectory.Environment.RunWayFile import RunWay
+from trajectory.Environment.Runways.RunWayFile import RunWay
 from trajectory.Environment.Constants import NauticalMiles2Meter , Meter2NauticalMiles, ConstantClimbRampLengthNauticalMiles , EarthRadiusMeters
 
 from trajectory.Guidance.GeographicalPointFile import GeographicalPoint
-from trajectory.Environment.Earth import Earth
-from trajectory.models import AirlineWayPoint
+from trajectory.Environment.Earth.EarthFile import Earth
 
 class Airline(models.Model):
     Name = models.CharField( max_length = 250 , unique=True)
@@ -38,7 +38,6 @@ class Airline(models.Model):
 
 def get_default_airline():
     return Airline.objects.get_or_create(Name="AmericanWings")[0]
-
 
 class AirlineRoute(models.Model):
     
