@@ -87,6 +87,12 @@ DATABASES = {
 }
 
 
+''' 26th May 2023 - migration to django 3.2
+Configure the DEFAULT_AUTO_FIELD setting or the AirlineConfig.default_auto_field attribute 
+to point to a subclass of AutoField, e.g. 'django.db.models.BigAutoField'
+'''
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

@@ -1,0 +1,303 @@
+body {
+	height: 100%;
+	width: 100%;
+	font-family: arial, serif;
+	font-size: 11px;
+}
+
+button {
+	font-family: arial, serif;
+	font-size: 11px;
+}
+
+progress {
+	 background: blue;
+	 background-color:yellow;
+	 border: 1px;
+	 width: 90%;
+	 border-radius: 3px;
+	 border: 1px;
+}
+
+/* use z-index and show above the nav bar => 
+because it will be hidden at the end of the images loading process */
+.progressBar {
+	color:blue;
+	background: blue;
+	background-color:blue;
+    width : 100%;
+    height: 2px;
+}
+
+
+table, th, td {
+	background-color: white;
+	opacity: 1.0;
+	border: 1px solid blue;
+}
+
+th {
+	background-color: yellow;
+	font-weight: bold ;
+}
+
+.tableAirlineRoutesClass , .tableAirlineFleetClass {
+	border: 1px solid blue;
+}
+
+.aircraftSelectionClass, .routesSelectionClass , .launchComputeClass{
+	display: none;
+}
+
+.launchComputeProfileClass {
+	 display: table-cell;
+}
+
+.launchComputeCostsClass {
+	 display: table-cell;
+}
+
+.question_mark_bg {
+	background-color:	#60D6A7;
+}
+
+.download {
+	background:         url('/static/images/file_download.png');
+    background-color:	#60D6A7;
+    background-repeat:  no-repeat;
+    cursor:             pointer;
+    height:             16px;
+    width:              16px;
+    margin:             0 auto 0 auto;
+    display:			block;
+}
+
+.question_mark {
+	background:         url('/static/images/question.png');
+    background-color:	#60D6A7;
+    background-repeat:  no-repeat;
+    cursor:             pointer;
+    height:             16px;
+    width:              16px;
+    margin:             0 auto 0 auto;
+    display:			block;
+}
+
+.exclamation_mark {
+	background:         url('/static/images/exclamation-mark.png');
+    background-color:	#60D6A7;
+    background-repeat:  no-repeat;
+    cursor:             pointer;
+    height:             16px;
+    width:              16px;
+    margin:             0 auto 0 auto;
+    display:			block;
+}
+
+.arrow-left {
+	background:         url('/static/images/arrow-left.png');
+    background-color:	white;
+    background-repeat:  no-repeat;
+    cursor:             pointer;
+    height:             16px;
+    width:              16px;
+    margin:             0 auto 0 auto;
+    display:			block;
+}
+
+.arrow-right {
+	background:         url('/static/images/arrow-right.png');
+    background-color:	white;
+    background-repeat:  no-repeat;
+    cursor:             pointer;
+    height:             16px;
+    width:              16px;
+    margin:             0 auto 0 auto;
+    display:			block;
+}
+
+.divOverlayClass {
+	position: fixed; /* Sit on top of the page content */
+	display: none; /* not displayed by default */
+	z-index: 100; /* Specify a stack order in case you're using a different order for other elements */
+	cursor: pointer; /* Add a pointer on hover */
+}
+
+.mainTable {
+	position: absolute;
+	top: 20px;
+	left: 5px;
+}
+
+.layerCleaner {
+	position: absolute;
+	top:5px;
+	left:500px;
+}
+
+.airlineFleetTableDiv {
+	position: absolute;
+	top : 100px;
+	left : 10px;
+}
+
+.airlineRoutesTableDiv {
+	position: absolute;
+	top : 120px;
+	left : 10px;
+}
+
+.flightProfileTableDiv {
+	position: absolute;
+	top : 120px;
+	left : 5px;
+}
+
+.airlineCostsResultsMainDiv {
+	position: absolute;
+	top: 240px;
+	left: 10px;
+}
+
+.d3Div {
+	position: absolute;
+	top: 60px;
+	left: 10px;
+	z-index: 1000;
+}
+
+.airlineSelect {
+	width: 100%;
+	background-color: cyan;
+}
+
+.draggableDivHeader {
+  cursor: move;
+  z-index: 10;
+  background-color: #2196F3;
+  color: #fff;
+}
+
+.airlineAirportsRoutesMainDiv {
+	position: absolute;
+	top: 240px;
+	left: 10px;
+}
+
+.airlineCostsMainDiv {
+	position: absolute;
+	top : 100px;
+	left : 10px;
+}
+
+.airlineAirportsRoutesMainDiv {
+	position: absolute;
+	top: 240px;
+	left: 10px;
+}
+
+.airlineFlightLegCostsMainDiv {
+	position: absolute;
+	top: 300px;
+	left: 10px;
+}
+/* top after flight profile Main Div */
+.airlineCostsOptimizationMainDiv {
+	position: absolute;
+	top: 160px;
+	left: 10px;
+}
+/* top after Costs Optim Main Div */
+.airlineCasmOptimizationMainDiv {
+	position: absolute;
+	top : 180px;
+	left : 10px;
+}
+
+.airlineCostsTable thead  tr {
+	display : block;
+}
+
+.airlineCostsTable tbody {
+	display : block;
+	height : 200px;
+    overflow: auto;
+}
+
+.airlineCostsTable th , .airlineCostsTable td {
+	width : 150px;
+}
+
+#hideId {
+    float:right;
+    background:#ccc;
+    cursor: pointer;
+}
+
+#PdfPresentationId {
+	float:right;
+    background:#ccc;
+    cursor: pointer;
+}
+
+.helpDiv{
+	top : 100px;
+	left : 10px;
+    height: auto;
+    overflow: scroll; /* Or scroll, depending on your needs*/
+    width: auto;
+}
+
+.mainFuelPlannerDiv {
+	position: absolute;
+	top : 100px;
+	left : 10px;
+}
+
+.metarsOgControlMainDiv {
+	position: absolute;
+	top : 100px;
+	left : 10px;
+}
+
+.alignRight {
+	text-align: right;
+}
+.alignCenter {
+	text-align: center;
+}
+
+.mainAirwaysSubMenuDivIdHide {
+	display: none;
+}
+
+.mainAirwaysSubMenuDiv:hover + mainAirwaysSubMenuDivIdHide {
+	display: block;
+}
+
+.horizontal-align-right {
+	display: inline-block;
+	text-align: right;
+}
+
+.horizontal-align-center {
+	display: inline-block;
+}
+
+.horizontal-align-left {
+	display: inline-block;
+	text-align: left;
+}
+
+.rowClass {
+	display: flex; /* equal height of the children */
+}
+
+.colClass {
+  	flex: 1; /* additionally, equal width */
+  	width: 100%;
+}
+
+.buttonWidth {
+	width : 100%;
+}

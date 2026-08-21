@@ -23,11 +23,12 @@ import { AirlineRoutesControl} from "../airlineRoutes/airlineRoutesControl.js";
 import { FlightProfileControl } from "../flightProfile/flightProfileControl.js";
 import { SingletonFlightProfileControlClass } from "../flightProfile/flightProfileControl.js";
 
-import { AirlineFlightLegCostsResultsControl } from "../airlineFlightLegCosts/airlineFlightLegCostsResultsControl.js";
-import { AirlineCostsControl } from "../airlineCosts/airlineCostsControl.js";
-import { AirlineCostsOptimizationControl } from "../airlineCostsOptimization/airlineCostsOptimizationControl.js";
-import { AirlineCasmControl } from "../airlineCASM/airlineCasmControl.js";
-import { AirlineCasmOptimizationControl } from "../airlineCasmOptimization/airlineCasmOptimizationControl.js";
+//import { AirlineFlightLegCostsResultsControl } from "../airlineFlightLegCosts/airlineFlightLegCostsResultsControl.js";
+//import { AirlineCostsControl } from "../airlineCosts/airlineCostsControl.js";
+//import { AirlineCostsOptimizationControl } from "../airlineCostsOptimization/airlineCostsOptimizationControl.js";
+//import { AirlineCasmControl } from "../airlineCASM/airlineCasmControl.js";
+//import { AirlineCasmOptimizationControl } from "../airlineCasmOptimization/airlineCasmOptimizationControl.js";
+
 import { FuelPlannerControl } from "../fuelPlanner/fuelPlannerControl.js";
 import { OgLayerCleanerControl } from "../ogLayerCleaner/ogLayerCleanerControl.js";
 import { MetarsOgControl } from "../metars/metarsOgControl.js";
@@ -36,15 +37,19 @@ import { SingletonAirlineFleet } from "../airlineFleet/airlineFleet.js";
 import { SingletonAirlineAirports } from "../airlineAirports/airlineAirports.js";
 import { SingletonAirlineWayPoints } from "../airlineWayPoints/airlineWayPoints.js";
 import { SingletonAirlineRoutes } from "../airlineRoutes/airlineRoutes.js";
-import { SingletonAirlineCosts } from "../airlineCosts/airlineCosts.js";
-import { SingletonProfileCosts } from "../flightProfile/computeFlightProfile.js";
-import { SingletonAirlineFlightLegCosts } from "../airlineFlightLegCosts/airlineFlightLegCosts.js";
-import { SingletonAirlineCostsOptimization } from "../airlineCostsOptimization/airlineCostsOptimization.js";
-import { SingletonAirlineCASM } from "../airlineCASM/airlineCASM.js";
-import { SingletonAirlineCasmOptimization } from "../airlineCasmOptimization/airlineCasmOptimization.js";
+
+//import { SingletonAirlineCosts } from "../airlineCosts/airlineCosts.js";
+//import { SingletonProfileCosts } from "../flightProfile/computeFlightProfile.js";
+//import { SingletonAirlineFlightLegCosts } from "../airlineFlightLegCosts/airlineFlightLegCosts.js";
+//import { SingletonAirlineCostsOptimization } from "../airlineCostsOptimization/airlineCostsOptimization.js";
+//import { SingletonAirlineCASM } from "../airlineCASM/airlineCASM.js";
+//import { SingletonAirlineCasmOptimization } from "../airlineCasmOptimization/airlineCasmOptimization.js";
+
 import { SingletonFuelPlanner } from "../fuelPlanner/fuelPlanner.js";
 import { SingletonMetars } from "../metars/metars.js";
-import { SingletonAirlineSeatMiles } from "../airlineSeatMilesMaximization/airlineSeatMilesMaximization.js";
+
+//import { SingletonAirlineSeatMiles } from "../airlineSeatMilesMaximization/airlineSeatMilesMaximization.js";
+
 import { SingletonSidStar } from "../SidStar/SidStar.js";
 import { SingletonWindTemperature } from "../windTemperature/windTemperature.js";
 import { SingletonMainClass } from "./mainSingletonClass.js";
@@ -200,23 +205,23 @@ export function hideAllDiv(globus) {
 	let airlineRoutes = SingletonAirlineRoutes.getInstance();
 	airlineRoutes.hideAirlineRoutesDiv();
 	
-	let airlineProfileCosts = SingletonProfileCosts.getInstance();
-	airlineProfileCosts.hideFlightProfileDiv();
+	//let airlineProfileCosts = SingletonProfileCosts.getInstance();
+	//airlineProfileCosts.hideFlightProfileDiv();
 	
-	let airlineFlightLegCosts = SingletonAirlineFlightLegCosts.getInstance();
-	airlineFlightLegCosts.hideAirlineFlightLegCostsDiv();
+	//let airlineFlightLegCosts = SingletonAirlineFlightLegCosts.getInstance();
+	//airlineFlightLegCosts.hideAirlineFlightLegCostsDiv();
 	
-	let airlineCosts = SingletonAirlineCosts.getInstance();
-	airlineCosts.hideAirlineCostsDiv();
+	//let airlineCosts = SingletonAirlineCosts.getInstance();
+	//airlineCosts.hideAirlineCostsDiv();
 	
-	let airlineCostsOptimization = SingletonAirlineCostsOptimization.getInstance();
-	airlineCostsOptimization.hideAirlineCostsOptimizationDiv();
+	//let airlineCostsOptimization = SingletonAirlineCostsOptimization.getInstance();
+	//airlineCostsOptimization.hideAirlineCostsOptimizationDiv();
 	
-	let airlineCASM = SingletonAirlineCASM.getInstance();
-	airlineCASM.hideAirlineCasmDiv();
+	//let airlineCASM = SingletonAirlineCASM.getInstance();
+	//airlineCASM.hideAirlineCasmDiv();
 	
-	let airlineCasmOptimization = SingletonAirlineCasmOptimization.getInstance();
-	airlineCasmOptimization.hideAirlineCasmOptimizationDiv();
+	//let airlineCasmOptimization = SingletonAirlineCasmOptimization.getInstance();
+	//airlineCasmOptimization.hideAirlineCasmOptimizationDiv();
 	
 	let fuelPlanner = SingletonFuelPlanner.getInstance();
 	fuelPlanner.hideFuelPlannerDiv();
@@ -347,38 +352,38 @@ function initTools(globus, viewExtent) {
 		
 		// compute costs
 		// flight profile inputs are shared with flight leg cost controls inputs
-		let airlineFlightLegCostsResultsControl = new AirlineFlightLegCostsResultsControl()
-		globus.planet.addControl(airlineFlightLegCostsResultsControl);
+		//let airlineFlightLegCostsResultsControl = new AirlineFlightLegCostsResultsControl()
+		//globus.planet.addControl(airlineFlightLegCostsResultsControl);
 		
-		let airlineFlightLegCosts = SingletonAirlineFlightLegCosts.getInstance();
-		airlineFlightLegCosts.initFlightLegCosts(flightProfileControl);
-		
-		// airline costs optimization
-		globus.planet.addControl(new AirlineCostsControl());
-		let airlineCosts = SingletonAirlineCosts.getInstance();
-		airlineCosts.initAirlineCosts();
+		//let airlineFlightLegCosts = SingletonAirlineFlightLegCosts.getInstance();
+		//airlineFlightLegCosts.initFlightLegCosts(flightProfileControl);
 		
 		// airline costs optimization
-		let airlineCostsOptimizationControl = new AirlineCostsOptimizationControl()
-		globus.planet.addControl(airlineCostsOptimizationControl);
+		//globus.planet.addControl(new AirlineCostsControl());
+		//let airlineCosts = SingletonAirlineCosts.getInstance();
+		//airlineCosts.initAirlineCosts();
 		
-		let airlineCostsOptimization = SingletonAirlineCostsOptimization.getInstance();
-		airlineCostsOptimization.initAirlineCostsOptimization();
+		// airline costs optimization
+		//let airlineCostsOptimizationControl = new AirlineCostsOptimizationControl()
+		//globus.planet.addControl(airlineCostsOptimizationControl);
+		
+		//let airlineCostsOptimization = SingletonAirlineCostsOptimization.getInstance();
+		//airlineCostsOptimization.initAirlineCostsOptimization();
 		
 		// airline CASM
-		let airlineCasmControl = new AirlineCasmControl();
-		globus.planet.addControl(airlineCasmControl);
+		//let airlineCasmControl = new AirlineCasmControl();
+		//globus.planet.addControl(airlineCasmControl);
 		
-		let airlineCASM = SingletonAirlineCASM.getInstance();
+		//let airlineCASM = SingletonAirlineCASM.getInstance();
 		// need to call this init function to listen to button
-		airlineCASM.initAirlineCASM();
+		//airlineCASM.initAirlineCASM();
 		
 		// airline CASM Optimization
-		let airlineCasmOptimizationControl = new AirlineCasmOptimizationControl();
-		globus.planet.addControl(airlineCasmOptimizationControl);
+		//let airlineCasmOptimizationControl = new AirlineCasmOptimizationControl();
+		//globus.planet.addControl(airlineCasmOptimizationControl);
 		
-		let airlineCasmOptimization = SingletonAirlineCasmOptimization.getInstance();
-		airlineCasmOptimization.initAirlineCasmOptimization();
+		//let airlineCasmOptimization = SingletonAirlineCasmOptimization.getInstance();
+		//airlineCasmOptimization.initAirlineCasmOptimization();
 		
 		// 6th May 2023 Seat Miles Maximization
 		let airlineSeatMilesMaximization = SingletonAirlineSeatMiles.getInstance();
@@ -442,17 +447,17 @@ function initTools(globus, viewExtent) {
 		let airlineRoutesTable = document.getElementById(airlineRoutesControl.getMainTableId());
 		airlineRoutesTable.classList.add('sortable');
 		
-		let airlineCostsOptimizationTable = document.getElementById(airlineCostsOptimizationControl.getMainTableId());
-		airlineCostsOptimizationTable.classList.add('sortable');
+		//let airlineCostsOptimizationTable = document.getElementById(airlineCostsOptimizationControl.getMainTableId());
+		//airlineCostsOptimizationTable.classList.add('sortable');
 		
-		let airlineCasmTable = document.getElementById(airlineCasmControl.getMainTableId());
-		airlineCasmTable.classList.add('sortable');
+		//let airlineCasmTable = document.getElementById(airlineCasmControl.getMainTableId());
+		//airlineCasmTable.classList.add('sortable');
 		
-		let airlineCasmOptimizationTable = document.getElementById(airlineCasmOptimizationControl.getMainTableId());
-		airlineCasmOptimizationTable.classList.add('sortable');
+		//let airlineCasmOptimizationTable = document.getElementById(airlineCasmOptimizationControl.getMainTableId());
+		//airlineCasmOptimizationTable.classList.add('sortable');
 		
-		let airlineFlightLegCostsResultsTable = document.getElementById(airlineFlightLegCostsResultsControl.getMainTableId());
-		airlineFlightLegCostsResultsTable.classList.add('sortable');
+		//let airlineFlightLegCostsResultsTable = document.getElementById(airlineFlightLegCostsResultsControl.getMainTableId());
+		//airlineFlightLegCostsResultsTable.classList.add('sortable');
 		
 		let metarsTable = document.getElementById(metarsOgControl.getMainTableId());
 		metarsTable.classList.add('sortable');
@@ -478,10 +483,10 @@ function initMain(viewExtent) {
             autoActivated: true,
             viewExtent : viewExtent,
             controls: [
-				new control.MouseNavigation({ autoActivate: true }),
+				//new control.MouseNavigation({ autoActivate: true }),
                 new control.KeyboardNavigation({ autoActivate: true }),
                 new control.EarthCoordinates({ autoActivate: true, center: false , type: 1}),
-                new control.ZoomControl({ autoActivate: true }),
+                //new control.ZoomControl({ autoActivate: true }),
                 new control.CompassButton()
                 ],
             fontsSrc: "/static/js/og/fonts",

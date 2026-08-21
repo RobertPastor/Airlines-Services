@@ -29,6 +29,8 @@ Migrations for 'airlines':
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
 
+## migrate 
+
 $ python manage.py migrate
  openap/prop : ==================== read data/aircraft/_synonym.csv =====================
 Operations to perform:
