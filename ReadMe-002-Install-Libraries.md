@@ -264,3 +264,16 @@ Successfully installed whitenoise-6.12.0
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
+
+## pscop for PostGres
+
+$ pip install psycopg2
+Collecting psycopg2
+  Downloading psycopg2-2.9.12-cp311-cp311-win_amd64.whl.metadata (5.1 kB)
+Downloading psycopg2-2.9.12-cp311-cp311-win_amd64.whl (2.8 MB)
+   ---------------------------------------- 2.8/2.8 MB 5.0 MB/s  0:00:00
+Installing collected packages: psycopg2
+Successfully installed psycopg2-2.9.12
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$

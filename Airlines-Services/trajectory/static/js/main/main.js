@@ -300,7 +300,7 @@ function initTools(globus, viewExtent) {
 		globus.planet.addControl(new MainControl());
 		
 		globus.planet.addControl(new AirlineRoutesAirwaysSubMenu());
-		globus.planet.addControl(new AirlineOptimizationsSubMenu());
+		//globus.planet.addControl(new AirlineOptimizationsSubMenu());
 		globus.planet.addControl(new FuelSubMenu());
 		// 22nd August 2024 
 		globus.planet.addControl(new MeteoSubMenu());
@@ -347,8 +347,8 @@ function initTools(globus, viewExtent) {
 		globus.planet.addControl(flightProfileControl);
 		
 		// compute profile and costs for each route and runways selection
-		let airlineProfileCosts = SingletonProfileCosts.getInstance();
-		airlineProfileCosts.launchFlightProfile(globus, flightProfileControl);
+		//let airlineProfileCosts = SingletonProfileCosts.getInstance();
+		//airlineProfileCosts.launchFlightProfile(globus, flightProfileControl);
 		
 		// compute costs
 		// flight profile inputs are shared with flight leg cost controls inputs
@@ -386,8 +386,8 @@ function initTools(globus, viewExtent) {
 		//airlineCasmOptimization.initAirlineCasmOptimization();
 		
 		// 6th May 2023 Seat Miles Maximization
-		let airlineSeatMilesMaximization = SingletonAirlineSeatMiles.getInstance();
-		airlineSeatMilesMaximization.initAirlineSeatsMilesMaximization();
+		//let airlineSeatMilesMaximization = SingletonAirlineSeatMiles.getInstance();
+		//airlineSeatMilesMaximization.initAirlineSeatsMilesMaximization();
 		
 		// 13th May 2023 - Fuel Planner
 		globus.planet.addControl(new FuelPlannerControl());
@@ -470,7 +470,13 @@ function initTools(globus, viewExtent) {
 
 function initMain(viewExtent) {
 	// 10th September 2023 - use .de OSM instance
-	let osm = new OpenStreetMap();
+
+	let osm = new OpenStreetMap("OpenStreetMap", {
+        isBaseLayer: true,
+        url: "//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        visibility: true,
+        attribution: 'Data @ OpenStreetMap contributors, ODbL'
+    });
 	
     // a HTMLDivElement whose id is `globus`
     //"resourcesSrc": "/static/js/og/res"
@@ -521,7 +527,7 @@ function init() {
 			//if (navigator.userAgent.indexOf("Firefox") == -1 ) { 
 			//		showMessage("Browser usage" , "Please envisage using FireFox to see the globe map");
 			//}
-			showMessage("Website Shutdown" , "Please be aware of a website shutdown <br>planned beginning of March 2026");
+			//showMessage("Website Shutdown" , "Please be aware of a website shutdown <br>planned beginning of March 2026");
 				
 		} , 500 );
 	}

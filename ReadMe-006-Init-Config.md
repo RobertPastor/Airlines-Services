@@ -10,4 +10,15 @@ IndianWings
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
 
-## check the tables in the SQL database
+## check the tables in the PostGres SQL database
+
+
+$ python manage.py AirlineDatabaseLoad
+ openap/prop : ==================== read data/aircraft/_synonym.csv =====================
+AmericanWings
+EuropeanWings
+IndianWings
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
