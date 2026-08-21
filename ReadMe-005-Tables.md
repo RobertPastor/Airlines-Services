@@ -74,3 +74,34 @@ Running migrations:
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $ 
+
+
+$ python manage.py makemigrations trajectory
+ openap/prop : ==================== read data/aircraft/_synonym.csv =====================
+Migrations for 'trajectory':
+  trajectory\migrations\0001_initial.py
+    + Create model AirlineAirport
+    + Create model AirlineWayPoint
+    + Create model BadaSynonymAircraft
+    + Create model NoaaWeatherStation
+    + Create model WindTemperatureAloft
+    + Create model AirlineRunWay
+    + Create model AirlineStandardDepartureArrivalRoute
+    + Create model AirlineSidStarWayPointsRoute
+    + Create model NoaaWeatherStationMeasure
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+
+$ python manage.py migrate trajectory
+ openap/prop : ==================== read data/aircraft/_synonym.csv =====================
+Operations to perform:
+  Apply all migrations: trajectory
+Running migrations:
+  Applying trajectory.0001_initial... OK
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+## using PgAdmin check the correct creation of the tables related to the trajectory application

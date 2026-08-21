@@ -27,7 +27,6 @@ export const SingletonAirlineRoutes = (function () {
 export function showHideSidStarRoute( elem ) {
 	
 	let globus = SingletonAirlineRoutes.getInstance().getGlobus();
-	
 	let layerName = elem.id ;
 	layerName = layerName.replaceAll("/", "-");
 	let layer = globus.planet.getLayerByName( layerName );
@@ -300,9 +299,6 @@ class AirlineRoutes {
 			});
 		}
 		// onclick
-		
-		
-		
 	}
 	
 
@@ -366,7 +362,6 @@ class AirlineRoutes {
 	removeOneAirlineRoute ( oneAirlineRoute ) {
 	
 		let globus = this.globus;
-		
 		let Adep = oneAirlineRoute["DepartureAirportICAOCode"];
 		let Ades = oneAirlineRoute["ArrivalAirportICAOCode"];
 		let layerName = this.LayerNamePrefix + Adep + "-" + Ades;
@@ -424,7 +419,7 @@ class AirlineRoutes {
 				// use ajax to get the data 
 				$.ajax( {
 						method: 'get',
-						url :  "airline/airlineRoutes/" + airlineName,
+						url :  "airlines/airlineRoutes/" + airlineName,
 						async : true,
 						success: function(data) {
 										
@@ -449,9 +444,7 @@ class AirlineRoutes {
 							stopBusyAnimation();
 							SingletonMainClass.getInstance().enableDisableMainMenuButtons(true);						},
 				});
-
 			} else {
-				
 				$("#airlineRoutesDivId").hide();
 			}
 		}

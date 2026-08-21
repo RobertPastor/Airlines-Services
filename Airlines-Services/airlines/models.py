@@ -13,6 +13,7 @@ from trajectory.Environment.Constants import NauticalMiles2Meter , Meter2Nautica
 from trajectory.Guidance.GeographicalPointFile import GeographicalPoint
 from trajectory.Environment.Earth.EarthFile import Earth
 
+''' There are three hard coded configured airlines '''
 class Airline(models.Model):
     Name = models.CharField( max_length = 250 , unique=True)
     ''' define the 4 corners of the airline main airports base '''
@@ -39,6 +40,8 @@ class Airline(models.Model):
 def get_default_airline():
     return Airline.objects.get_or_create(Name="AmericanWings")[0]
 
+''' each airline has routes that are linking a departure and an arrival airport '''
+''' the airport object / model lies into the trajectory application as an airport can be used by different airlines '''
 class AirlineRoute(models.Model):
     
     airline = models.ForeignKey(Airline, on_delete=models.CASCADE , default=None )

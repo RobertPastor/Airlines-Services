@@ -2,6 +2,7 @@
 import {
         Globe,
         GlobusRgbTerrain,
+		BilTerrain,
         control,
         LonLat,
         Extent,
@@ -79,7 +80,6 @@ export function removeAllChilds (parent) {
 }
 
 export function showMessage ( title, message ) {
-	
 	const dialog = document.getElementById("dialogId");
 	if (dialog) {
 		removeAllChilds(dialog);
@@ -477,6 +477,13 @@ function initMain(viewExtent) {
         visibility: true,
         attribution: 'Data @ OpenStreetMap contributors, ODbL'
     });
+
+	let bilTerrain = new BilTerrain({
+            url: "https://openglobus.org/geoserver/og/",
+            layers: "og:n44_e009_1arc_v3",
+            imageSize: 128,
+            extent: [[8.9, 44.0], [10.0, 45]]
+        })
 	
     // a HTMLDivElement whose id is `globus`
     //"resourcesSrc": "/static/js/og/res"
@@ -484,8 +491,8 @@ function initMain(viewExtent) {
 	var globus = new Globe({
             target: "globusDivId", 
             name: "Earth",
-            terrain: new GlobusRgbTerrain(),
-            layers: [osm],
+            terrain: bilTerrain,
+            layers: [],
             autoActivated: true,
             viewExtent : viewExtent,
             controls: [
@@ -495,7 +502,7 @@ function initMain(viewExtent) {
                 //new control.ZoomControl({ autoActivate: true }),
                 new control.CompassButton()
                 ],
-            fontsSrc: "/static/js/og/fonts",
+            fontsSrc: "/static/js/og/res/fonts",
             resourcesSrc: "/static/js/og/res"
 	});
 	

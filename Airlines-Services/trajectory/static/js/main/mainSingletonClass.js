@@ -101,17 +101,44 @@ class MainClass {
 	 * To disable or enable the buttons while a process is ongoing
 	 */
 	enableDisableMainMenuButtons(enable) {
+		const disabledButtonNames = ["btnLaunchAirlineCosts","btnOptimizationsId","btnLaunchCostsOptimization","btnLaunchCASM",
+			"btnLaunchCasmOptimization","btnLaunchSeatMilesMaximization","btnComputeCostsId"];
 		const buttonNames = ["btnAirlineFleet","btnAirwaysId", "btnAirports",
-							"btnLaunchFlightProfile","btnLaunchAirlineCosts","btnOptimizationsId","btnLaunchCostsOptimization", "btnLaunchCASM",
-							"btnLaunchCasmOptimization","btnLaunchSeatMilesMaximization","btnSubMenuFuelId","btnSubMenuMeteoId", "btnMetar",
-							"btnComputeFlightProfileId","btnComputeCostsId","btnDownLoadVerticalProfileId","btnDownLoadKMLfileId"];
+							"btnLaunchFlightProfile","btnSubMenuFuelId","btnSubMenuMeteoId", "btnMetar",
+							"btnComputeFlightProfileId","btnDownLoadVerticalProfileId","btnDownLoadKMLfileId"];
 		if ( enable ) {
 			for (const button of buttonNames) { 
-				document.getElementById(button).disabled = false;
+				// disable false -> enable button
+				try {
+					document.getElementById(button).disabled = false;
+				} catch (error) {
+					// Gestion de l'erreur
+					console.log("Error -> " + button);
+					console.error("Une erreur s'est produite : ", error.message);
+				}
 			}
 		} else {
+			// disable buttons
 			for (const button of buttonNames) { 
+				// disable true -> disable button
+				try {
+					document.getElementById(button).disabled = true;
+				} catch (error) {
+					// Gestion de l'erreur
+					console.log("Error -> " + button);
+					//console.error("Une erreur s'est produite :", error.message);
+				}
+			}
+		}
+		// 21st August 2026 - disable all button linked to costs
+		for (const button of disabledButtonNames) { 
+			// disable true -> disable button
+			try {
 				document.getElementById(button).disabled = true;
+			} catch (error) {
+				// Gestion de l'erreur
+				console.log("Error -> " + button);
+				console.error("Une erreur s'est produite :", error.message);
 			}
 		}
 	}

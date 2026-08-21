@@ -1,5 +1,5 @@
 
-import { initProgressBar , initWorker , stopBusyAnimation } from "../main/main.js";
+import { initProgressBar , initWorker , stopBusyAnimation , showMessage } from "../main/main.js";
 import { SingletonMainClass } from "../main/mainSingletonClass.js";
 import { Vector , Entity } from "../og/og.es.js";
 
@@ -60,7 +60,9 @@ class AirlineAirports {
 	hideLayer( routeId ) {
 		
 		let globus = this.globus;
-		
+		// assumption - route is defined as Departure Airport ICAO code
+		// followed by a Dash -
+		// followed by the Arrival Arrport
 		let arr = routeId.split("-");
 		if ( Array.isArray(arr) && (arr.length>1)){
 			
@@ -104,13 +106,13 @@ class AirlineAirports {
 						size: 10,
 						color: "black",
 						offset: [0, -10]
-						},
+					},
 				billboard: {
 						src: "/static/images/marker.png",
 						width: 12,
 						height: 12,
 						offset: [0, -2]
-						}
+					}
 		}));
 	}
 	
@@ -120,14 +122,14 @@ class AirlineAirports {
 	
 		//console.log("start loading route WayPoints");
 		let layerRouteWayPoints = new Vector( layerName , {
-				billboard: { 
+			billboard: { 
 					src: '/static/trajectory/images/marker.png', 
 					color: '#6689db' ,
 					width : 4,
 					height : 4
 					},
 				clampToGround: true,
-				});
+			});
 		layerRouteWayPoints.addTo(globus.planet);
 
 		// add the waypoints
@@ -218,7 +220,7 @@ class AirlineAirports {
 		
 		$.ajax( {
 				method: 'get',
-				url :  "airline/wayPointsRoute/" + Adep +"/" + Ades,
+				url :  "airlines/wayPointsRoute/" + Adep +"/" + Ades,
 				async : true,
 				success: function(data) {
 											
@@ -250,7 +252,7 @@ class AirlineAirports {
 		
 		$.ajax( {
 				method: 'get',
-				url :  "airline/airlineRoutes/" + airlineName,
+				url :  "airlines/airlineRoutes/" + airlineName,
 				async : true,
 				success: function(data) {
 								

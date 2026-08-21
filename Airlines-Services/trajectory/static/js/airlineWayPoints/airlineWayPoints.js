@@ -1,6 +1,5 @@
 
 document.addEventListener('DOMContentLoaded', (event) => { 
-       
 	// console.log("waypoints.js is loaded");
 }); 
 
@@ -71,7 +70,6 @@ class AirlineWayPoints {
 	initWayPoints(globus, viewExtent) {
 	    
 		let show = true;
-			
 		if ( !document.getElementById("btnWayPoints") ) {
 			return;
 		}

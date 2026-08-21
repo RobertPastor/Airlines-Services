@@ -1,6 +1,6 @@
 
 import { SingletonMainClass } from "../main/mainSingletonClass.js";
-import { stopBusyAnimation } from "../main/main.js";
+import { stopBusyAnimation , showMessage } from "../main/main.js";
 
 document.addEventListener('DOMContentLoaded', (event) => { 
        
@@ -12,12 +12,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 export const SingletonAirlineFleet = (function () {
 	
 	let instance;
-
     function createInstance() {
         var object = new AirlineFleet();
         return object;
     }
-
     return {
         getInstance: function () {
             if (!instance) {
@@ -86,11 +84,8 @@ class AirlineFleet {
 	}
 
 	hideAirlineFleetDiv() {
-		
 		if ( $('#divAirlineFleetId').is(":visible") ) {
-			
 			$('#divAirlineFleetId').hide();
-			
 			document.getElementById("btnAirlineFleet").innerText = "Fleet";
 			//document.getElementById("btnAirlineFleet").style.backgroundColor = "yellow";
 		}
@@ -99,7 +94,6 @@ class AirlineFleet {
 	initAirlineFleet() {
 	
 		$('#divAirlineFleetId').hide();
-		
 		if ( ! document.getElementById("btnAirlineFleet") ) {
 			return;
 		}
@@ -121,15 +115,13 @@ class AirlineFleet {
 				// use ajax to get the data 
 				$.ajax( {
 						method: 'get',
-						url :  "airline/airlineFleet/" + airlineName,
+						url :  "airlines/airlineFleet/" + airlineName,
 						async : true,
 						success: function(data) {
-										
 							//alert("Data: " + data + "\nStatus: " + status);
 							var dataJson = eval(data);		
 							var airlineFleetArray = dataJson["airlineFleet"]
 							SingletonAirlineFleet.getInstance().addAirlineFleetArray(airlineFleetArray)
-							
 						},
 						error: function(data, status) {
 							console.log("Error - show Airline Fleet - status: " + status + " Please contact your admin");
@@ -141,7 +133,6 @@ class AirlineFleet {
 				});
 
 			} else {
-
 				SingletonAirlineFleet.getInstance().hideAirlineFleetDiv();
 			}
 		}
