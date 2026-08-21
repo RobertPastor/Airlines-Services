@@ -251,3 +251,16 @@ Successfully installed certifi-2026.7.22 charset_normalizer-3.5.1 idna-3.19 requ
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
+
+
+## whitenoise to ease managing static files
+
+$ pip install whitenoise
+Collecting whitenoise
+  Downloading whitenoise-6.12.0-py3-none-any.whl.metadata (3.7 kB)
+Downloading whitenoise-6.12.0-py3-none-any.whl (20 kB)
+Installing collected packages: whitenoise
+Successfully installed whitenoise-6.12.0
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
