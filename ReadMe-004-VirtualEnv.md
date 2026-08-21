@@ -89,3 +89,26 @@ $ . ./virtualEnv/Scripts/activate
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services (master)
 $
+
+## move to the folder where the file manage.py is available
+
+$ cd Airlines-Services/
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+## launch the development server
+
+$ python manage.py runserver
+Watching for file changes with StatReloader
+[21/Aug/2026 19:51:21] "GET / HTTP/1.1" 200 8735
+[21/Aug/2026 19:51:21] "GET /static/css/main/main.css HTTP/1.1" 304 0
+[21/Aug/2026 19:51:21] "GET /static/js/og/og.es.js HTTP/1.1" 304 0
+[21/Aug/2026 19:51:21] "GET /static/css/og/og.css HTTP/1.1" 304 0
+[21/Aug/2026 19:51:21] "GET /static/js/airlineFleet/airlineFleet.js HTTP/1.1" 304 0
+[21/Aug/2026 19:51:21] "GET /static/js/d3/d3Control.js HTTP/1.1" 304 0
+[21/Aug/2026 19:51:21] "GET /static/js/main/mainSingletonClass.js HTTP/1.1" 304 0
+[21/Aug/2026 19:51:21] "GET /static/js/main/main.js HTTP/1.1" 304 0
+
+
+
