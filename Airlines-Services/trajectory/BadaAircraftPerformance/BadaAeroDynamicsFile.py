@@ -30,10 +30,10 @@ import logging
 
 from trajectory.BadaAircraftPerformance.BadaAircraftJsonPerformanceFile import AircraftJsonPerformance
 
-from trajectory.Environment.Atmosphere import Atmosphere
-from trajectory.Environment.Earth import Earth
+from trajectory.Environment.Atmosphere.AtmosphereFile import Atmosphere
+from trajectory.Environment.Earth.EarthFile import Earth
 
-from trajectory.Environment.WeatherStationsClientFile import WeatherStationsClient
+from trajectory.Environment.Weather.WeatherStationsClientFile import WeatherStationsClient
 
 class AeroDynamics(WeatherStationsClient):
     

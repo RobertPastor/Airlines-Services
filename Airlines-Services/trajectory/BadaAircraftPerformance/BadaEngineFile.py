@@ -29,7 +29,6 @@ from trajectory.BadaAircraftPerformance.BadaAircraftJsonPerformanceFile import A
 
 from trajectory.Environment.Constants import MeterSecond2Knots#  1.9438444924406
 
-
 class FuelConsumption(object):
     
     className = ''

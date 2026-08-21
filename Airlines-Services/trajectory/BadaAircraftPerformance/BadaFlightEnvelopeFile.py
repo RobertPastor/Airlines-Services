@@ -30,7 +30,7 @@ from trajectory.BadaAircraftPerformance.BadaAircraftJsonPerformanceFile import A
 from trajectory.BadaAircraftPerformance.BadaAeroDynamicsFile import AeroDynamics
 from trajectory.BadaAircraftPerformance.BadaAircraftStateVectorFile import StateVector
 
-from trajectory.Environment.Atmosphere import Atmosphere
+from trajectory.Environment.Atmosphere.AtmosphereFile import Atmosphere
 from trajectory.aerocalc.airspeed import tas2cas, tas2mach
 
 from trajectory.Environment.Constants import Meter2Feet, Feet2Meter, MeterSecond2Knots

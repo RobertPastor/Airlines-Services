@@ -18,7 +18,7 @@ from trajectory.Environment.Earth.EarthFile import Earth
 
 from trajectory.BadaAircraftPerformance.BadaAircraftFile import BadaAircraft
 from trajectory.BadaAircraftPerformance.BadaAircraftDatabaseFile import BadaAircraftDatabase
-from trajectory.Guidance.GroundRunLegFile import GroundRunLeg
+from trajectory.GuidanceOpenap.GroundRunLegOpenapFile import GroundRunLeg
 
 
 def getBadaAircraft(aircraftICAOcode):

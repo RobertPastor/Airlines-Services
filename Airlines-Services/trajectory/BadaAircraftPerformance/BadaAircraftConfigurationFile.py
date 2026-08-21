@@ -43,8 +43,8 @@ from trajectory.BadaAircraftPerformance.BadaTransitionAltitudeFile import Transi
 
 from trajectory.BadaAircraftPerformance.BadaFlightEnvelopeFile import FlightEnvelope
 
-from trajectory.Environment.Atmosphere import Atmosphere
-from trajectory.Environment.Earth import Earth
+from trajectory.Environment.Atmosphere.AtmosphereFile import Atmosphere
+from trajectory.Environment.Earth.EarthFile import Earth
 from trajectory.aerocalc.airspeed import tas2cas, tas2mach, default_temp_units
 from trajectory.Environment.Utils import logElapsedRealTime
 from trajectory.Environment.Constants import Meter2NauticalMiles

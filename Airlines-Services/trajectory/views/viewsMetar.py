@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 from trajectory.models import AirlineAirport
 from airlines.models import Airline, AirlineRoute
-from trajectory.Environment.adds_metar import fetch
+from trajectory.Environment.Weather.adds_metar import fetch
 
 def getMetarForAirports(request, airline):
     airportsList = []

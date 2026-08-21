@@ -28,7 +28,7 @@
 from trajectory.Environment.Constants import MeterSecond2Knots , Meter2Feet, Meter2NauticalMiles
 
 from trajectory.OutputFiles.XlsxOutputFile import XlsxOutput
-from trajectory.Environment.Atmosphere import Atmosphere
+from trajectory.Environment.Atmosphere.AtmosphereFile import Atmosphere
 
 from trajectory.aerocalc.airspeed import tas2cas
 
