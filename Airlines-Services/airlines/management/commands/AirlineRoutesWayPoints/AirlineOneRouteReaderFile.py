@@ -44,8 +44,7 @@ class AirlineOneRouteReaderXlsx(object):
         else:
             print ("file does not exist")
             return None
-            
-        
+
         
 if __name__ == '__main__':
     

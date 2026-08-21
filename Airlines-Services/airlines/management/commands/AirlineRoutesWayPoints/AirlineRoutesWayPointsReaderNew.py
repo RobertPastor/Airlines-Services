@@ -4,11 +4,11 @@ Created on 16 déc. 2022
 @author: robert
 '''
 
-from airline.management.commands.AirlineRoutes.AirlineRoutesAirportsReaderNew import AirlineRoutesDataBaseXlsx
-from airline.management.commands.AirlineRoutesWayPoints.AirlineOneRouteReaderFile import AirlineOneRouteReaderXlsx
-#from airline.management.commands.AirlineRoutesWayPoints.WayPointsDatabaseFile import WayPointsDatabase
+from airlines.management.commands.AirlineRoutes.AirlineRoutesAirportsReaderNew import AirlineRoutesDataBaseXlsx
+from airlines.management.commands.AirlineRoutesWayPoints.AirlineOneRouteReaderFile import AirlineOneRouteReaderXlsx
+#from airlines.management.commands.AirlineRoutesWayPoints.WayPointsDatabaseFile import WayPointsDatabase
 
-from airline.models import AirlineRoute, AirlineRouteWayPoints
+from airlines.models import AirlineRoute, AirlineRouteWayPoints
 
 
 class AirlineRoutesWayPointsDatabaseXlsx(object):

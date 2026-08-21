@@ -13,7 +13,8 @@ from airlines.management.commands.AirlineRoutes.AirlineRoutesAirportsReaderNew i
 from airlines.management.commands.AirlineRoutesWayPoints.AirlineOneRouteReaderFile import AirlineOneRouteReaderXlsx
 from airlines.models import AirlineRoute
 
-''' this command uses as inputs all the EXCEL Routes with the wayPoints , lat/long as strings as available in the EXCEL Routes configuration files '''
+''' this command uses as inputs all the EXCEL Routes with the wayPoints , '''
+''' lat/long as strings as available in the EXCEL Routes configuration files '''
 class Command(BaseCommand):
     help = 'Reads the WayPoints of the Routes '
 

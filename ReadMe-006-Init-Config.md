@@ -2516,3 +2516,46 @@ read wayPoints database result = True
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
+
+
+## airlines routes waypoints
+
+$ python manage.py AirlineRoutesWayPointsDatabaseLoad
+
+Index is: 9
+order is 10
+wayPoint name is PUKES
+latitude is N24▒42'02.00"
+longitude is E077▒16'11.99"
+----------- 10 -----------
+Index is: 10
+order is 11
+wayPoint name is BUKLO
+latitude is N25▒00'01.00"
+longitude is E077▒15'26.00"
+----------- 11 -----------
+Index is: 11
+order is 12
+wayPoint name is BAVOX
+latitude is N26▒08'30.99"
+longitude is E077▒12'55.99"
+----------- 12 -----------
+Index is: 12
+order is 13
+wayPoint name is INTIL
+latitude is N26▒27'51.00"
+longitude is E076▒32'40.99"
+----------- 13 -----------
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+
+## check the database table called airlines_airlinerouteswaypoints
+
+SELECT * FROM public.airlines_airlineroutewaypoints
+ORDER BY id ASC 
+
+Successfully run. Total query runtime: 2 secs 415 msec.
+569 rows affected.
+

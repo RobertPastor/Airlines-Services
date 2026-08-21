@@ -12,7 +12,7 @@ class Command(BaseCommand):
         
         airlineRoutesWayPointsDatabaseXlsx = AirlineRoutesWayPointsDatabaseXlsx()
         if (airlineRoutesWayPointsDatabaseXlsx.exists()):
-            pass
+            
             ret = airlineRoutesWayPointsDatabaseXlsx.read()
             
             if ret:
