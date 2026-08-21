@@ -492,7 +492,7 @@ function initMain(viewExtent) {
             target: "globusDivId", 
             name: "Earth",
             terrain: bilTerrain,
-            layers: [],
+            layers: [osm],
             autoActivated: true,
             viewExtent : viewExtent,
             controls: [

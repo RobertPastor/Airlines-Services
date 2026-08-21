@@ -1,6 +1,6 @@
 
 from django.core.management.base import BaseCommand
-from trajectory.management.commands.BadaAircraftDatabase.BadaAircraftDatabaseFile import BadaAircraftDatabase
+#from trajectory.management.commands.BadaAircraftDatabase.BadaAircraftDatabaseFile import BadaAircraftDatabase
 from trajectory.models import BadaSynonymAircraft
 
 class Command(BaseCommand):

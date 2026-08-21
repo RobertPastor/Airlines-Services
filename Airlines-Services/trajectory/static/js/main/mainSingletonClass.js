@@ -101,8 +101,8 @@ class MainClass {
 	 * To disable or enable the buttons while a process is ongoing
 	 */
 	enableDisableMainMenuButtons(enable) {
-		const disabledButtonNames = ["btnLaunchAirlineCosts","btnOptimizationsId","btnLaunchCostsOptimization","btnLaunchCASM",
-			"btnLaunchCasmOptimization","btnLaunchSeatMilesMaximization","btnComputeCostsId"];
+		const hiddenButtonNames = ["btnLaunchCostsOptimization","btnLaunchCASM","btnLaunchCasmOptimization","btnLaunchSeatMilesMaximization"];
+		const disabledButtonNames = ["btnLaunchAirlineCosts","btnOptimizationsId","btnComputeCostsId"];
 		const buttonNames = ["btnAirlineFleet","btnAirwaysId", "btnAirports",
 							"btnLaunchFlightProfile","btnSubMenuFuelId","btnSubMenuMeteoId", "btnMetar",
 							"btnComputeFlightProfileId","btnDownLoadVerticalProfileId","btnDownLoadKMLfileId"];

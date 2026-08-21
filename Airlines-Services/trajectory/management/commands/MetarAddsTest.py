@@ -9,7 +9,7 @@ from trajectory.Environment.adds_metar import fetch
 from trajectory.models import AirlineAirport
 
 class Command(BaseCommand):
-    help = 'Load the Airports table'
+    help = 'run the Metars tests'
 
     def handle(self, *args, **options):
         

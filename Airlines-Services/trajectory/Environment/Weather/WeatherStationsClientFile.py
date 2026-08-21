@@ -87,7 +87,6 @@ class WeatherStationsClient(object):
                 except:
                     pass
 
-            
         else:
             ''' if more than 300 feet level changes then interpolate again'''
             if abs( altitudeMeanSeaLevelFeet - self.latestLevelFeetWindSpeed) > LevelThresholdFeet:
@@ -141,7 +140,8 @@ class WeatherStationsClient(object):
                         pass
         
         return self.latestInterpolatedWindDirection
-        
+
+
     def computeTemperatureDegreesCelsiusAtStationLevel(self , weatherStationFAAname , altitudeMeanSeaLevelMeters):
         ''' 28th September 2024 - search for next interpolated temperature if level changes more than 300 feet '''
         #print ( weatherStationFAAname )
@@ -188,6 +188,3 @@ class WeatherStationsClient(object):
                         pass
                     
         return self.latestInterpolatedTemperature
-    
-    
-    

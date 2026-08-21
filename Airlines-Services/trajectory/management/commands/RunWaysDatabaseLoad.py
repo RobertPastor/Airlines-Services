@@ -2,7 +2,7 @@
 from django.core.management.base import BaseCommand
 from trajectory.management.commands.RunWays.RunWaysDatabaseFile import RunWaysDatabase
 from trajectory.models import AirlineRunWay
-from airline.models import AirlineRoute
+from airlines.models import AirlineRoute
 
 class Command(BaseCommand):
     help = 'Reads the Synonym file and load the Aircrafts table'

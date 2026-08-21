@@ -7,7 +7,7 @@ Created on 18 sept. 2024
 
 from django.core.management.base import BaseCommand
 from trajectory.models import NoaaWeatherStation
-from trajectory.Environment.WindTemperature.NoaaStations.NoaaWeatherStationsFile import NoaaWeatherStationsClass
+from trajectory.Environment.Weather.WindTemperature.NoaaStations.NoaaWeatherStationsFile import NoaaWeatherStationsClass
 
 class Command(BaseCommand):
     help = 'Load the NOAA weather stations fixed data'
