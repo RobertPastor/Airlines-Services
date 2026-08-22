@@ -3,6 +3,7 @@ import { SingletonMainClass } from "../main/mainSingletonClass.js";
 import { SingletonSidStar } from "../SidStar/SidStar.js";
 import { stopBusyAnimation , showMessage } from "../main/main.js";
 import { Entity , Vector } from "../og/og.es.js";
+import { Route } from "../main/utils.js";
 
 export const SingletonAirlineRoutes = (function () {
 	
@@ -142,14 +143,14 @@ class AirlineRoutes {
 	loadOneAirlineRoute( id ) {
 		
 		let LayerNamePrefix = this.LayerNamePrefix;
-		
-		let arr = id.split("-");
-		let Adep = arr[1];
-		let Ades = arr[2];
+		// assumption route is written as ADEP/departure followed by a Dash followed by the ADES/Destination
+		let routeObj = new Route( id );
+		let Adep = routeObj.getAdep();
+		let Ades = routeObj.getAdes();
 		
 		$.ajax( {
 				method: 'get',
-				url :  "airline/wayPointsRoute/" + Adep +"/" + Ades,
+				url :  "airlines/wayPointsRoute/" + Adep +"/" + Ades,
 				async : true,
 				success: function(data) {
 											
@@ -195,12 +196,12 @@ class AirlineRoutes {
 	
 		let id = domElement.id ;
 		//console.log( id );
-		let arr = id.split("-");
-		if ( Array.isArray(arr) && (arr.length>1)) {
+		let routeObj = new Route( id );
+		if ( routeObj.check() == true ) {
 
-			let Adep = arr[1];
+			let Adep = routeObj.getAdep();
 			//console.log(Adep)
-			let Ades = arr[2];
+			let Ades = routeObj.getAdes();
 			//console.log(Ades)
 				
 			let layerName =  this.LayerNamePrefix + Adep + "-" + Ades;
@@ -378,7 +379,6 @@ class AirlineRoutes {
 	}
 
 	removeGlobusRoutesWayPointsLayers( airlineRoutesArray ) {
-	
 		for (var airlineRouteId = 0; airlineRouteId < airlineRoutesArray.length; airlineRouteId++ ) {
 			SingletonAirlineRoutes.getInstance().removeOneAirlineRoute( airlineRoutesArray[airlineRouteId] );
 		}
@@ -426,12 +426,10 @@ class AirlineRoutes {
 							//alert("Data: " + data + "\nStatus: " + status);
 							let dataJson = eval(data);		
 							if ( dataJson.hasOwnProperty("airlineRoutes") ) {
-								
 								let airlineRoutesArray = dataJson["airlineRoutes"];
 								SingletonAirlineRoutes.getInstance().addAirlineRoutes(  airlineRoutesArray );
 							} else {
 								if ( dataJson.hasOwnProperty("errors") ) {
-									
 									showMessage("Error - Airline Routes" , data);
 								}
 							}

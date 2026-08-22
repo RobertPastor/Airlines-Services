@@ -102,9 +102,9 @@ class MainClass {
 	 */
 	enableDisableMainMenuButtons(enable) {
 		const hiddenButtonNames = ["btnLaunchCostsOptimization","btnLaunchCASM","btnLaunchCasmOptimization","btnLaunchSeatMilesMaximization"];
-		const disabledButtonNames = ["btnLaunchAirlineCosts","btnOptimizationsId","btnComputeCostsId"];
+		const disabledButtonNames = ["btnLaunchAirlineCosts","btnOptimizationsId","btnComputeCostsId","btnSubMenuFuelId"];
 		const buttonNames = ["btnAirlineFleet","btnAirwaysId", "btnAirports",
-							"btnLaunchFlightProfile","btnSubMenuFuelId","btnSubMenuMeteoId", "btnMetar",
+							"btnLaunchFlightProfile","btnSubMenuMeteoId", "btnMetar",
 							"btnComputeFlightProfileId","btnDownLoadVerticalProfileId","btnDownLoadKMLfileId"];
 		if ( enable ) {
 			for (const button of buttonNames) { 

@@ -42,7 +42,7 @@ class AirlineFuelEfficiency {
 			initProgressBar();
 			initWorker();
 			
-			let urlToSend =  "airline/airlineFuelEfficiency/" + airlineName;
+			let urlToSend =  "airlines/airlineFuelEfficiency/" + airlineName;
 			let req = new XMLHttpRequest();
 			req.open("GET", urlToSend, true);
 			req.responseType = "blob";

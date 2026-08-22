@@ -293,3 +293,58 @@ Successfully installed et-xmlfile-2.0.0 openpyxl-3.1.5
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
+
+
+$ pip install django-cors-headers
+Collecting django-cors-headers
+  Downloading django_cors_headers-4.9.0-py3-none-any.whl.metadata (16 kB)
+Requirement already satisfied: asgiref>=3.6 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from django-cors-headers) (3.12.1)
+Requirement already satisfied: django>=4.2 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from django-cors-headers) (5.2.17)
+Requirement already satisfied: sqlparse>=0.3.1 in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from django>=4.2->django-cors-headers) (0.6.0)
+Requirement already satisfied: tzdata in C:\Users\rober\git\Airlines-Services\virtualEnv\Lib\site-packages (from django>=4.2->django-cors-headers) (2026.3)
+Downloading django_cors_headers-4.9.0-py3-none-any.whl (12 kB)
+Installing collected packages: django-cors-headers
+Successfully installed django-cors-headers-4.9.0
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+
+## use gunicorn to simulate a production server with a domain name
+
+$ pip install gunicorn
+Collecting gunicorn
+  Downloading gunicorn-26.1.0-py3-none-any.whl.metadata (5.5 kB)
+Downloading gunicorn-26.1.0-py3-none-any.whl (216 kB)
+Installing collected packages: gunicorn
+Successfully installed gunicorn-26.1.0
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+## waitress to serve 
+##cWhen attempting to run Gunicorn on Windows, you may encounter the error ModuleNotFoundError: No module named 'fcntl'.
+## This happens because fcntl is a Unix-only module and Gunicorn is designed for Unix-like environments, not native Windows
+
+$ pip install waitress
+Collecting waitress
+  Downloading waitress-3.0.2-py3-none-any.whl.metadata (5.8 kB)
+Downloading waitress-3.0.2-py3-none-any.whl (56 kB)
+Installing collected packages: waitress
+Successfully installed waitress-3.0.2
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+
+$ pip install pulp
+Collecting pulp
+  Downloading pulp-3.3.2-py3-none-any.whl.metadata (8.6 kB)
+Downloading pulp-3.3.2-py3-none-any.whl (16.4 MB)
+   ---------------------------------------- 16.4/16.4 MB 4.6 MB/s  0:00:03
+Installing collected packages: pulp
+Successfully installed pulp-3.3.2
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+

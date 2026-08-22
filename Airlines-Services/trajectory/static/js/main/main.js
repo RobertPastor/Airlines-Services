@@ -475,7 +475,8 @@ function initMain(viewExtent) {
         isBaseLayer: true,
         url: "//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
         visibility: true,
-        attribution: 'Data @ OpenStreetMap contributors, ODbL'
+        attribution: 'Data @ OpenStreetMap contributors, ODbL',
+		crossOrigin: true
     });
 
 	let bilTerrain = new BilTerrain({
@@ -491,7 +492,7 @@ function initMain(viewExtent) {
 	var globus = new Globe({
             target: "globusDivId", 
             name: "Earth",
-            terrain: bilTerrain,
+            terrain: new GlobusRgbTerrain(),
             layers: [osm],
             autoActivated: true,
             viewExtent : viewExtent,

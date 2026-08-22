@@ -13,7 +13,7 @@ from airlines.views.viewsAirlineRoutesWayPoints import getRouteWayPoints
 #from airlines.views.viewsAirlineCASM import getAirlineCASM , getAirlineCasmXlsx
 #from airlines.views.viewsAirlineCasmOptimization import getAirlineCasmOptimization
 #from airlines.views.viewsAirlineSeatMilesMaximization import getAirlineSeatsMilesMaxXlsx
-#from airlines.views.viewsAirlineFuelEfficiency import getAirlineFuelEfficiencyXlsx 
+from airlines.views.viewsAirlineFuelEfficiency import getAirlineFuelEfficiencyXlsx 
 
 from airlines.views.viewsUsers import viewUsers
 
@@ -33,7 +33,7 @@ urlpatterns = [
     #path('getAirlineCasmOptimization/<slug:airlineName>' , getAirlineCasmOptimization , name = 'getAirlineCasmOptimization'),
     #path('getAirlineSeatMilesXlsx/<slug:airlineName>' , getAirlineSeatsMilesMaxXlsx , name = 'getAirlineSeatsMilesMaxXlsx'),
     
-    #path('airlineFuelEfficiency/<slug:airlineName>', getAirlineFuelEfficiencyXlsx , name = 'getAirlineFuelEfficiencyXlsx'),
+    path('airlineFuelEfficiency/<slug:airlineName>', getAirlineFuelEfficiencyXlsx , name = 'getAirlineFuelEfficiencyXlsx'),
     path('users' , viewUsers , name = 'viewUsers')
     
 ]

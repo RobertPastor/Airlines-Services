@@ -30,10 +30,14 @@ DEBUG = False
 if "windows" in platform.platform().lower():
     DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','mytestapplication.local']
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+]
 
 # Application definition
-
+# 22nd August 2026 add CORS headers in development server
 INSTALLED_APPS = [
     "trajectory.apps.TrajectoryConfig",
     "airlines.apps.AirlinesConfig",
@@ -43,9 +47,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
