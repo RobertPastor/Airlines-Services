@@ -20,29 +20,28 @@ class Command(BaseCommand):
             ret = loaderOne.load()
             print ("read SID STAR database result = {0}".format(ret))
         else:
-            print("SID STAR does not exists")
+            print ("SID STAR does not exists")
             
         loadTwo = SidStarLoaderOne( isSID=False , departureOrArrivalAirportICAO="KATL" , FirstLastWayPointName="MEM" , RunWayStr="26L" )
         if (loadTwo.exists()):
             ret = loadTwo.load()
             print ("read SID STAR database result = {0}".format(ret))
         else:
-            print("SID STAR does not exists")
+            print ("SID STAR does not exists")
             
-        
         loadThree = SidStarLoaderOne( isSID=True , departureOrArrivalAirportICAO="LFPG" , FirstLastWayPointName="ERIXU" , RunWayStr="26L" )
         if (loadThree.exists()):
             ret = loadThree.load()
             print ("read SID STAR database result = {0}".format(ret))
         else:
-            print("SID STAR does not exists")
+            print ("SID STAR does not exists")
             
         ''' 6th August 2023 - STAR - JFK -> LUKIP - LFPG/08L '''
         loadFour = SidStarLoaderOne( isSID=False , departureOrArrivalAirportICAO="LFPG" , FirstLastWayPointName="LUKIP" , RunWayStr="08L" )
         if (loadFour.exists()):
-            print("acBD exists")
+            print ("acBD exists")
             ret = loadFour.load()
             print ("read SID STAR database result = {0}".format(ret))
         else:
-            print("SID STAR does not exists")
+            print ("SID STAR does not exists")
             

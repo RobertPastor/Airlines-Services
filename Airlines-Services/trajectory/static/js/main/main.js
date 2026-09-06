@@ -488,12 +488,12 @@ function initMain(viewExtent) {
 	
     // a HTMLDivElement whose id is `globus`
     //"resourcesSrc": "/static/js/og/res"
-    
+    // no osm layer in local mode still referer issue not solved with FireFox
 	var globus = new Globe({
             target: "globusDivId", 
             name: "Earth",
             terrain: new GlobusRgbTerrain(),
-            layers: [osm],
+            layers: [],
             autoActivated: true,
             viewExtent : viewExtent,
             controls: [

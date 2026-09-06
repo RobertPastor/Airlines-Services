@@ -309,7 +309,6 @@ Successfully installed django-cors-headers-4.9.0
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
 
-
 ## use gunicorn to simulate a production server with a domain name
 
 $ pip install gunicorn
@@ -336,7 +335,6 @@ Successfully installed waitress-3.0.2
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
 
-
 $ pip install pulp
 Collecting pulp
   Downloading pulp-3.3.2-py3-none-any.whl.metadata (8.6 kB)
@@ -347,4 +345,5 @@ Successfully installed pulp-3.3.2
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
+
 

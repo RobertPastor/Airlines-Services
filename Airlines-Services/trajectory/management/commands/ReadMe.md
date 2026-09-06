@@ -13,3 +13,5 @@ python manage.py -a airlines --help
 python manage.py WayPointsDatabaseLoad -a flight-profile 
 
 python manage.py AirportsDatabaseLoad -a flight-profile 
+
+python manage.py SidStarDatabaseLoad

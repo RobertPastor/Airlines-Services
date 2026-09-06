@@ -27,7 +27,6 @@ drwxr-xr-x 1 rober 197609    0 Aug 14 12:09 ../
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services (master)
 
-
 ## test the development server
 
 $ python Airlines-Services/manage.py runserver

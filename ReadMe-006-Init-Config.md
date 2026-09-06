@@ -2559,3 +2559,8 @@ ORDER BY id ASC
 Successfully run. Total query runtime: 2 secs 415 msec.
 569 rows affected.
 
+
+## load SID STAR data
+
+$ python manage.py SidStarDatabaseLoad
+

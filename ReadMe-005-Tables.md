@@ -41,7 +41,6 @@ Running migrations:
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
 
-
 $ python manage.py makemigrations
  openap/prop : ==================== read data/aircraft/_synonym.csv =====================
 No changes detected
@@ -75,7 +74,6 @@ Running migrations:
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $ 
 
-
 $ python manage.py makemigrations trajectory
  openap/prop : ==================== read data/aircraft/_synonym.csv =====================
 Migrations for 'trajectory':
@@ -92,7 +90,6 @@ Migrations for 'trajectory':
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
-
 
 $ python manage.py migrate trajectory
  openap/prop : ==================== read data/aircraft/_synonym.csv =====================

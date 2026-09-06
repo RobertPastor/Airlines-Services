@@ -241,7 +241,6 @@ class AirlineStandardDepartureArrivalRoute(models.Model):
                                           "Longitude" : wayPoint.getLongitudeDegrees()})
         return sidStarGeoPointsList
             
-    
     def getWayPointsListAsString(self , isSID):
         assert ( isinstance ( isSID, bool ))
         routeAsString = ""
@@ -264,9 +263,7 @@ class AirlineStandardDepartureArrivalRoute(models.Model):
                 else:
                     if ( ( ("/") in str(wayPoint.WayPointName) ) == False ):
                         routeAsString += "-" + wayPointName
-        
         return routeAsString
-
     
 class AirlineSidStarWayPointsRoute(models.Model):
     ''' 3rd June 2023 '''
@@ -311,7 +308,6 @@ class AirlineSidStarWayPointsRoute(models.Model):
         #logging.info ( routeAsString )
         return routeAsString
     
-
 ''' 11th August 2024 '''
 class WindTemperatureAloft(models.Model):
     TextLine     = models.CharField(max_length = 1500, blank = True)
@@ -351,7 +347,6 @@ class NoaaWeatherStation(models.Model):
         for weatherStationMeasure in NoaaWeatherStationMeasure.objects.filter(NoaaWeatherStationInstance=self):
             #print ( weatherStationMeasure.getTemperature() )
             windDirectionTrueNorthDegreesList.append(weatherStationMeasure.getWindDirectionTrueNorthDegrees())
-            
         return windDirectionTrueNorthDegreesList
     
     def getWeatherStationForecastsWindSpeed(self):
@@ -359,7 +354,6 @@ class NoaaWeatherStation(models.Model):
         for weatherStationMeasure in NoaaWeatherStationMeasure.objects.filter(NoaaWeatherStationInstance=self):
             #print ( weatherStationMeasure.getTemperature() )
             windSpeedKnotsList.append(weatherStationMeasure.getWindSpeedKnots())
-            
         return windSpeedKnotsList
         
     
@@ -390,6 +384,4 @@ class NoaaWeatherStationMeasure(models.Model):
     
     def getWindSpeedKnots(self):
         return self.WindSpeedKnots
-    
-    
     
