@@ -128,7 +128,7 @@ export class MainControl extends Control {
 		
 		let draggableMainDiv = document.createElement('div');
 		draggableMainDiv.id = mainDiv.id  + "Header";
-		draggableMainDiv.innerHTML = "Click here to move -> Main navigation bar ---> click to download a PDF presentation -->";
+		draggableMainDiv.innerHTML = "Click here to move -> Main navigation bar ---> download a PDF presentation -->";
 		draggableMainDiv.classList.add("draggableDivHeader");
 		
 		let span = document.createElement('span');
@@ -183,7 +183,7 @@ export class MainControl extends Control {
 		row_1_data_4.colSpan = "1";
 		
 		row_1_data_4.classList.add('question_mark_bg')
-		row_1_data_4.innerHTML = '<div id="helpId" class="question_mark" title="click to obtain some help" onclick="showHelp()" ></div>';
+		row_1_data_4.innerHTML = '<div id="helpId" class="question_mark" title="obtain some help" onclick="showHelp()" ></div>';
 		row_1.appendChild(row_1_data_4);
 		
 		tbody.appendChild(row_1);
@@ -199,7 +199,7 @@ export class MainControl extends Control {
 		
 		let row_2_data_2 = document.createElement('td');
 		row_2_data_2.innerHTML = '<div><button id="btnAirlineFleet" >Fleet</button></div>';
-		row_2_data_2.title = "click to see the airline fleet, aircrafts, number of seats, hourly costs ...";
+		row_2_data_2.title = "see the airline fleet, aircrafts, number of seats, hourly costs ...";
 		row_2.appendChild(row_2_data_2);
 		
 		//=============================================
@@ -214,7 +214,7 @@ export class MainControl extends Control {
 		
 		menuEntryAirwaysDiv.innerHTML = '<div><button id="btnAirwaysId" >Airports & Airways</button></div>';
 		menuEntryAirwaysDiv.id = "menuEntryAirwaysDivId";
-		menuEntryAirwaysDiv.title = "click to open a submenu for Airports & Airways";
+		menuEntryAirwaysDiv.title = "open a submenu with Airports & Routes";
 
 		row_2_data_3.appendChild ( menuEntryAirwaysDiv );
 		row_2.appendChild(row_2_data_3);
@@ -224,13 +224,13 @@ export class MainControl extends Control {
 		//============
 		let row_2_data_6 = document.createElement('td');
 		row_2_data_6.innerHTML = '<div><button id="btnLaunchFlightProfile" >Profile</button></div>';
-		row_2_data_6.title = "click to compute a profile, a cost or download an EXCEL profile";
+		row_2_data_6.title = "compute a profile, a flight leg cost or download an EXCEL profile";
 		row_2.appendChild(row_2_data_6);
 		
 		// 27th January 2023 - Airline costs controls
 		let row_2_data_7 = document.createElement('td');
 		row_2_data_7.innerHTML = '<div><button id="btnLaunchAirlineCosts" >Costs</button></div>';
-		row_2_data_7.title = "click to download an EXCEL costs file";
+		row_2_data_7.title = "download an EXCEL costs file";
 
 		row_2.appendChild(row_2_data_7);
 		
@@ -244,7 +244,7 @@ export class MainControl extends Control {
 		let menuEntryOptimizationsDiv = document.createElement('div');
 		menuEntryOptimizationsDiv.innerHTML = '<div><button id="btnOptimizationsId" >Optimizations</button></div>';
 		menuEntryOptimizationsDiv.id = "menuEntryOptimizationsDivId";
-		menuEntryOptimizationsDiv.title = "click to open a submenu for all optimizations";
+		menuEntryOptimizationsDiv.title = "open a submenu for all optimizations";
 
 		row_2_data_8.appendChild ( menuEntryOptimizationsDiv );
 		row_2.appendChild(row_2_data_8);
@@ -258,7 +258,7 @@ export class MainControl extends Control {
 		let menuEntryFuelDiv = document.createElement('div');
 		menuEntryFuelDiv.innerHTML = '<div><button id="btnSubMenuFuelId" >Fuel</button></div>';
 		menuEntryFuelDiv.id = "menuEntryFuelDivId";
-		menuEntryFuelDiv.title = "click to open a submenu for Fuel Efficiency and Fuel Planner";
+		menuEntryFuelDiv.title = "open a submenu for Fuel Efficiency and Fuel Planner";
 		
 		row_2_data_12.appendChild ( menuEntryFuelDiv );
 		row_2.appendChild(row_2_data_12);
@@ -272,7 +272,7 @@ export class MainControl extends Control {
 		let menuEntryMeteoDiv = document.createElement('div');
 		menuEntryMeteoDiv.innerHTML = '<div><button id="btnSubMenuMeteoId" >Meteo</button></div>';
 		menuEntryMeteoDiv.id = "menuEntryMeteoDivId";
-		menuEntryMeteoDiv.title = "click to open a submenu for Metar and Wind Temperature";
+		menuEntryMeteoDiv.title = "open a submenu for Metar, Wind and Temperature";
 		
 		row_2_data_13.appendChild ( menuEntryMeteoDiv );
 		row_2.appendChild(row_2_data_13);
@@ -282,7 +282,7 @@ export class MainControl extends Control {
 		//===================
 		let row_2_data_14 = document.createElement('td');
 		row_2_data_14.classList.add('question_mark_bg')
-		row_2_data_14.innerHTML = '<div id="helpId" class="exclamation_mark" title="click to obtain some configuration information" onclick="showConfiguration()" ></div>';
+		row_2_data_14.innerHTML = '<div id="helpId" class="exclamation_mark" title="obtain some configuration information" onclick="showConfiguration()" ></div>';
 		row_2.appendChild(row_2_data_14);
 		
 		// ---------------

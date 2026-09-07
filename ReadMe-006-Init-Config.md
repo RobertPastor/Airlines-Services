@@ -2541,7 +2541,6 @@ longitude is E076▒32'40.99"
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
 
-
 ## check the database table called airlines_airlinerouteswaypoints
 
 SELECT * FROM public.airlines_airlineroutewaypoints
@@ -2550,9 +2549,9 @@ ORDER BY id ASC
 Successfully run. Total query runtime: 2 secs 415 msec.
 569 rows affected.
 
-
 ## load SID STAR data
 
 $ python manage.py SidStarDatabaseLoad
 
-## on the globus, select Airways menu and see the SID STAR appearing in the table
+## on the globus, select Airways menu and see the SID STAR appearing in the table of the selected airline routes
+
