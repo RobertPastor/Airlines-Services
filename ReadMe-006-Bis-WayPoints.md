@@ -23,7 +23,8 @@
 -> 2.1 check the newly created file WayPoints.xlsx in the folling folder
 C:\Users\rober\git\Airlines-Services\Airlines-Services\airlines\management\commands\AirlineRoutesWayPoints 
 
--> 2.2 move this newly created file (that should containing newly added waypoints) to the trajectory application here
+-> 2.2 move MANUALLY this newly created file (that should containing newly added waypoints) 
+to the trajectory application folder here
 C:\Users\rober\git\Airlines-Services\Airlines-Services\trajectory\management\commands\WayPoints
 
 -> 3.0 run -> python manage.py WayPointsDatabaseLoad

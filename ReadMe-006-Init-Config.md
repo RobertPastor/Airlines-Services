@@ -2555,3 +2555,4 @@ Successfully run. Total query runtime: 2 secs 415 msec.
 
 $ python manage.py SidStarDatabaseLoad
 
+## on the globus, select Airways menu and see the SID STAR appearing in the table

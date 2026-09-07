@@ -423,6 +423,7 @@ function initTools(globus, viewExtent) {
 		loadAirlinesSelector();
 		
 		// prepare to switch from one airline to the other
+		// listen to drop down list (containing airlines names) changes
 		switchAirlines(globus);
 		
 		// 29th September 2023 - 
@@ -430,17 +431,16 @@ function initTools(globus, viewExtent) {
 		globus.planet.addControl( metarsOgControl );
 		
 		let metar = SingletonMetars.getInstance();
+		// 29th September 2023 - init listener to Metars button changes
 		metar.initMetars( globus , metarsOgControl );
-		
-		// 29th September 2023 - init listener to Metars button
-		
-		// show the airports
-		airlineAirports.showHideAllAirports( false );
-		airlineAirports.showHideAllAirports( true );
 		
 		// 19th July 2023 Main Singleton Class
 		new SingletonMainClass.getInstance().init(globus);
 		
+		// show the airports according to the selected airline
+		airlineAirports.showHideAllAirports( false );
+		airlineAirports.showHideAllAirports( true );
+
 		// 1st October 2023 - sortable
 		// add sortable caracteristics to all tables
 		// REDESIGN : make all table deriving from a mother class that is able to manage the sorting and more
