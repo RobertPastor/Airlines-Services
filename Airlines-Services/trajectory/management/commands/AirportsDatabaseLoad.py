@@ -18,9 +18,10 @@ class Command(BaseCommand):
         airportsBD = AirportsDatabase()
         if (airportsBD.exists()):
             print("airports database exists")
+            # consider all airports from the world wide airports database 
+            # and keep only those airports used by an airline
             ret = airportsBD.read(airlineRoutesAirportsList)
             print ("read airports database result = {0}".format(ret))
         else:
             print("airports database does not exists")
-            
         return

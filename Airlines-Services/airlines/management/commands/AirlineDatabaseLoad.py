@@ -9,36 +9,37 @@ from airlines.models import Airline
 
 class Command(BaseCommand):
     help = 'load the Airline table'
-
     def handle(self, *args, **options):
         
-        #Airline.objects.all().delete()
+        Airline.objects.all().delete()
 
+        # American wings
         airlineOne = Airline( 
-                        Name = "AmericanWings",
-                        MinLongitudeDegrees = -130.0, 
-                        MinLatitudeDegrees = 25.0, 
-                        MaxLongitudeDegrees = -70.0, 
-                        MaxLatitudeDegrees = 50.0)
-        airlineOne.save()
+            Name = "AmericanWings",
+            MinLongitudeDegrees = -130.0, 
+            MinLatitudeDegrees = 25.0, 
+            MaxLongitudeDegrees = -70.0, 
+            MaxLatitudeDegrees = 50.0)
         print ( airlineOne )
-        
+        airlineOne.save()
+
+        # European wings
         airlineTwo = Airline (
-                        Name = "EuropeanWings",
-                        MinLongitudeDegrees = -13.0, 
-                        MinLatitudeDegrees = 32.0, 
-                        MaxLongitudeDegrees = 32.0, 
-                        MaxLatitudeDegrees = 61.0)
-        airlineTwo.save()
+            Name = "EuropeanWings",
+            MinLongitudeDegrees = -13.0, 
+            MinLatitudeDegrees = 32.0, 
+            MaxLongitudeDegrees = 32.0, 
+            MaxLatitudeDegrees = 61.0)
         print ( airlineTwo )
-        
+        airlineTwo.save()
+
+        # Indian Wings
         airlineThree = Airline (
                         Name = "IndianWings",
                         MinLongitudeDegrees = 60.0, 
                         MinLatitudeDegrees = 8.0, 
                         MaxLongitudeDegrees = 92.0, 
                         MaxLatitudeDegrees = 32.0)
-            
         airlineThree.save() 
         print ( airlineThree )
         

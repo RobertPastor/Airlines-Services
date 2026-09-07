@@ -21,7 +21,7 @@ you should obtain the following column content
 Suppress the first line corresponding to the departure airport and the last line corresponding to the arrival airport
 
 
-extract from http://rfinder.asalink.net/free/  with flight ceiling of FL390
+extract exaple from http://rfinder.asalink.net/free/  with flight ceiling of FL390
 
 ID      FREQ   TRK   DIST   Coords                       Name/Remarks
 KJFK             0      0   N40°38'23.74" W073°46'43.29" JOHN F KENNEDY INTL

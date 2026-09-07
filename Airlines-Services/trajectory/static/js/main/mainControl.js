@@ -128,12 +128,12 @@ export class MainControl extends Control {
 		
 		let draggableMainDiv = document.createElement('div');
 		draggableMainDiv.id = mainDiv.id  + "Header";
-		draggableMainDiv.innerHTML = "Click here to move -> Main navigation bar ---> click to download a User Manual -->";
+		draggableMainDiv.innerHTML = "Click here to move -> Main navigation bar ---> click to download a PDF presentation -->";
 		draggableMainDiv.classList.add("draggableDivHeader");
 		
 		let span = document.createElement('span');
 		span.id = "PdfPresentationId";
-		span.innerHTML = "<a title='download a pdf presentation' id='linkDownloadPdfPresentationId' class='download' href='#'  ></a>";
+		span.innerHTML = "<a title='download a PDF presentation' id='linkDownloadPdfPresentationId' class='download' href='#'  ></a>";
 		draggableMainDiv.appendChild(span);
 		mainDiv.appendChild(draggableMainDiv);
 		
@@ -176,7 +176,7 @@ export class MainControl extends Control {
 		let row_1_data_3 = document.createElement('td');
 		row_1_data_3.colSpan = "7";
 		row_1_data_3.classList.add("alignCenter");
-		row_1_data_3.innerHTML = "<div><span>Fleet Management Tool</span></div>";
+		row_1_data_3.innerHTML = "<div><span>Airlines Services Tool</span></div>";
 		row_1.appendChild(row_1_data_3);
 		
 		let row_1_data_4 = document.createElement('td');

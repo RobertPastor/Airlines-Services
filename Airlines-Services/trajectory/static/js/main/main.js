@@ -6,7 +6,8 @@ import {
         control,
         LonLat,
         Extent,
-        OpenStreetMap
+        OpenStreetMap,
+		Bing
     } from "../og/og.es.js";
     
 import { MainControl } from "./mainControl.js";
@@ -65,10 +66,8 @@ var worker = undefined;
 window.addEventListener('DOMContentLoaded', () => {
 	window.addEventListener("load", ($) => {
 			setTimeout( function() {
-				
 				// call init function after a certain amount of milliseconds
 				init();
-				
 			} , 500 );
 	});
 });
@@ -295,6 +294,7 @@ function loadAirlinesSelector() {
 function initTools(globus, viewExtent) {
 			
 	// add all controls that are derived from an og control class
+	// as the og is the main canvas, need to create controls that are deriving from an og class
 	if	(globus){
 		
 		globus.planet.addControl(new MainControl());
@@ -435,12 +435,15 @@ function initTools(globus, viewExtent) {
 		// 29th September 2023 - init listener to Metars button
 		
 		// show the airports
-		SingletonAirlineAirports.getInstance().showHideAllAirports( true );
+		airlineAirports.showHideAllAirports( false );
+		airlineAirports.showHideAllAirports( true );
 		
 		// 19th July 2023 Main Singleton Class
 		new SingletonMainClass.getInstance().init(globus);
 		
 		// 1st October 2023 - sortable
+		// add sortable caracteristics to all tables
+		// REDESIGN : make all table deriving from a mother class that is able to manage the sorting and more
 		let airlineFleetTable = document.getElementById(airlineFleetControl.getMainTableId());
 		airlineFleetTable.classList.add('sortable');
 		
@@ -464,7 +467,6 @@ function initTools(globus, viewExtent) {
 		
 		let airlineAirportsRoutesTable = document.getElementById(airlineAirportsRoutesControl.getMainTableId());
 		airlineAirportsRoutesTable.classList.add('sortable');
-		
 	}
 }
 
@@ -484,16 +486,18 @@ function initMain(viewExtent) {
             layers: "og:n44_e009_1arc_v3",
             imageSize: 128,
             extent: [[8.9, 44.0], [10.0, 45]]
-        })
+        });
+	// terrain obtained from Microsoft
+	let sat = new Bing();
 	
-    // a HTMLDivElement whose id is `globus`
+    // a HTMLDivElement whose id is `globusDivId`
     //"resourcesSrc": "/static/js/og/res"
-    // no osm layer in local mode still referer issue not solved with FireFox
+    // Warning : no osm layer in local mode still referer issue not solved with FireFox
 	var globus = new Globe({
             target: "globusDivId", 
             name: "Earth",
             terrain: new GlobusRgbTerrain(),
-            layers: [],
+            layers: [sat],
             autoActivated: true,
             viewExtent : viewExtent,
             controls: [
@@ -506,10 +510,8 @@ function initMain(viewExtent) {
             fontsSrc: "/static/js/og/res/fonts",
             resourcesSrc: "/static/js/og/res"
 	});
-	
 	initTools (globus, viewExtent);
 }
-
 
 function init() {
 	
@@ -517,7 +519,8 @@ function init() {
 		  
 	//let airlineList = JSON.parse('{{ airlines|escapejs }}');
 	if ( airlines && Array.isArray( airlines ) && ( airlines.length > 0 ) ) {
-				
+		// make european Wings as the default
+		// in the airline loader , now European wings is the first one
 		let airline = airlines[0];
 		let MinLongitude = airline["MinLongitudeDegrees"];
 		let MaxLongitude = airline["MaxLongitudeDegrees"];
@@ -536,7 +539,6 @@ function init() {
 			//		showMessage("Browser usage" , "Please envisage using FireFox to see the globe map");
 			//}
 			//showMessage("Website Shutdown" , "Please be aware of a website shutdown <br>planned beginning of March 2026");
-				
 		} , 500 );
 	}
 }

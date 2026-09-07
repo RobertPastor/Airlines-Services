@@ -5,7 +5,7 @@ from trajectory.models import AirlineRunWay
 from airlines.models import AirlineRoute
 
 class Command(BaseCommand):
-    help = 'Reads the Synonym file and load the Aircrafts table'
+    help = 'Reads the Runways for the airlines airports'
 
     def handle(self, *args, **options):
         
@@ -22,5 +22,3 @@ class Command(BaseCommand):
             print ("read runways database result = {0}".format(ret))
         else:
             print("runwaysDB does not exists")
-            
-            

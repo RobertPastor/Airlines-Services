@@ -222,12 +222,10 @@ class AirlineAirports {
 				method: 'get',
 				url :  "airlines/wayPointsRoute/" + Adep +"/" + Ades,
 				async : true,
-				success: function(data) {
-											
+				success: function(data) {		
 						//alert("Data: " + data + "\nStatus: " + status);
 						let dataJson = eval(data);		
-						if ( dataJson.hasOwnProperty("airlineRouteWayPoints")) {
-							
+						if ( dataJson.hasOwnProperty("airlineRouteWayPoints")) {	
 							let airlineRoutesWaypointsArray = dataJson["airlineRouteWayPoints"];
 							let layerName =  LayerNamePrefix + Adep + "-" + Ades;
 							//console.log( layerName );
@@ -236,11 +234,11 @@ class AirlineAirports {
 				},
 				error: function(data, status) {
 					console.log("Error - show Airline Routes : " + status + " Please contact your admin");
-					showMessage("Error - Airline Routes", data)
+					showMessage("Error - Airline Routes", data);
 				},
 				complete : function() {
 					stopBusyAnimation();
-					document.getElementById("btnAirlineRoutes").disabled = false
+					document.getElementById("btnAirlineRoutes").disabled = false;
 				},
 		});
 	}

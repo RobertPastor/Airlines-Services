@@ -1,17 +1,7 @@
 
-## after creating the tables , fill the site configuration
-
-$ python manage.py AirlineDatabaseLoad
- openap/prop : ==================== read data/aircraft/_synonym.csv =====================
-AmericanWings
-EuropeanWings
-IndianWings
-(virtualEnv)
-rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
-$
+## after creating the tables , setup the site configuration
 
 ## check the tables in the PostGres SQL database
-
 
 $ python manage.py AirlineDatabaseLoad
  openap/prop : ==================== read data/aircraft/_synonym.csv =====================
@@ -129,6 +119,7 @@ rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
 
 $ python manage.py AirportsDatabaseLoad
+## source here is a CSV file with airports matching the ICAO code of an airport used by an airwing
 
 {'Airport ID': '9412', 'Airport Name': 'Sabetha Municipal', 'City': 'Sabetha', 'Country': 'United States', 'IATA/FAA': 'K83', 'ICAO Code': 'KK83', 'LatitudeDegrees': '39.5425', 'LongitudeDegrees': '-95.4677', 'AltitudeFeet': '1330', 'TimeZone': '-6', 'DST': 'A'}
 {'Airport ID': '9413', 'Airport Name': 'Mount Pleasant Regional-Faison Field', 'City': 'Mount Pleasant', 'Country': 'United States', 'IATA/FAA': 'LRO', 'ICAO Code': 'KLRO', 'LatitudeDegrees': '32.5387', 'LongitudeDegrees': '-79.4697', 'AltitudeFeet': '12', 'TimeZone': '-5', 'DST': 'A'}
