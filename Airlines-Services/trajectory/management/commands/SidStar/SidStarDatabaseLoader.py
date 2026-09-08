@@ -35,13 +35,13 @@ class SidStarLoaderOne():
             self.fileName = self.SIDFileNamePrefix + "-" + self.departureOrArrivalAirportICAO + "-" + self.RunWayStr + "-" + self.FirstLastWayPointName + ".xlsx"
         else:
             self.fileName = self.STARFileNamePrefix + "-" + self.departureOrArrivalAirportICAO + "-" + self.FirstLastWayPointName + "-" + self.RunWayStr + ".xlsx"
-        
+
+        print ( self.fileName )
         #self.FilesFolder = os.getcwd()
         self.FilesFolder = os.path.dirname(__file__)
 
         print ( self.className + ': file folder= {0}'.format(self.FilesFolder) )
         self.sheetName = "WayPoints"
-        
         
     def exists( self ):
         print ( self.fileName )
@@ -56,7 +56,7 @@ class SidStarLoaderOne():
         return self.runway
     
     def getOrCreateSidStarDBObject(self):
-        
+        print ("SID STAR Db loader - getOrCreateSidStarDBObject")
         sidStarDbObj = None
         self.airport = AirlineAirport.objects.filter( AirportICAOcode = self.departureOrArrivalAirportICAO ).first()
         if ( self.airport is None ):
@@ -70,7 +70,7 @@ class SidStarLoaderOne():
                 if ( waypoint is None ):
                     raise ValueError ( "waypoint = {0} not found in database ".format( self.FirstLastWayPointName ))
                 else:
-                    
+                    print ("SID STAR create SID STAR object - waypoint - " + str(waypoint))
                     sidStarDbObj = AirlineStandardDepartureArrivalRoute.objects.filter (
                                     isSID                   = self.isSID ,
                                     DepartureArrivalAirport = self.airport,
@@ -85,9 +85,9 @@ class SidStarLoaderOne():
                                         FirstLastRouteWayPoint  = waypoint
                                         )
                         sidStarDbObj.save()
-                        
+                        print ("SID STAR Db loader - getOrCreateSidStarDBObject - SID STAR object created correctly")
+
         return sidStarDbObj
-    
     
     def load( self ):
         
@@ -109,8 +109,8 @@ class SidStarLoaderOne():
                 latitudeDegrees = 0.0
                 longitudeDegrees = 0.0
                 ''' search for the airport '''
-                if ( str(row["waypoint"]).startswith( self.airport.getICAOcode() )):
-                    ''' first entry is airport ICAO code / runway name '''
+                if  ( str(row["waypoint"]).startswith( self.airport.getICAOcode() ) ):
+                    print ( ''' first or last entry is airport ICAO code / runway name ''' )
                     if ( str ( row["waypoint"] ).index( "/" ) > 0):
                         ''' there is a SLASH as expected '''
                         runwayName = str(row["waypoint"]).split("/")[1]
@@ -126,6 +126,7 @@ class SidStarLoaderOne():
                         strLatitude = str(strLatitude).replace('°','-')
                         strLatitude = str(strLatitude).strip().replace("'", '-').replace(' ','').replace('"','')
                         latitudeDegrees = convertDegreeMinuteSecondToDecimal ( strLatitude )
+                        print ( latitudeDegrees )
                     else:
                         raise ValueError ( "Expecting a ° degree symbol in latitude = {0} but not found ".format( str( row["latitude"] ) ) )
                             
@@ -135,6 +136,7 @@ class SidStarLoaderOne():
                         strLongitude = str(strLongitude).replace('°','-')
                         strLongitude = str(strLongitude).strip().replace("'", '-').replace(' ','').replace('"','')
                         longitudeDegrees = convertDegreeMinuteSecondToDecimal ( strLongitude )
+                        print ( longitudeDegrees )
                     else:
                         raise ValueError ( "Expecting a ° degree symbol in longitude = {0} but not found ".format( str( row["longitude"] ) ) )
                 

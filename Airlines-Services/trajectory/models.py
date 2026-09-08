@@ -56,7 +56,6 @@ class BadaSynonymAircraft(models.Model):
     def getAircraftOPFfilePrefix(self):
         return self.AircraftFile
 
-
 class AirlineWayPoint(models.Model):
     WayPointName = models.CharField(max_length = 100, primary_key = True)
     Type = models.CharField(max_length = 100)
@@ -87,7 +86,6 @@ class AirlineWayPoint(models.Model):
     def getWayPointName(self):
         return self.WayPointName
     
-
 ''' an airport is not related to an airline '''
 class AirlineAirport(models.Model):
     AirportICAOcode = models.CharField(max_length = 100, primary_key = True)
@@ -125,6 +123,7 @@ class AirlineAirport(models.Model):
         return self.Longitude
     
     def convertToEnvAirport(self):
+        print ( "models - AirlineAirport - convertToEnvAirport -> "  + self.AirportName )
         return Airport ( Name = self.AirportName, 
                          LatitudeDegrees = self.Latitude , 
                          LongitudeDegrees = self.Longitude ,
@@ -194,7 +193,6 @@ class AirlineRunWay(models.Model):
         
     def getAsJson(self):
         return { "RunWayName" : self.Name, "LatitudeDegress": self.LatitudeDegrees, "LongitudeDegrees": self.LongitudeDegrees}
-    
     
 class AirlineStandardDepartureArrivalRoute(models.Model):
     ''' 3rd June 2023 '''
