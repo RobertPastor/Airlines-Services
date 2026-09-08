@@ -242,3 +242,6 @@ Airlines-Services/trajectory/Bada381DataFiles/B738.json
 
 ## file to ignore - as it is created dynamically and its content is loaded in the Django database
 Airlines-Services/airlines/management/commands/AirlineRoutesWayPoints/WayPoints.xlsx
+
+## ignore db.sqlite3
+Airlines-Services/db.sqlite3

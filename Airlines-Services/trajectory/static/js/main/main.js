@@ -41,7 +41,8 @@ import { SingletonAirlineWayPoints } from "../airlineWayPoints/airlineWayPoints.
 import { SingletonAirlineRoutes } from "../airlineRoutes/airlineRoutes.js";
 
 //import { SingletonAirlineCosts } from "../airlineCosts/airlineCosts.js";
-//import { SingletonProfileCosts } from "../flightProfile/computeFlightProfile.js";
+// flight profile and profile leg costs are merged
+import { SingletonProfileCosts } from "../flightProfile/computeFlightProfile.js";
 //import { SingletonAirlineFlightLegCosts } from "../airlineFlightLegCosts/airlineFlightLegCosts.js";
 //import { SingletonAirlineCostsOptimization } from "../airlineCostsOptimization/airlineCostsOptimization.js";
 //import { SingletonAirlineCASM } from "../airlineCASM/airlineCASM.js";
@@ -347,8 +348,8 @@ function initTools(globus, viewExtent) {
 		globus.planet.addControl(flightProfileControl);
 		
 		// compute profile and costs for each route and runways selection
-		//let airlineProfileCosts = SingletonProfileCosts.getInstance();
-		//airlineProfileCosts.launchFlightProfile(globus, flightProfileControl);
+		let airlineProfileCosts = SingletonProfileCosts.getInstance();
+		airlineProfileCosts.launchFlightProfile(globus, flightProfileControl);
 		
 		// compute costs
 		// flight profile inputs are shared with flight leg cost controls inputs
@@ -515,7 +516,7 @@ function initMain(viewExtent) {
 
 function init() {
 	
-	// Warning : the airlines object is loaded in the index-og.html
+	// Warning : the airlines object is loaded in the trajectory / templates / index-og.html
 		  
 	//let airlineList = JSON.parse('{{ airlines|escapejs }}');
 	if ( airlines && Array.isArray( airlines ) && ( airlines.length > 0 ) ) {
@@ -538,7 +539,6 @@ function init() {
 			//if (navigator.userAgent.indexOf("Firefox") == -1 ) { 
 			//		showMessage("Browser usage" , "Please envisage using FireFox to see the globe map");
 			//}
-			//showMessage("Website Shutdown" , "Please be aware of a website shutdown <br>planned beginning of March 2026");
 		} , 500 );
 	}
 }
