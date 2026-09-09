@@ -30,85 +30,85 @@ from trajectory.Environment.Earth.EarthFile import Earth
 from trajectory.Environment.Atmosphere.AtmosphereFile import Atmosphere
 
 from trajectory.GuidanceOpenap.FlightPathOpenapFile import FlightPathOpenap
+from trajectory.Guidance.FlightPathFile import FlightPath
 from trajectory.Openap.AircraftMainFile import OpenapAircraft
 
 def createBadaKMLfile( request, airline ):
-            aircraftICAOcode = getAircraftFromRequest(request)
-            badaAircraft = BadaSynonymAircraft.objects.all().filter(AircraftICAOcode=aircraftICAOcode).first()
-            if ( badaAircraft and badaAircraft.aircraftPerformanceFileExists()):
-                            
-                airlineRoute = getRouteFromRequest(request)
-                                                
-                departureAirportICAOcode = str(airlineRoute).split("-")[0]
-                departureAirportRunWayName = getAdepRunwayFromRequest(request)
+    aircraftICAOcode = getAircraftFromRequest(request)
+    badaAircraft = BadaSynonymAircraft.objects.all().filter(AircraftICAOcode=aircraftICAOcode).first()
+    if ( badaAircraft and badaAircraft.aircraftPerformanceFileExists()):
+    
+        airlineRoute = getRouteFromRequest(request)
+
+        departureAirportICAOcode = str(airlineRoute).split("-")[0]
+        departureAirportRunWayName = getAdepRunwayFromRequest(request)
+
+        arrivalAirportICAOcode = str(airlineRoute).split("-")[1]
+        arrivalAirportRunWayName = getAdesRunwayFromRequest(request)
                 
-                arrivalAirportICAOcode = str(airlineRoute).split("-")[1]
-                arrivalAirportRunWayName = getAdesRunwayFromRequest(request)
-                
-                takeOffMassKg = getMassFromRequest(request)
-                cruiseFLfeet = getFlightLevelFromRequest(request)
-                ''' 10th August 2023 - Reduced Climb Power % '''
-                reducedClimbPowerCoeff = 0.0
-                try:
-                    reducedClimbPowerCoeff = float(getReducedClimbPowerCoeffFromRequest(request))
-                except:
-                    reducedClimbPowerCoeff = 0.0
+        takeOffMassKg = getMassFromRequest(request)
+        cruiseFLfeet = getFlightLevelFromRequest(request)
+        ''' 10th August 2023 - Reduced Climb Power % '''
+        reducedClimbPowerCoeff = 0.0
+        try:
+            reducedClimbPowerCoeff = float(getReducedClimbPowerCoeffFromRequest(request))
+        except:
+            reducedClimbPowerCoeff = 0.0
                     
-                ''' 1st April 2024 - checkbox to fly direct route '''
-                direct = getDirectRouteFromRequest(request)
-                
-                airlineRoute = AirlineRoute.objects.filter(airline = airline, DepartureAirportICAOCode = departureAirportICAOcode, ArrivalAirportICAOCode=arrivalAirportICAOcode).first()
-                if (airlineRoute):
-                    '''  use run-ways defined in the web page '''
-                    routeAsString = airlineRoute.getRouteAsString(AdepRunWayName=departureAirportRunWayName, AdesRunWayName=arrivalAirportRunWayName, direct=direct)
-                    acPerformance = AircraftJsonPerformance(aircraftICAOcode, badaAircraft.getAircraftPerformanceFile())
-                    if ( acPerformance.read() ):
-                        flightPath = FlightPath(
-                                            route = routeAsString, 
-                                            aircraftICAOcode = aircraftICAOcode,
-                                            RequestedFlightLevel = float ( cruiseFLfeet ) / 100., 
-                                            cruiseMach = acPerformance.getMaxOpMachNumber(), 
-                                            takeOffMassKilograms = float(takeOffMassKg)  ,
-                                            reducedClimbPowerCoeff = float(reducedClimbPowerCoeff) )
-                        ret = flightPath.computeFlight(deltaTimeSeconds = 1.0)
-                        if ret:
-                            logger.debug ( "=========== Flight Plan create output files  =========== " )
+        ''' 1st April 2024 - checkbox to fly direct route '''
+        direct = getDirectRouteFromRequest(request)
+        
+        airlineRoute = AirlineRoute.objects.filter(airline = airline, DepartureAirportICAOCode = departureAirportICAOcode, ArrivalAirportICAOCode=arrivalAirportICAOcode).first()
+        if (airlineRoute):
+            '''  use run-ways defined in the web page '''
+            routeAsString = airlineRoute.getRouteAsString(AdepRunWayName=departureAirportRunWayName, AdesRunWayName=arrivalAirportRunWayName, direct=direct)
+            acPerformance = AircraftJsonPerformance(aircraftICAOcode, badaAircraft.getAircraftPerformanceFile())
+            if ( acPerformance.read() ):
+                flightPath = FlightPath(
+                            route = routeAsString, 
+                            aircraftICAOcode = aircraftICAOcode,
+                            RequestedFlightLevel = float ( cruiseFLfeet ) / 100., 
+                            cruiseMach = acPerformance.getMaxOpMachNumber(), 
+                            takeOffMassKilograms = float(takeOffMassKg)  ,
+                            reducedClimbPowerCoeff = float(reducedClimbPowerCoeff) )
+                ret = flightPath.computeFlight(deltaTimeSeconds = 1.0)
+                if ret:
+                    logger.debug ( "=========== Flight Plan create output files  =========== " )
                     
-                            ''' Robert - python2 to python 3 '''
-                            memoryFile = io.StringIO()
+                    ''' Robert - python2 to python 3 '''
+                    memoryFile = io.StringIO()
                                 
-                            ''' create KML byte like file '''
-                            flightPath.createKMLfileLike(memoryFile)
+                    ''' create KML byte like file '''
+                    flightPath.createKMLfileLike(memoryFile)
                         
-                            filename = 'KMLfile-{}.kml'.format( datetime.now().strftime("%d-%B-%Y-%Hh%Mm%S") )
-                            #print filename
+                    filename = 'KMLfile-{}.kml'.format( datetime.now().strftime("%d-%B-%Y-%Hh%Mm%S") )
+                    #print filename
                                 
-                            response = HttpResponse( memoryFile.getvalue() )
-                            response['Content-Type'] = 'text/xml, application/xml; charset=utf-8'
-                            #response['Content-Type'] = 'application/vnd.ms-excel'
-                            response["Content-Transfer-Encoding"] = "binary"
-                            response['Set-Cookie'] = 'fileDownload=true; path=/'
-                            response['Content-Disposition'] = 'attachment; filename={filename}'.format(filename=filename)
-                            response['Content-Length'] = memoryFile.tell()
-                            return response
-                        else:
-                            response_data = {'errors' : 'Trajectory computation failed '}
-                            return JsonResponse(response_data)
-                    else:
-                        response_data = {
-                            'errors' : 'Aircraft Performance read failed = {0}'.format(badaAircraft.getAircraftPerformanceFile())}
-                        return JsonResponse(response_data)   
+                    response = HttpResponse( memoryFile.getvalue() )
+                    response['Content-Type'] = 'text/xml, application/xml; charset=utf-8'
+                    #response['Content-Type'] = 'application/vnd.ms-excel'
+                    response["Content-Transfer-Encoding"] = "binary"
+                    response['Set-Cookie'] = 'fileDownload=true; path=/'
+                    response['Content-Disposition'] = 'attachment; filename={filename}'.format(filename=filename)
+                    response['Content-Length'] = memoryFile.tell()
+                    return response
                 else:
-                    logger.error('airline route not found = {0}'.format(airlineRoute))
-                    response_data = {'errors' : 'Airline route not found = {0}'.format(airlineRoute)}
-                    return JsonResponse(response_data)                                                                   
+                    response_data = {'errors' : 'Trajectory computation failed '}
+                    return JsonResponse(response_data)
             else:
-                logger.debug ('bada aircraft not found = {0}'.format(airlineRoute))
-                response_data = { 'errors' : 'Airline route not found = {0}'.format(airlineRoute)}
+                response_data = {
+                    'errors' : 'Aircraft Performance read failed = {0}'.format(badaAircraft.getAircraftPerformanceFile())}
                 return JsonResponse(response_data)   
+        else:
+            logger.error('airline route not found = {0}'.format(airlineRoute))
+            response_data = {'errors' : 'Airline route not found = {0}'.format(airlineRoute)}
+            return JsonResponse(response_data)                                                                   
+    else:
+        logger.debug ('bada aircraft not found = {0}'.format(airlineRoute))
+        response_data = { 'errors' : 'Airline route not found = {0}'.format(airlineRoute)}
+        return JsonResponse(response_data)   
 
 def createWrapKMLfile( request , airline ):
-    pass
 
     aircraftICAOcode = getAircraftFromRequest(request).lower()
     logging.info( aircraftICAOcode )
@@ -148,7 +148,7 @@ def createWrapKMLfile( request , airline ):
         logging.info ( "Trajectory Compute Wrap - " + routeAsString )
                     
         flightPath = FlightPathOpenap(
-                        route                = routeAsString, 
+                        strRoute             = routeAsString, 
                         aircraftICAOcode     = aircraftICAOcode.lower(),
                         RequestedFlightLevel = float(cruiseFlightLevel), 
                         cruiseMach           = float(targetCruiseMach), 

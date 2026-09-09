@@ -33,7 +33,7 @@ class FuelFlow(object):
 
         """
         
-        print("openap/fuel : ==================== read data fuel synonym.csv file ==============")
+        #print("openap/fuel : ==================== read data fuel synonym.csv file ==============")
         self.fuel_synonym = pd.read_csv(file_synonym)
         
         if not hasattr(self, "np"):
@@ -84,7 +84,7 @@ class FuelFlow(object):
 
         f = dir_fuelmodel + ac + ".yml"
         with open(f, "r") as file:
-            print(" openap/fuel : ============= read fuel file = " + ac + ".yml")
+            #print(" openap/fuel : ============= read fuel file = " + ac + ".yml")
             params = yaml.safe_load(file.read())
         return params
 

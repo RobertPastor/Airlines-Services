@@ -41,8 +41,9 @@ import { SingletonAirlineWayPoints } from "../airlineWayPoints/airlineWayPoints.
 import { SingletonAirlineRoutes } from "../airlineRoutes/airlineRoutes.js";
 
 //import { SingletonAirlineCosts } from "../airlineCosts/airlineCosts.js";
-// flight profile and profile leg costs are merged
+// flight profile and profile leg costs are merged -> available in the following js
 import { SingletonProfileCosts } from "../flightProfile/computeFlightProfile.js";
+
 //import { SingletonAirlineFlightLegCosts } from "../airlineFlightLegCosts/airlineFlightLegCosts.js";
 //import { SingletonAirlineCostsOptimization } from "../airlineCostsOptimization/airlineCostsOptimization.js";
 //import { SingletonAirlineCASM } from "../airlineCASM/airlineCASM.js";
@@ -66,10 +67,10 @@ var worker = undefined;
 
 window.addEventListener('DOMContentLoaded', () => {
 	window.addEventListener("load", ($) => {
-			setTimeout( function() {
-				// call init function after a certain amount of milliseconds
-				init();
-			} , 500 );
+		setTimeout( function() {
+			// call init function after a certain amount of milliseconds
+			init();
+		} , 500 );
 	});
 });
 
@@ -162,7 +163,6 @@ export function stopWorker() {
 }
 
 export function initWorker() {
-	
 	if (typeof (Worker) !== "undefined") {
         //console.log("Yes! Web worker is supported !");
         if (typeof (worker) == "undefined") {
@@ -299,6 +299,10 @@ function initTools(globus, viewExtent) {
 	if	(globus){
 		
 		globus.planet.addControl(new MainControl());
+		// as soon as the main control is built it is possible to see the progress base
+		// be able to see a progress bar
+		initWorker();
+		initProgressBar();
 		
 		globus.planet.addControl(new AirlineRoutesAirwaysSubMenu());
 		//globus.planet.addControl(new AirlineOptimizationsSubMenu());
@@ -512,6 +516,7 @@ function initMain(viewExtent) {
             resourcesSrc: "/static/js/og/res"
 	});
 	initTools (globus, viewExtent);
+	stopBusyAnimation();
 }
 
 function init() {

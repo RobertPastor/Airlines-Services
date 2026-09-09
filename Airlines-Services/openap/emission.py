@@ -7,7 +7,7 @@ from openap.extra import ndarrayconvert
 
 
 class Emission(object):
-    """Emission model based on ICAO emmision databank."""
+    """Emission model based on ICAO emision databank."""
 
     def __init__(self, ac, eng=None, **kwargs):
         """Initialize Emission object.

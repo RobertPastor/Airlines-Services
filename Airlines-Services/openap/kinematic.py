@@ -41,7 +41,7 @@ class WRAP(object):
 
         """
         
-        print(" openap/kinematic : ========================== read data wrap synonym.csv file =================")
+        #print(" openap/kinematic : ========================== read data wrap synonym.csv file =================")
         self.wrap_synonym = pd.read_csv(file_synonym)
 
         super(WRAP, self).__init__()
@@ -64,7 +64,7 @@ class WRAP(object):
             else:
                 raise ValueError(f"Kinematic model for {self.ac} not available.")
 
-        print(" openap/kinematic : ================ read wrap performance file ================= " + self.ac + ".txt")
+        #print(" openap/kinematic : ================ read wrap performance file ================= " + self.ac + ".txt")
         self.df = pd.read_fwf(os.path.join(dir_wrap, self.ac + ".txt"))
 
 

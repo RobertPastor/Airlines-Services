@@ -28,7 +28,7 @@ class Drag(object):
 
         """
         
-        print("openap/drag : ==================== read drap polar synonym file ==============")
+        #print("openap/drag : ==================== read drap polar synonym file ==============")
         self.polar_synonym = pd.read_csv(file_synonym)
 
         if not hasattr(self, "np"):
