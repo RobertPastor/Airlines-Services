@@ -3,6 +3,8 @@ from xml.dom import minidom
 
 import logging
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
 import xmltodict
 
 from django.template import loader
@@ -31,7 +33,6 @@ from trajectory.Environment.Airports.AirportDatabaseFile import AirportsDatabase
 from trajectory.Environment.Runways.RunWaysDatabaseFile import RunWaysDataBase
 from trajectory.Environment.WayPoints.WayPointsDatabaseFile import WayPointsDatabase
 
-
 # Create your views here.
 def indexTrajectory(request):
     # return HttpResponse('Hello from Python!')
@@ -43,7 +44,6 @@ def indexTrajectory(request):
             siteMessages.append(siteMessage)
     '''            
     siteMessages = serializers.serialize('json', siteMessages)
-    
     context = {'siteMessages' : siteMessages}
     return HttpResponse(template.render(context, request))
     
@@ -72,19 +72,27 @@ def getPlaceMarks(XmlDocument):
                 "height": str(coordinates).split(",")[2]
             })
    
-    #logging.info ( "length place marks = {0}".format(len ( placeMarksList )) )
+    #logger.info ( "length place marks = {0}".format(len ( placeMarksList )) )
     return placeMarksList
     
 def launchFlightProfile(request , airlineName , BadaWrap ):
-    print  ("launch Flight Profile - with airline = {0}".format(airlineName))
+    logger.info  ("views Flight Profile - launch Flight Profile - with airline = {0}".format(airlineName))
     if (request.method == 'GET'):
         
-        #print ( "Bada or wrap mode = {0}".format( BadaWrap ))
+        logger.info ( "views Flight Profile - Legacy or WRAP mode = {0}".format( BadaWrap ))
         airline = Airline.objects.filter(Name=airlineName).first()
         if (airline):
-            airlineAircraftsList = getAirlineAircraftsFromDB(airline , BadaWrap)     
+            airlineAircraftsList = getAirlineAircraftsFromDB(airline , BadaWrap) 
             airlineRoutesList    = getAirlineRoutesFromDB(airline)
             airlineRunWaysList   = getAirlineRunWaysFromDB()
+            logger.info( "views Flight Profile - length of aircrafts list = {0}".format( len( airlineAircraftsList ) ) )
+            if not airlineAircraftsList:
+                return JsonResponse({'errors': "aircrafts list is empty for airline with name {0}".format(airlineName)})
+            if not airlineRoutesList:
+                return JsonResponse({'errors': "routes list is empty for airline with name {0}".format(airlineName)})
+            if not airlineRunWaysList:
+                return JsonResponse({'errors': "runways list is empty for airline with name {0}".format(airlineName)})
+
             response_data = {
                 'airlineAircrafts': airlineAircraftsList,
                 'airlineRoutes'   : airlineRoutesList,
@@ -105,9 +113,16 @@ def getAirport(airportICAOcode):
                      "Latitude"        : airport.Latitude         }
     return {}
 
+''' legacy computation with enhanced BADA data available as a Json schema '''
 def computeBadaFlightProfile(request , airlineName ):
         aircraftICAOcode = getAircraftFromRequest(request)
         badaAircraft = BadaSynonymAircraft.objects.all().filter(AircraftICAOcode=aircraftICAOcode).first()
+        
+        if not badaAircraft:
+            logger.debug ("aircraft with ICAO code = {0} not found".format(aircraftICAOcode))
+            response_data = { 'errors' : 'Aircraft with ICAO code {0} not found - please select another aircraft'.format(aircraftICAOcode)}
+            return JsonResponse(response_data)
+        
         if ( badaAircraft and badaAircraft.aircraftJsonPerformanceFileExists()):
             
             airlineRoute = getRouteFromRequest(request)
@@ -133,7 +148,6 @@ def computeBadaFlightProfile(request , airlineName ):
             
             airline = Airline.objects.filter(Name=airlineName).first()
             if (airline):
-
                 airlineRoute = AirlineRoute.objects.filter(airline = airline, DepartureAirportICAOCode = departureAirportICAOcode, ArrivalAirportICAOCode=arrivalAirportICAOcode).first()
                 if (airlineRoute):
                     logger.debug( airlineRoute )
@@ -144,7 +158,6 @@ def computeBadaFlightProfile(request , airlineName ):
                     
                     acPerformance = AircraftJsonPerformance(aircraftICAOcode, badaAircraft.getAircraftPerformanceFile())
                     if acPerformance.read():
-                        
                         flightPath = FlightPath(
                                         route                  = routeAsString, 
                                         aircraftICAOcode       = aircraftICAOcode,
@@ -177,8 +190,7 @@ def computeBadaFlightProfile(request , airlineName ):
                         return JsonResponse(response_data)
                 else:
                     logger.debug ('airline route not found = {0}'.format(airlineRoute))
-                    response_data = {
-                    'errors' : 'Airline route not found = {0}'.format(airlineRoute)}
+                    response_data = { 'errors' : 'Airline route not found = {0}'.format(airlineRoute)}
                     return JsonResponse(response_data)
             else:
                 response_data = {
@@ -191,7 +203,6 @@ def computeBadaFlightProfile(request , airlineName ):
                 'errors' : 'Aircraft performance file {0} not found - please select another aircraft'.format(aircraftICAOcode)}
             return JsonResponse(response_data)
 
-    
 def computeWrapFlightProfile( request , airlineName ):
     aircraftICAOcode = getAircraftFromRequest(request).lower()
     logging.info( aircraftICAOcode )
@@ -239,16 +250,16 @@ def computeWrapFlightProfile( request , airlineName ):
             '''  use run-ways defined in the page '''
             routeAsString = airlineRoute.getRouteAsString(AdepRunWayName = departureAirportRunWayName, 
                                                           AdesRunWayName = arrivalAirportRunWayName, 
-                                                          direct=direct)
+                                                          direct = direct)
 
             ''' try with direct route '''
             logging.info ( "Trajectory Compute Wrap - " + routeAsString )
             flightPath = FlightPathOpenap(
-                        strRoute             = routeAsString, 
-                        aircraftICAOcode     = aircraftICAOcode.lower(),
-                        RequestedFlightLevel = float(cruiseFlightLevel), 
-                        cruiseMach           = float(targetCruiseMach), 
-                        takeOffMassKilograms = float(takeOffMassKg) ,
+                        strRoute               = routeAsString , 
+                        aircraftICAOcode       = aircraftICAOcode.lower() ,
+                        RequestedFlightLevel   = float(cruiseFlightLevel) , 
+                        cruiseMach             = float(targetCruiseMach) , 
+                        takeOffMassKilograms   = float(takeOffMassKg) ,
                         reducedClimbPowerCoeff = 0.0 ,
                         earth                  = earth ,
                         atmosphere             = atmosphere ,
@@ -272,19 +283,23 @@ def computeWrapFlightProfile( request , airlineName ):
                 else:
                     response_data = {'errors' : 'Error while retrieving the KML document'}
                     return JsonResponse(response_data)
-                    
             except Exception as e:
                 logging.error("Trajectory Compute Wrap - Exception = {0}".format( str(e ) ) )
-                
+                response_data = { 'errors' : 'Trajectory Compute Wrap - Exception = {0}'.format( str(e) ) }
+                return JsonResponse(response_data)
+        else:
+            response_data = { 'errors' : 'Airline route not found = {0}'.format(airlineRoute)}
+            return JsonResponse(response_data)
     else:
         response_data = { 'errors' : 'Airline not found = {0}'.format(airlineName)}
         return JsonResponse(response_data)
 
-    
+''' compute flight profile for LEGACY performance model and for WRAP OpenAp performance model '''
 def computeFlightProfile( request, airlineName , BadaWrap ):
-    
+
     logger.setLevel(logging.INFO)
     logging.info ("compute Flight Profile - for airline = {0}".format(airlineName))
+    logging.info ("compute Flight Profile - Legacy - Wrap = {0}".format(BadaWrap))
     
     #routeWayPointsList = []
     if (request.method == 'GET'):
@@ -294,10 +309,9 @@ def computeFlightProfile( request, airlineName , BadaWrap ):
                 return computeBadaFlightProfile(request , airlineName)
             else:
                 return computeWrapFlightProfile(request, airlineName)
-            
         else:
             response_data = { 'errors' : 'Airline not found = {0}'.format(airlineName)}
             return JsonResponse(response_data)
-
     else:
-        return JsonResponse({'errors': "expecting GET method"})
+        response_data = { 'errors': "expecting GET method - received = {0}".format ( ) }
+        return JsonResponse( response_data )

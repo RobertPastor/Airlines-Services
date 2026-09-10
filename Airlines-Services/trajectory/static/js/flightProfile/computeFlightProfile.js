@@ -603,6 +603,9 @@ class AirlineProfileCosts {
 		
 		// listen to the route change selector
 		$( "#airlineRouteId" ).change(function() {
+
+			initProgressBar();
+			initWorker();
 			
 			// get the name of the airline
 			let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
@@ -616,14 +619,22 @@ class AirlineProfileCosts {
 						success: function(data) {
 										
 							let dataJson = eval(data);
-							// airlineRunWays
-							if ( dataJson.hasOwnProperty( "airlineRunWays" ) && dataJson.hasOwnProperty( "airlineRoutes" ) ) {
-								SingletonProfileCosts.getInstance().populateAirlineRunWaysFlightProfileSelector( dataJson["airlineRunWays"] , dataJson["airlineRoutes"] );
-							}
-							// each time the route selector changes, it is needed to update the inputs with the ICAO codes
-							SingletonProfileCosts.getInstance().setAirportsICAOcode();
-							$("#btnLaunchCosts").show();
+
+							if ( dataJson.hasOwnProperty( "errors" ) ) {
+								showMessage("Errors - launch Flight Profile", eval(data) );
+								stopBusyAnimation();
+								document.getElementById("btnLaunchFlightProfile").disabled = false;
+							} else {
 							
+								// airlineRunWays
+								if ( dataJson.hasOwnProperty( "airlineRunWays" ) && 
+									dataJson.hasOwnProperty( "airlineRoutes" ) ) {
+									SingletonProfileCosts.getInstance().populateAirlineRunWaysFlightProfileSelector( dataJson["airlineRunWays"] , dataJson["airlineRoutes"] );
+								}
+								// each time the route selector changes, it is needed to update the inputs with the ICAO codes
+								SingletonProfileCosts.getInstance().setAirportsICAOcode();
+								$("#btnLaunchCosts").show();
+							}
 						},
 						error: function(data, status) {
 							stopBusyAnimation();
@@ -647,8 +658,10 @@ class AirlineProfileCosts {
 		}
 		document.getElementById("btnLaunchFlightProfile").onclick = function () {
 
+			initProgressBar();
+			initWorker();
+
 			if ( ! $('#flightProfileMainDivId').is(":visible") ) {
-				
 				$('#flightProfileMainDivId').show();
 								
 				// get the name of the airline
@@ -667,17 +680,20 @@ class AirlineProfileCosts {
 										
 							//alert("Data: " + data + "\nStatus: " + status);
 							let dataJson = eval(data);
-							// airlineAircrafts
-							if ( dataJson.hasOwnProperty( "airlineAircrafts" ) 
-								&& dataJson.hasOwnProperty( "airlineRoutes" ) 
-								&& dataJson.hasOwnProperty( "airlineRunWays" )) {
-								
-								SingletonProfileCosts.getInstance().populateAircraftFlightProfileSelector( dataJson["airlineAircrafts"] );
-								SingletonProfileCosts.getInstance().populateAirlineRoutesFlightProfileSelector( dataJson["airlineRoutes"] );
-								
-								SingletonProfileCosts.getInstance().populateAirlineRunWaysFlightProfileSelector( dataJson["airlineRunWays"] , dataJson["airlineRoutes"] );
-								
-								$("#launchComputeId").show();
+							if ( dataJson.hasOwnProperty( "errors" ) ) {
+								showMessage("Errors - launch Flight Profile", eval(data) );
+								stopBusyAnimation();
+								document.getElementById("btnLaunchFlightProfile").disabled = false;
+							} else {
+								// airlineAircrafts
+								if ( dataJson.hasOwnProperty( "airlineAircrafts" ) 
+									&& dataJson.hasOwnProperty( "airlineRoutes" ) 
+									&& dataJson.hasOwnProperty( "airlineRunWays" )) {
+									SingletonProfileCosts.getInstance().populateAircraftFlightProfileSelector( dataJson["airlineAircrafts"] );
+									SingletonProfileCosts.getInstance().populateAirlineRoutesFlightProfileSelector( dataJson["airlineRoutes"] );
+									SingletonProfileCosts.getInstance().populateAirlineRunWaysFlightProfileSelector( dataJson["airlineRunWays"] , dataJson["airlineRoutes"] );
+									$("#launchComputeId").show();
+								}
 							}
 						},
 						error: function(data, status) {
@@ -719,7 +735,6 @@ class AirlineProfileCosts {
 							if ( dataJson.hasOwnProperty("errors") ) {
 								stopBusyAnimation();
 								showMessage( "Error" , dataJson["errors"] );
-								
 							} else {
 								//alert("Data: " + data + "\nStatus: " + status);
 								let dataJson = eval(data);
@@ -747,19 +762,22 @@ class AirlineProfileCosts {
 		document.getElementById(BADAcheckboxId).addEventListener('click', function(){
 			
 			//console.log("radio button Bada has been clicked");
-			
-				// get the name of the airline
-				let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
-				
-				// disable all buttons
-				SingletonMainClass.getInstance().enableDisableMainMenuButtons(false);
-				let BadaWrapMode = SingletonFlightProfileControlClass.getInstance().getSelectedBadaWrapMode();
-				
-				initProgressBar();
-				initWorker();
 
-				// use ajax to get the data 
-				$.ajax( {
+			initProgressBar();
+			initWorker();
+			
+			// get the name of the airline
+			let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
+				
+			// disable all buttons
+			SingletonMainClass.getInstance().enableDisableMainMenuButtons(false);
+			let BadaWrapMode = SingletonFlightProfileControlClass.getInstance().getSelectedBadaWrapMode();
+				
+			initProgressBar();
+			initWorker();
+
+			// use ajax to get the data 
+			$.ajax( {
 						method: 'get',
 						url :  "trajectory/launchFlightProfile/" + airlineName + "/" + BadaWrapMode,
 						async : true,
@@ -791,12 +809,14 @@ class AirlineProfileCosts {
 							SingletonMainClass.getInstance().enableDisableMainMenuButtons(true);
 						},
 				});
-			
 		});
 		
-		
 		let WRAPcheckboxId = SingletonFlightProfileControlClass.getInstance().getWRAPCheckBoxId();
+		// listen to the radio button to select WRAP performance
 		document.getElementById(WRAPcheckboxId).addEventListener('click', function(){
+
+			initProgressBar();
+			initWorker();
 			
 			// disable the Reduced climb performance
 			let ReducedClimbPowerInputId  = SingletonFlightProfileControlClass.getInstance().getReducedClimbPowerCoeffInputId();
@@ -810,12 +830,9 @@ class AirlineProfileCosts {
 			// disable all buttons
 			SingletonMainClass.getInstance().enableDisableMainMenuButtons(false);
 			let BadaWrapMode = SingletonFlightProfileControlClass.getInstance().getSelectedBadaWrapMode();
-			
-			initProgressBar();
-			initWorker();
 
-				// use ajax to get the data 
-				$.ajax( {
+			// use ajax to get the data 
+			$.ajax( {
 						method: 'get',
 						url :  "trajectory/launchFlightProfile/" + airlineName + "/" + BadaWrapMode,
 						async : true,

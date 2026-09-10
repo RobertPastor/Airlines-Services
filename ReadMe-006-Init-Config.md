@@ -2555,3 +2555,17 @@ $ python manage.py SidStarDatabaseLoad
 
 ## on the globus, select Airways menu and see the SID STAR appearing in the table of the selected airline routes
 
+## load Legacy synonym aircraft database
+
+$ python manage.py BadaAircraftDatabaseLoad
+BadaAircraftDatabase: file folder= C:\Users\rober\git\Airlines-Services\Airlines-Services\trajectory\management\commands\BadaAircraftDatabase
+BadaAircraftDatabase: file path= C:\Users\rober\git\Airlines-Services\Airlines-Services\trajectory\management\commands\BadaAircraftDatabase\SYNONYM.NEW
+acBD exists
+BadaAircraftDatabase: opening file=  C:\Users\rober\git\Airlines-Services\Airlines-Services\trajectory\management\commands\BadaAircraftDatabase\SYNONYM.NEW
+BadaAircraftDatabase: number of aircrafts in db= 322
+read aircraft database result = True
+(virtualEnv)
+rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
+$
+
+

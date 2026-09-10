@@ -17,7 +17,6 @@ sys.dont_write_bytecode = True
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -81,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'airlinesServices.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -95,7 +93,6 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '5432',    }
 }
-
 
 ''' 26th May 2023 - migration to django 3.2
 Configure the DEFAULT_AUTO_FIELD setting or the AirlineConfig.default_auto_field attribute 
@@ -146,3 +143,23 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Source - https://stackoverflow.com/a/5439502
+# Posted by Chris W., modified by community. See post 'Timeline' for change history
+# Retrieved 2026-09-10, License - CC BY-SA 3.0
+
+
+import os
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "INFO",
+    },
+}

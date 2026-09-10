@@ -4,6 +4,8 @@ Created on 26 déc. 2022
 @author: robert PASTOR
 '''
 import logging
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
 from airlines.models import Airline,  AirlineAircraft, AirlineRoute, AirlineCosts
 
@@ -131,14 +133,13 @@ def computeRouteLengthMiles( AdepICAOcode, AdesICAOcode ):
         return 0.0
 
 def isAirportInAirlineAirports(airline , airlineAirport ):
-    
     assert ( isinstance ( airline , Airline ))
     assert ( isinstance ( airlineAirport , AirlineAirport ))
 
     for airlineRoute in AirlineRoute.objects.filter(airline = airline):
-        if (airlineAirport.getICAOcode() == airlineRoute.getDepartureAirportICAOcode()) or (airlineAirport.getICAOcode() == airlineRoute.getArrivalAirportICAOcode() ):
+        if (airlineAirport.getICAOcode() == airlineRoute.getDepartureAirportICAOcode()) \
+            or (airlineAirport.getICAOcode() == airlineRoute.getArrivalAirportICAOcode() ):
             return True
-        
     return False
 
 def computeListOfDepartureRunWaysWithSID(airlineRoute):
@@ -155,7 +156,6 @@ def computeListOfDepartureRunWaysWithSID(airlineRoute):
                     ''' warning : there might be several runways related to the same airport and the same first waypoint '''
                     SidName = sidStar.getDepartureArrivalAirport().getICAOcode() +"/" + sidStar.getDepartureArrivalRunWay().getName() + "/" + firstRouteWayPoint.getWayPointName()
                     return SidName
-
     return ""
 
 def computeListOfArrivalRunWaysWithSTAR(airlineRoute):
@@ -170,10 +170,10 @@ def computeListOfArrivalRunWaysWithSTAR(airlineRoute):
                     ''' warning : there might be several runways related to the same airport and the same first waypoint '''
                     StarName = sidStar.getDepartureArrivalAirport().getICAOcode() +"/" + sidStar.getDepartureArrivalRunWay().getName() + "/" + lastRouteWayPoint.getWayPointName()
                     return StarName
-    
     return ""
 
 def getAirlineRoutesFromDB(airline):
+    logging.info( "getAirlineRoutesFromDB" )
     airlineRoutesList = []
     for airlineRoute in AirlineRoute.objects.filter(airline = airline).distinct().order_by("DepartureAirportICAOCode"):
         #print ( airlineRoute )
@@ -248,16 +248,18 @@ def getAirportsFromDB(airline):
                         } )
     return airportsList
 
-
 def getAirlineAircraftsFromDB(airline , BadaWrapMode):
-    #print(BadaWrapMode)
+    logger.info ( "utils - getAirlineAircraftsFromDB -> " + BadaWrapMode )
+
     earth = Earth()
     atmosphere = Atmosphere()
     airlineAircraftsList = []
     
     if BadaWrapMode == "BADA":
-        for airlineAircraft in AirlineAircraft.objects.filter(airline=airline):
-            #print (str(airlineAircraft))
+        logger.info ( "utils - getAirlineAircraftsFromDB - size of Airline Aircrafts objects -> " + str( len (AirlineAircraft.objects.filter(airline = airline) ) ) )
+
+        for airlineAircraft in AirlineAircraft.objects.filter(airline = airline):
+            logger.info ( "utils - getAirlineAircraftsFromDB -> " + str (airlineAircraft) )
             acMaxTakeOffWeightKg = 0.0
             acMinTakeOffWeightKg = 0.0
             acMaxOpAltitudeFeet  = 0.0 
@@ -282,6 +284,8 @@ def getAirlineAircraftsFromDB(airline , BadaWrapMode):
                         "acMaxOpAltitudeFeet"        : acMaxOpAltitudeFeet,
                         "acMaxPayLoadKg"             : acMaxPayLoadKg
                         })
+            else:
+                logger.error( " utils - getAirlineAircraftsFromDB -> Legacy Synonym aircraft not found -> " + str( badaAircraft ) )
     else:
         ''' WRAP mode '''
         for airlineAircraft in AirlineAircraft.objects.filter(airline=airline):
@@ -295,6 +299,7 @@ def getAirlineAircraftsFromDB(airline , BadaWrapMode):
                      or str( aircraftICAOcode ).lower() in ['e145','glf6','a124','a306','a310','at72','at75','at76','b733','b735','b762','b77l'] \
                      or str ( aircraftICAOcode ).lower() in ['c25a','c525','c56x','crj2','crj9','e290','glf5','gl5t','gl6t','tj45','md11','pc24','su95','lj45','bx3m'] ):
                     #pass
+                    ''' 10th September 2026 - not possible to compute a trajectory because insufficient performance data '''
                     continue
                 
                 if aircraftICAOcode.upper() == airlineAircraftICAOcode:
