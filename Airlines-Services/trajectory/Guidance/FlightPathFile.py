@@ -47,7 +47,6 @@ from trajectory.Guidance.ClimbRampFile import ClimbRamp
 from trajectory.Guidance.TurnLegFile import TurnLeg
 from trajectory.Guidance.GreatCircleRouteFile import GreatCircleRoute
 from trajectory.Guidance.DescentGlideSlopeFile import DescentGlideSlope
-
 from trajectory.Guidance.ConstraintsFile import ArrivalRunWayTouchDownConstraint, TargetApproachConstraint
 
 from trajectory.BadaAircraftPerformance.BadaAircraftDatabaseFile import BadaAircraftDatabase
@@ -55,10 +54,10 @@ from trajectory.BadaAircraftPerformance.BadaAircraftFile import BadaAircraft
 
 from trajectory.Guidance.WayPointFile import Airport
 
-from trajectory.Environment.Constants import Meter2Feet , GravityMetersPerSquareSeconds , Meter2NauticalMiles #= 0.000539956803 # One Meter = 0.0005 nautical miles
+from trajectory.Environment.Constants import Meter2Feet , GravityMetersPerSquareSeconds 
+from trajectory.Environment.Constants import Meter2NauticalMiles #= 0.000539956803 # One Meter = 0.0005 nautical miles
 from trajectory.Environment.Constants import Kilogram2Pounds # = 2.20462262 # 1 kilogram = 2.204 lbs
 from trajectory.Environment.Constants import MinFlightLevel, MaxFlightLevel , DescentGlideSlopeThreeDegrees, DescentGlideSlopeDistanceNauticalMiles
-
 
 class FlightPath(FlightPlan):
     
@@ -69,11 +68,15 @@ class FlightPath(FlightPlan):
     
     def __init__(self, 
                  route, 
-                 aircraftICAOcode = 'A320', 
-                 RequestedFlightLevel = 330.0, 
-                 cruiseMach = 0.8, 
-                 takeOffMassKilograms = 62000.0,
-                 reducedClimbPowerCoeff = 0.0):
+                 aircraftICAOcode       = 'A320', 
+                 RequestedFlightLevel   = 330.0, 
+                 cruiseMach             = 0.8, 
+                 takeOffMassKilograms   = 62000.0,
+                 reducedClimbPowerCoeff = 0.0 ,
+                 airportsDatabase       = None ,
+                 runwaysDatabase        = None ,
+                 waypointsDatabase      = None ,
+                 directRoute            = False):
         
         ''' The root logger always defaults to WARNING level. '''
         logging.getLogger().setLevel(logging.INFO)
@@ -82,10 +85,10 @@ class FlightPath(FlightPlan):
         self.abortedFlight = False
         
         ''' initialize mother class '''
-        FlightPlan.__init__(self, route)
-        
+        FlightPlan.__init__(self, route, airportsDatabase, runwaysDatabase , waypointsDatabase , directRoute )
+
         ''' first bad and incomplete flight length '''
-        ''' missing last turn and glide slope '''
+        ''' missing last turn and descent glide slope '''
         self.flightLengthMeters = self.computeLengthMeters() 
         
         self.aircraftICAOcode = aircraftICAOcode

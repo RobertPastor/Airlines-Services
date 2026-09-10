@@ -498,7 +498,8 @@ function initMain(viewExtent) {
     // a HTMLDivElement whose id is `globusDivId`
     //"resourcesSrc": "/static/js/og/res"
     // Warning : no osm layer in local mode still referer issue not solved with FireFox
-	var globus = new Globe({
+	// type -> Coordinates shown: 0 - is decimal degrees, 1 - degrees, 2 - mercator geodetic coordinates
+	var globe = new Globe({
             target: "globusDivId", 
             name: "Earth",
             terrain: new GlobusRgbTerrain(),
@@ -508,14 +509,14 @@ function initMain(viewExtent) {
             controls: [
 				//new control.MouseNavigation({ autoActivate: true }),
                 new control.KeyboardNavigation({ autoActivate: true }),
-                new control.EarthCoordinates({ autoActivate: true, center: false , type: 1}),
-                //new control.ZoomControl({ autoActivate: true }),
+                new control.EarthCoordinates({ centerMode : false , altitudeUnit : 'm' , heightMode : 'ell' , type: 1 }),
+                new control.ScaleControl({ autoActivate: true }),
                 new control.CompassButton()
                 ],
             fontsSrc: "/static/js/og/res/fonts",
             resourcesSrc: "/static/js/og/res"
 	});
-	initTools (globus, viewExtent);
+	initTools (globe, viewExtent);
 	stopBusyAnimation();
 }
 

@@ -33,6 +33,10 @@ from trajectory.GuidanceOpenap.FlightPathOpenapFile import FlightPathOpenap
 from trajectory.Guidance.FlightPathFile import FlightPath
 from trajectory.Openap.AircraftMainFile import OpenapAircraft
 
+from trajectory.Environment.Airports.AirportDatabaseFile import AirportsDatabase
+from trajectory.Environment.Runways.RunWaysDatabaseFile import RunWaysDataBase
+from trajectory.Environment.WayPoints.WayPointsDatabaseFile import WayPointsDatabase
+
 def createBadaKMLfile( request, airline ):
     aircraftICAOcode = getAircraftFromRequest(request)
     badaAircraft = BadaSynonymAircraft.objects.all().filter(AircraftICAOcode=aircraftICAOcode).first()
@@ -60,20 +64,34 @@ def createBadaKMLfile( request, airline ):
         
         airlineRoute = AirlineRoute.objects.filter(airline = airline, DepartureAirportICAOCode = departureAirportICAOcode, ArrivalAirportICAOCode=arrivalAirportICAOcode).first()
         if (airlineRoute):
+
+            airportsDatabase = AirportsDatabase()
+            assert airportsDatabase.readAsDict()
+
+            runwaysDatabase = RunWaysDataBase()
+            assert runwaysDatabase.read()
+
+            waypointsDatabase = WayPointsDatabase()
+            assert waypointsDatabase.read()
+
             '''  use run-ways defined in the web page '''
             routeAsString = airlineRoute.getRouteAsString(AdepRunWayName=departureAirportRunWayName, AdesRunWayName=arrivalAirportRunWayName, direct=direct)
             acPerformance = AircraftJsonPerformance(aircraftICAOcode, badaAircraft.getAircraftPerformanceFile())
             if ( acPerformance.read() ):
                 flightPath = FlightPath(
-                            route = routeAsString, 
-                            aircraftICAOcode = aircraftICAOcode,
-                            RequestedFlightLevel = float ( cruiseFLfeet ) / 100., 
-                            cruiseMach = acPerformance.getMaxOpMachNumber(), 
-                            takeOffMassKilograms = float(takeOffMassKg)  ,
-                            reducedClimbPowerCoeff = float(reducedClimbPowerCoeff) )
+                            route                  = routeAsString, 
+                            aircraftICAOcode       = aircraftICAOcode,
+                            RequestedFlightLevel   = float ( cruiseFLfeet ) / 100., 
+                            cruiseMach             = acPerformance.getMaxOpMachNumber(), 
+                            takeOffMassKilograms   = float(takeOffMassKg)  ,
+                            reducedClimbPowerCoeff = float(reducedClimbPowerCoeff) ,
+                            airportsDatabase       = airportsDatabase ,
+                            runwaysDatabase        = runwaysDatabase ,
+                            waypointsDatabase      = waypointsDatabase ,
+                            directRoute            = direct )
                 ret = flightPath.computeFlight(deltaTimeSeconds = 1.0)
                 if ret:
-                    logger.debug ( "=========== Flight Plan create output files  =========== " )
+                    logger.info ( "=========== Flight Plan create output files  =========== " )
                     
                     ''' Robert - python2 to python 3 '''
                     memoryFile = io.StringIO()

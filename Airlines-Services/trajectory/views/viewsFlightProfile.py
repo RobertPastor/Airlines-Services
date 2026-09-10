@@ -158,13 +158,27 @@ def computeBadaFlightProfile(request , airlineName ):
                     
                     acPerformance = AircraftJsonPerformance(aircraftICAOcode, badaAircraft.getAircraftPerformanceFile())
                     if acPerformance.read():
+
+                        airportsDatabase = AirportsDatabase()
+                        assert airportsDatabase.readAsDict()
+                        
+                        runwaysDatabase = RunWaysDataBase()
+                        assert runwaysDatabase.read()
+
+                        waypointsDataBase = WayPointsDatabase()
+                        assert waypointsDataBase.read()
+                        
                         flightPath = FlightPath(
                                         route                  = routeAsString, 
                                         aircraftICAOcode       = aircraftICAOcode,
                                         RequestedFlightLevel   = float ( cruiseFLfeet ) / 100., 
                                         cruiseMach             = acPerformance.getMaxOpMachNumber(), 
                                         takeOffMassKilograms   = float(takeOffMassKg) ,
-                                        reducedClimbPowerCoeff = float(reducedClimbPowerCoeff) )
+                                        reducedClimbPowerCoeff = float(reducedClimbPowerCoeff) ,
+                                        airportsDatabase       = airportsDatabase , 
+                                        runwaysDatabase        = runwaysDatabase  ,
+                                        waypointsDataBase      = waypointsDataBase ,
+                                        directRoute            = False )
                         
                         flightPath.computeFlight(deltaTimeSeconds = 1.0)
                         

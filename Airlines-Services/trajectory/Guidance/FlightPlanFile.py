@@ -39,6 +39,7 @@ purpose : build a fix list from a route expressed as a sequence of names
 
 import math
 import logging
+logger = logging.getLogger(__name__)
 
 from trajectory.Environment.WayPoints.WayPointsDatabaseFile import WayPointsDatabase
 from trajectory.Environment.Airports.AirportDatabaseFile import AirportsDatabase
@@ -64,7 +65,7 @@ class FlightPlan(FixList):
     arrivalAirport = None
     
     def __init__(self, strRoute , airportsDatabase , runwaysDatabase , waypointsDatabase, directRoute):
-        logging.info("----- Flight Plan init ------")
+        logger.info("----- Flight Plan init ------")
         
         assert isinstance ( strRoute, str )
         assert isinstance ( directRoute, bool  )
