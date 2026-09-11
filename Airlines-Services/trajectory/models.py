@@ -87,6 +87,7 @@ class AirlineWayPoint(models.Model):
         return self.WayPointName
     
 ''' an airport is not related to an airline '''
+''' airports are shared between all airlines '''
 class AirlineAirport(models.Model):
     AirportICAOcode = models.CharField(max_length = 100, primary_key = True)
     AirportName = models.CharField(max_length = 100, unique = True)

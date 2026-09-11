@@ -22,7 +22,6 @@ class SidStarFinder(object):
 
     # Initializer / Instance attributes
     def __init__(self):
-        pass
 
         self.className = self.__class__.__name__
         self.FileNamePrefixList = ["SID","STAR"]
@@ -44,6 +43,9 @@ class SidStarFinder(object):
     def getFilesFolder(self):
         return self.FilesFolder
 
+    def isSID(self):
+        pass
+
     # loop through the files in the folder
     def findSidStarExcelFiles(self):
         logger.info(" --------findSidStarExcelFiles-------- ")
@@ -51,30 +53,51 @@ class SidStarFinder(object):
             full_path = os.path.join(self.getFilesFolder(), file)
             if ( os.path.isfile(full_path) and \
                 ( file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) ) ):
+                logger.info ( self.className + str(file) )
+
+    def getAirports(self):
+        logger.info(" --------getAirports-------- ")
+        for file in os.listdir( self.getFilesFolder() ):
+            airportStr = ""
+            full_path = os.path.join(self.getFilesFolder(), file)
+            if ( os.path.isfile(full_path) and \
+                ( file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) ) ):
                 logger.info ( file )
+                if file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) :
+                    result = file.split(".")[0]
+                    airportStr = result.split(self.fileNameSeparator)[1]
+                    yield airportStr
+
 
     def checkAirports(self):
         logger.info(" --------checkAirports-------- ")
         ''' pattern is SID or STAR '''
         ''' if SID the a DASH separator followed by an ICAO airport code '''
         for file in os.listdir( self.getFilesFolder() ):
-            #logger.info( file )
             full_path = os.path.join(self.getFilesFolder(), file)
             if ( os.path.isfile(full_path) and \
                 ( file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) ) ):
                 logger.info ( file )
                 if file.startswith( self.FilesPrefixSID ):
+                    logger.info(  self.className + " - file = {0}".format( file ) + " -> is a SID ")
                     result = file.split(".")
                     logger.info(result[0])
                     result = result[0].split(self.fileNameSeparator)
-                    logger.info(result) # Output: ['apple', 'banana', 'cherry']
+                    logger.info(result) 
+
                     # airport is second element in array
                     logger.info("departure airport = {0}".format( result[1]) )
+                    Adep =  result[1]
                     
                 if file.startswith( self.FilesPrefixSTAR ):
+                    logger.info(  self.className + " - file = {0}".format( file ) + " -> is a STAR ")
+
                     result = file.split(".")
                     logger.info(result[0])
                     result = result[0].split(self.fileNameSeparator)
-                    logger.info(result) # Output: ['apple', 'banana', 'cherry']
+                    logger.info(result) 
+
                     # airport is second element in array
                     logger.info("arrival airport = {0}".format( result[1]) )
+                    # destination airport
+                    Ades =  result[1]
