@@ -61,13 +61,13 @@ class SidStarFinder(object):
             airportStr = ""
             full_path = os.path.join(self.getFilesFolder(), file)
             if ( os.path.isfile(full_path) and \
-                ( file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) ) ):
-                logger.info ( file )
+                ( file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) ) and \
+                    ( file.endswith (".xlsx") ) ):
+                logger.info(" -------- {0} -------- ".format(file))
                 if file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) :
                     result = file.split(".")[0]
                     airportStr = result.split(self.fileNameSeparator)[1]
                     yield airportStr
-
 
     def checkAirports(self):
         logger.info(" --------checkAirports-------- ")
@@ -76,7 +76,8 @@ class SidStarFinder(object):
         for file in os.listdir( self.getFilesFolder() ):
             full_path = os.path.join(self.getFilesFolder(), file)
             if ( os.path.isfile(full_path) and \
-                ( file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) ) ):
+                ( file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) ) and \
+                     ( file.endswith (".xlsx") ) ):
                 logger.info ( file )
                 if file.startswith( self.FilesPrefixSID ):
                     logger.info(  self.className + " - file = {0}".format( file ) + " -> is a SID ")

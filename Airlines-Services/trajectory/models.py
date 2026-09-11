@@ -106,7 +106,7 @@ class AirlineAirport(models.Model):
         return super().__hash__()
     
     def __str__(self):
-        return "{0}-{1}".format(self.AirportICAOcode, self.AirportName)
+        return "{0} - {1} - {2}".format("trajectory - models - AirlineAirport - " , self.AirportICAOcode , self.AirportName)
     
     def getAirportName(self):
         return self.AirportName
