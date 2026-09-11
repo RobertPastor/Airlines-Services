@@ -101,11 +101,9 @@ class AirlineRoutesDataBaseXlsx(object):
                     
                 else:
                     return False
-                
             return True
         else:
             return False
-                
                 
     def dump(self):
         for route in self.RoutesAirports:
@@ -122,14 +120,12 @@ class AirlineRoutesDataBaseXlsx(object):
             airlineRoute["Ades"] = route[HeaderNames[4]]
             yield airlineRoute
             
-            
     def getRoutes(self):
         for route in self.RoutesAirports:
             airlineRoute = AirlineRoute(route[HeaderNames[1]], route[HeaderNames[3]])
             airlineRoute.setRoute(route)
             #logging.info (route)
             yield airlineRoute
-    
     
     def getFlightLegList(self):
         flightLegList = []
@@ -139,15 +135,12 @@ class AirlineRoutesDataBaseXlsx(object):
             flightLegList.append( Adep + "-" + Ades)
         return flightLegList
     
-    
     def getDepartureAirportsICAOcode(self):
         for route in self.RoutesAirports:
             airportICAOcode = route[HeaderNames[1]]
             yield airportICAOcode
              
-             
     def getDepartureAirportsICAOcodeList(self):
-        
         departureAirportICAOcodeList = []
         for route in self.RoutesAirports:
             airportICAOcode = route[HeaderNames[1]]

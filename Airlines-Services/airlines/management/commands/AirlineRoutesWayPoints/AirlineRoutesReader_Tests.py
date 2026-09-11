@@ -6,7 +6,7 @@ Created on 10 sept. 2022
 
 
 from airlines.management.commands.AirlineRoutesWayPoints.AirlineRoutesReaderFile import AirlineRoutesReader
-from airlines.management.commands.AirlineRoutesWayPoints.AirlineRoutesWayPointsReader import AirlineRoutesWayPointsDatabase
+from airlines.management.commands.AirlineRoutesWayPoints.AirlineRoutesWayPointsReaderNew import AirlineRoutesWayPointsDatabase
 
 
 def test_create_routes():

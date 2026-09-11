@@ -67,7 +67,5 @@ class Test_Main(unittest.TestCase):
 if __name__ == '__main__':
     
     logging.basicConfig(level=logging.INFO)
-    
     print("pandas version = " + pd. __version__)
-    
     unittest.main()
