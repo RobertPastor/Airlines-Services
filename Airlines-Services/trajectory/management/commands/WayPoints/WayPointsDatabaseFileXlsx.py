@@ -13,6 +13,9 @@ from trajectory.views.utils import convertDegreeMinuteSecondToDecimal
 
 fieldNames = ['WayPoint', 'Country' , 'Type', 'Latitude', 'Longitude' , 'Name']
 
+
+''' move content of waypoints xlsx to django database'''
+
 class WayPointsDatabaseXlsx(object):
     WayPointsDict = {}
     ColumnNames = []
@@ -77,6 +80,7 @@ class WayPointsDatabaseXlsx(object):
                         Continent = 'Europe'
                     if (wayPointDict['Latitude'] >= 5. and wayPointDict['Longitude'] >= 50. and wayPointDict['Longitude'] < 90.):
                         Continent = 'India'
+                    ''' store in the Django database '''
                     wayPoint = AirlineWayPoint(WayPointName = wayPointDict['WayPoint'],
                                             Type = 'WayPoint',
                                             Continent = Continent,
@@ -84,11 +88,9 @@ class WayPointsDatabaseXlsx(object):
                                             Longitude = wayPointDict['Longitude'])
                     print ( str ( wayPoint ))
                     wayPoint.save()
-                
                 else:
                     print ("duplicates found in Way Points database - way Point= {0}".format(WayPointName))
                     return False
-            
             return True
         else:
             return False

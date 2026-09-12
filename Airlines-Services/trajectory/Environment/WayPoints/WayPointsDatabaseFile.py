@@ -110,7 +110,6 @@ class WayPointsDatabase(object):
                         wayPointDict["Longitude"] = convertDegreeMinuteSecondToDecimal(strLongitude)
     
                     self.WayPointsDict[WayPointName] = wayPointDict
-                    
                     ''' create a way point '''    
                 else:
                     print ("duplicates found in Way Points database - way Point= {0}".format(WayPointName))

@@ -12,7 +12,7 @@ export class DialogControl extends Control {
 		
 		let dialogDiv = document.createElement('div');
 		dialogDiv.id = "dialogId";
-		dialogDiv.style="display: none;";
+		dialogDiv.style = "display: none;";
 		
 		this.renderer.div.appendChild(dialogDiv);
       }

@@ -4,13 +4,15 @@ Created on 4 juin 2023
 @author: robert
 '''
 
+import logging
+logger = logging.getLogger(__name__)
+
 import os
 import pandas as pd
 from trajectory.models import AirlineAirport, AirlineStandardDepartureArrivalRoute, AirlineRunWay, AirlineWayPoint, AirlineSidStarWayPointsRoute
 from trajectory.views.utils import convertDegreeMinuteSecondToDecimal
 
 class SidStarLoaderOne():
-    pass
 
     def __init__(self , isSID , departureOrArrivalAirportICAO  , FirstLastWayPointName , RunWayStr):
         
@@ -44,7 +46,7 @@ class SidStarLoaderOne():
         self.sheetName = "WayPoints"
         
     def exists( self ):
-        print ( self.fileName )
+        logger.info ( self.fileName )
         self.filePath = os.path.join( self.FilesFolder , self.fileName)
         print ( self.filePath )
         return os.path.exists(self.filePath)
@@ -86,61 +88,60 @@ class SidStarLoaderOne():
                                         )
                         sidStarDbObj.save()
                         print ("SID STAR Db loader - getOrCreateSidStarDBObject - SID STAR object created correctly")
-
         return sidStarDbObj
     
     def load( self ):
-        
+        # if SID STAR already existing in the Django database then update otherwise create
         sidStarDbObj = self.getOrCreateSidStarDBObject()
         assert ( isinstance( sidStarDbObj , AirlineStandardDepartureArrivalRoute ) )
         
         ''' delete previous waypoints related to the same SID STAR route  '''
         AirlineSidStarWayPointsRoute.objects.filter ( Route = sidStarDbObj ).delete()
-        
         if self.exists():
-            print ( "file exists = {0}".format( self.filePath ))
+            logger.info ( "SID STAR is existing = {0}".format( self.filePath ))
+            # read the EXCEL file containing the SID STAR configuration informations
             df_source = pd.DataFrame(pd.read_excel(self.filePath, sheet_name=self.sheetName , engine="openpyxl"))
             for index, row in df_source.iterrows():
                 
-                print('Index is: {}'.format(index))
-                print ("order is {0}".format(row["order"]))
-                print ("wayPoint name is {0}".format(row["waypoint"]))
+                logger.info('Index is: {}'.format(index))
+                logger.info ("order is {0}".format(row["order"]))
+                logger.info ("wayPoint name is {0}".format(row["waypoint"]))
                 
                 latitudeDegrees = 0.0
                 longitudeDegrees = 0.0
                 ''' search for the airport '''
                 if  ( str(row["waypoint"]).startswith( self.airport.getICAOcode() ) ):
-                    print ( ''' first or last entry is airport ICAO code / runway name ''' )
+                    logger.info ( ''' first or last entry is airport ICAO code / runway name ''' )
                     if ( str ( row["waypoint"] ).index( "/" ) > 0):
                         ''' there is a SLASH as expected '''
                         runwayName = str(row["waypoint"]).split("/")[1]
-                        print ( runwayName )
+                        logger.info ( runwayName )
                         latitudeDegrees = self.runway.getLatitudeDegrees()
                         longitudeDegrees= self.runway.getLongitudeDegrees()
                     else:
                         raise ValueError ( "Expecting a SLASH in airport name = {0} but not found ".format( str ( row["waypoint"] ) ) )
                 else:
-                    print ("latitude is {0}".format(row["latitude"]))
+                    logger.info ("latitude is {0}".format(row["latitude"]))
                     strLatitude = str( row["latitude"] ).strip()
                     if ('°' in strLatitude ):
                         strLatitude = str(strLatitude).replace('°','-')
                         strLatitude = str(strLatitude).strip().replace("'", '-').replace(' ','').replace('"','')
                         latitudeDegrees = convertDegreeMinuteSecondToDecimal ( strLatitude )
-                        print ( latitudeDegrees )
+                        logger.info ( latitudeDegrees )
                     else:
                         raise ValueError ( "Expecting a ° degree symbol in latitude = {0} but not found ".format( str( row["latitude"] ) ) )
                             
-                    print ("longitude is {0}".format(row["longitude"]))
+                    logger.info ("longitude is {0}".format(row["longitude"]))
                     strLongitude = str( row["longitude"] ).strip()
                     if ('°' in strLongitude):
                         strLongitude = str(strLongitude).replace('°','-')
                         strLongitude = str(strLongitude).strip().replace("'", '-').replace(' ','').replace('"','')
                         longitudeDegrees = convertDegreeMinuteSecondToDecimal ( strLongitude )
-                        print ( longitudeDegrees )
+                        logger.info ( longitudeDegrees )
                     else:
                         raise ValueError ( "Expecting a ° degree symbol in longitude = {0} but not found ".format( str( row["longitude"] ) ) )
                 
-                print ("----------- {0} -----------".format(row["order"]))
+                logger.info ("----------- {0} -----------".format(row["order"]))
                 ''' 10th August 2023 - DASH is a separator in the fixlist -> need to replace it with UNDERSCORE '''
                 waypointWithoutDash = str(row["waypoint"]).strip().replace("-", "_")
                 sidStarWayPoint = AirlineSidStarWayPointsRoute ( 
@@ -159,10 +160,9 @@ class SidStarLoaderOne():
                                                        Latitude = latitudeDegrees,
                                                        Longitude = longitudeDegrees )
                     airlineWayPoint.save()
-                
             return df_source
                 
         else:
-            print ( "file does not exist = {0}".format( self.filePath ))
+            logger.info ( "file does not exist = {0}".format( self.filePath ))
             return None
             

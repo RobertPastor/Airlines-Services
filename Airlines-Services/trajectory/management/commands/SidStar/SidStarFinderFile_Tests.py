@@ -32,7 +32,13 @@ class Test_Main(unittest.TestCase):
     def test_main_three(self):
         sidStarFinder = SidStarFinder()
         sidStarFinder.check()
-        sidStarFinder.checkAirports()        
+        sidStarFinder.checkAirports() 
+
+    def test_main_four(self):
+        sidStarFinder = SidStarFinder()
+        sidStarFinder.check()
+        sidStarFinder.checkAirports() 
+        sidStarFinder.loadSidStarWayPointsInDatabase()
 
 
 if __name__ == '__main__':

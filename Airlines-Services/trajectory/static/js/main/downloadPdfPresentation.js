@@ -5,7 +5,6 @@ window.addEventListener('load', (event) => {
        
 	//console.log("Download Pdf Presentation is loaded");
 	stopBusyAnimation();
-	
 }); 
 
 
@@ -34,10 +33,8 @@ export function initDownloadPdfPresentation() {
 			link.href = window.URL.createObjectURL(blob);
 			link.download = fileName;
 			link.click();
-			
 		 };
 		 req.onerror = function () {
-			 
 			stopBusyAnimation();
 			console.log("Error in Download Pdf Presentation");
 		 }

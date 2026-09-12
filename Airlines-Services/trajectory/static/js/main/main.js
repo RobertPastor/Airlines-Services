@@ -249,7 +249,6 @@ function switchAirlines(globus) {
 		if ( airlines && Array.isArray( airlines ) && ( airlines.length > 0 ) ) {
 
 			airlines.forEach ( function ( airline ) {
-				
 				if (airlineName == airline["Name"] ) {
 					
 					// airline data made available through template index-og.html
@@ -265,6 +264,8 @@ function switchAirlines(globus) {
 					globus.planet.viewExtent(viewExtent);
 				}
 			});
+			// need to refresh the route in the Profile dialog when this one is opened
+			$(flightProfileMainDivId).hide();
 		}
     });
 }
@@ -427,10 +428,6 @@ function initTools(globus, viewExtent) {
 		// now finish by loading the different airlines
 		loadAirlinesSelector();
 		
-		// prepare to switch from one airline to the other
-		// listen to drop down list (containing airlines names) changes
-		switchAirlines(globus);
-		
 		// 29th September 2023 - 
 		let metarsOgControl = new MetarsOgControl();
 		globus.planet.addControl( metarsOgControl );
@@ -472,6 +469,10 @@ function initTools(globus, viewExtent) {
 		
 		let airlineAirportsRoutesTable = document.getElementById(airlineAirportsRoutesControl.getMainTableId());
 		airlineAirportsRoutesTable.classList.add('sortable');
+
+		// prepare to switch from one airline to the other
+		// listen to drop down list (containing airlines names) changes
+		switchAirlines(globus);
 	}
 }
 

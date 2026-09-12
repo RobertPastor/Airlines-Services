@@ -28,10 +28,8 @@ class WayPointsDatabase(object):
         self.ColumnNames = ["WayPoint", "Country", "Type", "Latitude", "Longitude" , "Name"]
         self.sheetName = "WayPoints"
         
-
     def getColumnNames(self):
         return self.ColumnNames
-
 
     def appendToDataFrame(self, df_source, wayPointName, Latitude, Longitude):
         ''' latitude and longitude are string here '''
@@ -52,7 +50,6 @@ class WayPointsDatabase(object):
         
         return df_source.concat(df)
         
-
     def insertWayPoint(self, wayPointName, Latitude, Longitude):
         
         assert isinstance(wayPointName, (str)) and len(wayPointName)>0
@@ -75,7 +72,6 @@ class WayPointsDatabase(object):
                 df = df_source.append(df)
                 
         df.to_excel(excel_writer=self.FilePath, sheet_name="WayPoints", index = False, columns=self.ColumnNames, engine="openpyxl")
-        
 
     def exists(self):
         return os.path.exists(self.FilePath) and os.path.isfile(self.FilePath)

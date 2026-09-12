@@ -22,7 +22,6 @@ class AirlineOneRouteReaderXlsx(object):
         print ( self.className + ': file folder= {0}'.format(self.FilesFolder) )
         self.sheetName = "WayPoints"
         
-        
     def read(self, departureAirportICAO , arrivalAirportICAO ):
         
         self.fileName = self.FileNamePrefix + "-" + departureAirportICAO + "-" + arrivalAirportICAO + ".xlsx"

@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 
 import pandas as pd
 from trajectory.management.commands.SidStar.SidStarFinderFile import SidStarFinder
+from trajectory.management.commands.SidStar.SidStarDatabaseLoader import SidStarLoaderOne
 
 from django.core.management.base import BaseCommand
 from trajectory.management.commands.SidStar.SidStarDatabaseLoader import SidStarLoaderOne
@@ -46,3 +47,6 @@ class Command(BaseCommand):
 
             airport = AirlineAirport.objects.filter(AirportICAOcode = airportCode).first()
             logger.info( airport )
+
+        sidStarFinder.loadSidStarInDatabase()
+        sidStarFinder.writeSidStarWayPoints()

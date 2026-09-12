@@ -43,7 +43,6 @@ export class AirlineRoutesAirwaysSubMenu extends Control {
 		
 		// start hiding this table
 		$("#mainSubMenuAirwaysDivId").hide();
-		
 	}
 }
 
