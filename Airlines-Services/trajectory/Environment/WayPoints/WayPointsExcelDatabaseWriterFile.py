@@ -25,7 +25,7 @@ class WayPointsExcelDatabaseWriter(object):
     def __init__(self):
         self.className = self.__class__.__name__
         
-        logging.info(self.className + ": ----- WayPoints Excel Database Writer init -----")
+        logging.info(self.className + " ----- WayPoints Excel Database Writer init -----")
         
         self.FileName = 'WayPoints.xlsx'  
         self.FilesFolder = os.path.dirname(__file__)
@@ -43,26 +43,27 @@ class WayPointsExcelDatabaseWriter(object):
 
     def writeInExcelWayPointsFile(self , sidStarDataframe ):
         assert len(self.FilePath)  >0
-        if not sidStarDataframe:
+        if len (sidStarDataframe ) == 0:
             ''' expecting a pandas dataframe with the content of the SID STAR excel file hence with the waypoints '''
             raise ValueError ( "sidStarDatame = {0} is None ".format( sidStarDataframe ))
 
-        if self.exists() and sidStarDataframe:
+        if self.exists() and ( len ( sidStarDataframe ) > 0 ) :
             ''' get dataframe of the WayPoints.xlsx file '''
             df_WayPointsXlsxDataframe = pd.DataFrame(pd.read_excel(self.FilePath, sheet_name=self.sheetName , engine="openpyxl"))
-            
+
+            logger.info( "=================== iterate through WayPoints xlsx dataframe rows ====================")
+
             for wayPointIndex, wayPointRow in df_WayPointsXlsxDataframe.iterrows():
                 logging.info('Index is: {}'.format(wayPointIndex))
                 logging.info('ID is: {} - WayPoint is: {} - Latitude = {} - Longitude = {}'.format(wayPointIndex, wayPointRow['WayPoint'], \
-                                            wayPointRow['Latitude'], wayPointRow['Longitude']))
+                        wayPointRow['Latitude'], wayPointRow['Longitude']))
                 
                 wayPointName = str(wayPointRow['WayPoint']).strip().upper()
                 logger.info( self.className + " - " + wayPointName)
 
-                for sidStarIndex , sidStarRow in sidStarDataframe:
+                logger.info( "--------------- iterate through SID STAR dataframe rows -------------------")
+                for sidStarIndex , sidStarRow in sidStarDataframe.iterrows():
                     logging.info('SidStar Index is: {}'.format(sidStarIndex))
-                    logging.info('ID is: {} - WayPoint is: {} - Latitude = {} - Longitude = {}'.format(sidStarIndex, sidStarRow['WayPoint'], \
-                                                                sidStarRow['Latitude'], sidStarRow['Longitude']))
-
-
+                    logging.info('ID is: {} - WayPoint is: {} - Latitude = {} - Longitude = {}'.format(sidStarIndex, sidStarRow['waypoint'], \
+                                    sidStarRow['latitude'], sidStarRow['longitude']))
 

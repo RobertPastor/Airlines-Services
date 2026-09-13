@@ -1,6 +1,8 @@
 '''
 Created on 4 juin 2023
 
+manages one SID STAR xlsx file
+
 @author: robert
 '''
 
@@ -12,7 +14,7 @@ import pandas as pd
 from trajectory.models import AirlineAirport, AirlineStandardDepartureArrivalRoute, AirlineRunWay, AirlineWayPoint, AirlineSidStarWayPointsRoute
 from trajectory.views.utils import convertDegreeMinuteSecondToDecimal
 
-class SidStarLoaderOne():
+class SidStarLoaderOne(object):
 
     def __init__(self , isSID , departureOrArrivalAirportICAO  , FirstLastWayPointName , RunWayStr):
         
@@ -42,7 +44,7 @@ class SidStarLoaderOne():
         #self.FilesFolder = os.getcwd()
         self.FilesFolder = os.path.dirname(__file__)
 
-        print ( self.className + ': file folder= {0}'.format(self.FilesFolder) )
+        print ( self.className + ' - file folder = {0}'.format(self.FilesFolder) )
         self.sheetName = "WayPoints"
         
     def exists( self ):
@@ -89,6 +91,14 @@ class SidStarLoaderOne():
                         sidStarDbObj.save()
                         print ("SID STAR Db loader - getOrCreateSidStarDBObject - SID STAR object created correctly")
         return sidStarDbObj
+
+    def getSidStarDataframe(self):
+        if self.exists():
+            logger.info ( "file exists = {0}".format( self.filePath ))
+            df_source = pd.DataFrame(pd.read_excel(self.filePath, sheet_name=self.sheetName , engine="openpyxl"))
+            return df_source
+        else:
+            return None
     
     def load( self ):
         # if SID STAR already existing in the Django database then update otherwise create
@@ -161,7 +171,6 @@ class SidStarLoaderOne():
                                                        Longitude = longitudeDegrees )
                     airlineWayPoint.save()
             return df_source
-                
         else:
             logger.info ( "file does not exist = {0}".format( self.filePath ))
             return None

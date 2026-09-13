@@ -11,7 +11,7 @@ class dedicated to find SID STAR EXCEL xlsx files
 import os
 import logging
 logger = logging.getLogger(__name__)
-from trajectory.management.commands.SidStar.SidStarDatabaseLoader import SidStarLoaderOne
+from trajectory.management.commands.SidStar.SidStarDatabaseLoaderFile import SidStarLoaderOne
 from trajectory.Environment.WayPoints.WayPointsExcelDatabaseWriterFile import WayPointsExcelDatabaseWriter
 
 class SidStarFinder(object):
@@ -56,6 +56,7 @@ class SidStarFinder(object):
                 ( file.startswith( self.FilesPrefixSID ) or file.startswith( self.FilesPrefixSTAR ) ) and \
                       ( file.endswith (".xlsx")  ) ):
                 logger.info ( self.className + str(file) )
+                yield full_path
 
     def getAirports(self):
         logger.info(" --------getAirports-------- ")
@@ -110,26 +111,30 @@ class SidStarFinder(object):
         result = result[0]
         arr = result.split(self.fileNameSeparator)
         airportICAOcode = arr[1]
-        logger.info ( airportICAOcode )
+        logger.info ( self.className + " - extract Airport ICAO code - " + airportICAOcode )
         return airportICAOcode
 
     def extractFirtLastWayPointName ( self , fileName ):
+        firstLastWayPointName = ""
         result = fileName.split(".")
         result = result[0]
         arr = result.split(self.fileNameSeparator)
         if fileName.startswith( self.FilesPrefixSID ):
-            return arr[3]
+            firstLastWayPointName = arr[3]
         if fileName.startswith( self.FilesPrefixSTAR ):
-            return arr[2]
+            firstLastWayPointName = arr[2]
+        return firstLastWayPointName
 
     def extractSidStarRunway ( self , fileName ):
+        firstLastWayPointName = ""
         result = fileName.split(".")
         result = result[0]
         arr = result.split(self.fileNameSeparator)
         if fileName.startswith( self.FilesPrefixSID ):
-            return arr[2]
+            firstLastWayPointName = arr[2]
         if fileName.startswith( self.FilesPrefixSTAR ):
-            return arr[3]
+            firstLastWayPointName = arr[3]
+        return firstLastWayPointName
 
     def loadSidStarInDatabase(self):
         logger.info(" --------load SID STAR model object only (SID STAR waypoints done separately)-------- ")
@@ -140,30 +145,34 @@ class SidStarFinder(object):
             if ( os.path.isfile(full_path) and \
                 ( fileName.startswith( self.FilesPrefixSID ) or fileName.startswith( self.FilesPrefixSTAR ) ) and \
                 ( fileName.endswith (".xlsx") ) ):
-                logger.info ( self.className + " - " + fileName )
+                #logger.info ( self.className + " - " + fileName )
+
                 if fileName.startswith( self.FilesPrefixSID ):
                     airportICAOcode = self.extractAirportICAOcode( fileName )
                     firstLastWayPointName = self.extractFirtLastWayPointName( fileName )
                     runwayStr = self.extractSidStarRunway( fileName )
-                    loaderOne = SidStarLoaderOne( isSID = True , 
+                    sidStar = SidStarLoaderOne( isSID = True , 
                                                 departureOrArrivalAirportICAO = airportICAOcode , 
                                                 FirstLastWayPointName = firstLastWayPointName , 
                                                 RunWayStr = runwayStr )
-                    if (loaderOne.exists()):
-                        ret = loaderOne.load()
+                    if (sidStar.exists()):
+                        ret = sidStar.load()
+                        sidStarDataWayPointDataframe = sidStar.getSidStarDataframe()
                         logger.info ("SID STAR loading result = {0}".format(ret))
 
                 if fileName.startswith( self.FilesPrefixSTAR ):
                     airportICAOcode = self.extractAirportICAOcode( fileName )
                     firstLastWayPointName = self.extractFirtLastWayPointName( fileName )
                     runwayStr = self.extractSidStarRunway( fileName )
-                    loaderOne = SidStarLoaderOne( isSID = False , 
-                                                        departureOrArrivalAirportICAO = airportICAOcode , 
-                                                        FirstLastWayPointName = firstLastWayPointName , 
-                                                        RunWayStr = runwayStr )
-                    if (loaderOne.exists()):
-                        ret = loaderOne.load()
+                    sidStar = SidStarLoaderOne( isSID = False , 
+                                departureOrArrivalAirportICAO = airportICAOcode , 
+                                FirstLastWayPointName = firstLastWayPointName , 
+                                RunWayStr = runwayStr )
+                    if (sidStar.exists()):
+                        ret = sidStar.load()
+                        sidStarDataWayPointDataframe = sidStar.getSidStarDataframe()
                         logger.info ("SID STAR loading result = {0}".format(ret))
+
 
     def writeSidStarWayPoints(self):
         ''' write the SID STAR way points inside the WayPoints.xlsx file '''
@@ -171,36 +180,44 @@ class SidStarFinder(object):
         wayPointsExcelDatabase = WayPointsExcelDatabaseWriter()
         if wayPointsExcelDatabase.exists():
             ''' if we arrive here , it means that there is an EXCEL WayPoints.xlsx file to load the SID STAR waypoints in '''
-            logging.info(self.className + ": path exists = {0}".format(os.path.exists(self.FilesFolder)))
+            logging.info(self.className + " --- path exists = {0}".format(os.path.exists(self.FilesFolder)))
 
             for fileName in os.listdir( self.getFilesFolder() ):
                 full_path = os.path.join(self.getFilesFolder(), fileName)
+
+                logger.info ( "-------- {0} --------".format(fileName))
                 if ( os.path.isfile(full_path) and \
                     ( fileName.startswith( self.FilesPrefixSID ) or fileName.startswith( self.FilesPrefixSTAR ) ) and \
                         ( fileName.endswith (".xlsx") ) ):
-                            logger.info ( self.className + " - " + fileName )
+                    logger.info ( self.className + " - " + fileName )
 
-                            if fileName.startswith( self.FilesPrefixSID ):
-                                airportICAOcode = self.extractAirportICAOcode( fileName )
-                                firstLastWayPointName = self.extractFirtLastWayPointName( fileName )
-                                runwayStr = self.extractSidStarRunway( fileName )
-                                loaderOne = SidStarLoaderOne( isSID = True , 
+                    if fileName.startswith( self.FilesPrefixSID ):
+                        airportICAOcode = self.extractAirportICAOcode( fileName )
+                        firstLastWayPointName = self.extractFirtLastWayPointName( fileName )
+                        runwayStr = self.extractSidStarRunway( fileName )
+                        sidStar = SidStarLoaderOne( isSID = True , 
                                     departureOrArrivalAirportICAO = airportICAOcode , 
                                     FirstLastWayPointName = firstLastWayPointName , 
                                     RunWayStr = runwayStr )
-                                if (loaderOne.exists()):
-                                    sidStarDataWayPointframe = loaderOne.getSidStarDataframe()
-                                    wayPointsExcelDatabase.writeInExcelWayPointsFile( sidStarDataWayPointframe )
+                        logger.info( str ( sidStar ) )
+                        logger.info(sidStar.__class__.__name__) # Output: SidStarLoaderOne
 
-                            if fileName.startswith( self.FilesPrefixSTAR ):
-                                airportICAOcode = self.extractAirportICAOcode( fileName )
-                                firstLastWayPointName = self.extractFirtLastWayPointName( fileName )
-                                runwayStr = self.extractSidStarRunway( fileName )
-                                loaderOne = SidStarLoaderOne( isSID = False , 
+                        if (sidStar.exists()):
+                            sidStarWayPointDataframe = sidStar.getSidStarDataframe()
+                            wayPointsExcelDatabase.writeInExcelWayPointsFile( sidStarWayPointDataframe )
+
+                    if fileName.startswith( self.FilesPrefixSTAR ):
+                        airportICAOcode = self.extractAirportICAOcode( fileName )
+                        firstLastWayPointName = self.extractFirtLastWayPointName( fileName )
+                        runwayStr = self.extractSidStarRunway( fileName )
+                        sidStar = SidStarLoaderOne( isSID = False , 
                                     departureOrArrivalAirportICAO = airportICAOcode , 
                                     FirstLastWayPointName = firstLastWayPointName , 
                                     RunWayStr = runwayStr )
-                                if (loaderOne.exists()):
-                                    sidStarDataWayPointframe = loaderOne.getSidStarDataframe()
-                                    wayPointsExcelDatabase.writeInExcelWayPointsFile( sidStarDataWayPointframe )
+                        logger.info( str ( sidStar ) )
+                        logger.info(sidStar.__class__.__name__) # Output: SidStarLoaderOne
+
+                        if (sidStar.exists()):
+                            sidStarWayPointDataframe = sidStar.getSidStarDataframe()
+                            wayPointsExcelDatabase.writeInExcelWayPointsFile( sidStarWayPointDataframe )
 
