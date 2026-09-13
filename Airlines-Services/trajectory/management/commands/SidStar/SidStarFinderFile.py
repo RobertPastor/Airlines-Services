@@ -12,7 +12,7 @@ import os
 import logging
 logger = logging.getLogger(__name__)
 from trajectory.management.commands.SidStar.SidStarDatabaseLoaderFile import SidStarLoaderOne
-from trajectory.Environment.WayPoints.WayPointsExcelDatabaseWriterFile import WayPointsExcelDatabaseWriter
+from trajectory.Environment.WayPoints.WayPointsDatabaseFile import WayPointsDatabase
 
 class SidStarFinder(object):
 
@@ -176,8 +176,9 @@ class SidStarFinder(object):
 
     def writeSidStarWayPoints(self):
         ''' write the SID STAR way points inside the WayPoints.xlsx file '''
+        ''' effective writing is done in wayPointsExcelDatabase.writeInExcelWayPointsFile '''
         # TODO  temporary fix - normally fix list should take its input from the AirlineWayPoints django table
-        wayPointsExcelDatabase = WayPointsExcelDatabaseWriter()
+        wayPointsExcelDatabase = WayPointsDatabase()
         if wayPointsExcelDatabase.exists():
             ''' if we arrive here , it means that there is an EXCEL WayPoints.xlsx file to load the SID STAR waypoints in '''
             logging.info(self.className + " --- path exists = {0}".format(os.path.exists(self.FilesFolder)))
@@ -189,35 +190,24 @@ class SidStarFinder(object):
                 if ( os.path.isfile(full_path) and \
                     ( fileName.startswith( self.FilesPrefixSID ) or fileName.startswith( self.FilesPrefixSTAR ) ) and \
                         ( fileName.endswith (".xlsx") ) ):
+                    ''' if we arrive here it means that in the current folder only SID STAR xlsx are filtered '''
                     logger.info ( self.className + " - " + fileName )
 
-                    if fileName.startswith( self.FilesPrefixSID ):
+                    if fileName.startswith( self.FilesPrefixSID ) or fileName.startswith( self.FilesPrefixSTAR ) :
                         airportICAOcode = self.extractAirportICAOcode( fileName )
                         firstLastWayPointName = self.extractFirtLastWayPointName( fileName )
                         runwayStr = self.extractSidStarRunway( fileName )
-                        sidStar = SidStarLoaderOne( isSID = True , 
+                        ''' either a SID or a STAR - isSID is of type boolean '''
+                        isSID = fileName.startswith( self.FilesPrefixSID )
+                        sidStar = SidStarLoaderOne( isSID = isSID , 
                                     departureOrArrivalAirportICAO = airportICAOcode , 
                                     FirstLastWayPointName = firstLastWayPointName , 
                                     RunWayStr = runwayStr )
                         logger.info( str ( sidStar ) )
-                        logger.info(sidStar.__class__.__name__) # Output: SidStarLoaderOne
+                        logger.info(sidStar.__class__.__name__)
 
                         if (sidStar.exists()):
                             sidStarWayPointDataframe = sidStar.getSidStarDataframe()
-                            wayPointsExcelDatabase.writeInExcelWayPointsFile( sidStarWayPointDataframe )
+                            wayPointsExcelDatabase.writeInXlsxFileSidStarWayPoints( sidStarWayPointDataframe )
 
-                    if fileName.startswith( self.FilesPrefixSTAR ):
-                        airportICAOcode = self.extractAirportICAOcode( fileName )
-                        firstLastWayPointName = self.extractFirtLastWayPointName( fileName )
-                        runwayStr = self.extractSidStarRunway( fileName )
-                        sidStar = SidStarLoaderOne( isSID = False , 
-                                    departureOrArrivalAirportICAO = airportICAOcode , 
-                                    FirstLastWayPointName = firstLastWayPointName , 
-                                    RunWayStr = runwayStr )
-                        logger.info( str ( sidStar ) )
-                        logger.info(sidStar.__class__.__name__) # Output: SidStarLoaderOne
-
-                        if (sidStar.exists()):
-                            sidStarWayPointDataframe = sidStar.getSidStarDataframe()
-                            wayPointsExcelDatabase.writeInExcelWayPointsFile( sidStarWayPointDataframe )
 

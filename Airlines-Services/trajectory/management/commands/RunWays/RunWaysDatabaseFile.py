@@ -198,7 +198,6 @@ class RunWaysDatabase(object):
                     runwaysDict.update(self.getInternalRunWays(rowValues))
         return runwaysDict
         
-        
     def read(self, airlineRoutesAirportsList):
         
         print (self.FilePath)
@@ -249,10 +248,8 @@ class RunWaysDatabase(object):
                 
         return True
     
-    
     def __str__(self):
         print ( self.className + ':RunWay DataBase= {0}'.format(self.FilePath) )
-        
         
     def getFilteredRunWays(self, airportICAOcode, runwayName = ''):
         assert not(airportICAOcode is None) 
@@ -270,7 +267,6 @@ class RunWaysDatabase(object):
         else:
             ''' return arbitrary chosen first run-way '''
             return runwaysDict.get(list (runwaysDict)[0])
-        
         
     def __getitem__(self, key):
         if key in self.runWaysDb.keys():
