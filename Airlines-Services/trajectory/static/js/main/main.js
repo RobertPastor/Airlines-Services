@@ -238,8 +238,10 @@ function switchAirlines(globus) {
 		// hide all div created for the other airlines
 		hideAllDiv(globus);
 		stopBusyAnimation();
-		// hide displayed SidStar
-		let sidStar = SingletonSidStar.getInstance();
+
+		// hide displayed all SidStar layers
+		let sidStarInstance = SingletonSidStar.getInstance();
+		sidStarInstance.removeAllSidStarLayers();
 
 		// selector in the main menu bar
 		let airlineName = SingletonMainClass.getInstance().getSelectedAirline();

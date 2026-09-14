@@ -20,12 +20,40 @@ export const SingletonSidStar = (function () {
     };
 })();
 
+/**
+ * 14th September 2026
+ * remove all SID STAR loayers
+ * This function is called each time the airline is changed
+ */
+export function removeAllSidStarLayers() {
+
+	let sidStarInstance = SingletonSidStar.getInstance();
+	let globus = sidStarInstance.getGlobus();
+	let layers = globus.planet.layers();
+	for (const layer of layers) {
+		console.log(layer.name);
+	}
+}
+
 export class SidStar {
 	
 	constructor() {
 		//console.log("SID STAR constructor");
 		// store polylines
 		this.polyLineObjects = {};
+	}
+
+	/**
+		 * 14th September 2026
+		 * remove all SID STAR loayers
+		 * This function is called each time the airline is changed
+	 */
+	removeAllSidStarLayers() {
+		let globus = this.getGlobus();
+		let layers = globus.planet.layers;
+		for (const layer of layers) {
+			console.log(layer.name);
+		}
 	}
 	
 	getButtonId() {
@@ -37,7 +65,6 @@ export class SidStar {
 	}
 	
 	hideLayer ( sidStarPattern ) {
-		
 		if ( sidStarPattern == undefined ) {
 			return;
 		}
@@ -113,7 +140,6 @@ export class SidStar {
 		
 		// store multiple polylines
 		this.polyLineObjects[sidStarPattern] = polyLine;
-		
 	}
 	
 	hideShowSidStar( sidStarPattern , sidStarRoutesWaypointsArray ) {
