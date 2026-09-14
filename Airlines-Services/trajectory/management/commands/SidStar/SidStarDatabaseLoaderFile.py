@@ -116,7 +116,11 @@ class SidStarLoaderOne(object):
                 logger.info('Index is: {}'.format(index))
                 logger.info ("order is {0}".format(row["order"]))
                 logger.info ("wayPoint name is {0}".format(row["waypoint"]))
-                
+                if "-" in row["waypoint"]:
+                    logger.error( self.className + str ( sidStarDbObj ) )
+                    logger.error( self.className + ' DASH separator is used as main separator in a fix list hence DASH is not allowed in SID STAR waypoint name -> {0}'.format( str ( row["waypoint"] ) ) )
+                    raise ValueError ( "DASH separator is not allowed in SID STAR waypoint name = {0} ".format( str ( row["waypoint"] ) ) )
+
                 latitudeDegrees = 0.0
                 longitudeDegrees = 0.0
                 ''' search for the airport '''

@@ -1,5 +1,7 @@
 https://opennav.com/waypoint/US/NAANC
 
+## warning - WayPoints name in SID STAR must not use DASH separator
+## this is because the DASH separator is the normal separator used in the FIX LIST
 
 $ python manage.py SidStarDatabaseLoad
  openap/prop : ==================== read data/aircraft/_synonym.csv =====================

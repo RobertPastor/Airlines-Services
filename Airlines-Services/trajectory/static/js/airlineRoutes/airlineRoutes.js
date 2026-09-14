@@ -41,7 +41,11 @@ export function showHideSidStarRoute( elem ) {
 				console.error( JSON.stringify(err));
 			}
 		} else {
-			SingletonSidStar.getInstance().hideLayer(layerName);
+			try {
+				SingletonSidStar.getInstance().hideLayer(layerName);
+			} catch {
+				// do nothing
+			}
 		}
 	} else {
 		// load a Sid Star route
@@ -231,7 +235,6 @@ class AirlineRoutes {
 	}
 	
 	configureRoutesWayPointsButton( oneAirlineRoute ) {
-		
 		let globus = this.globus;
 		
 		let elemTdAdepRwy = document.getElementById('tdAdepRwyId');
@@ -343,7 +346,6 @@ class AirlineRoutes {
 				.append ( " <input type='button' id='buttonRouteId' style='width:100%; height:100%;' value='Show'  /> " )
 			)
 		);
-		
 		SingletonAirlineRoutes.getInstance().configureRoutesWayPointsButton( oneAirlineRoute );
 		SingletonAirlineRoutes.getInstance().configureSidStarLink( oneAirlineRoute );
 	}
@@ -361,7 +363,6 @@ class AirlineRoutes {
 	}
 
 	removeOneAirlineRoute ( oneAirlineRoute ) {
-	
 		let globus = this.globus;
 		let Adep = oneAirlineRoute["DepartureAirportICAOCode"];
 		let Ades = oneAirlineRoute["ArrivalAirportICAOCode"];
@@ -385,7 +386,6 @@ class AirlineRoutes {
 	}
 
 	hideAirlineRoutesDiv() {
-	
 		if ( $('#airlineRoutesDivId').is(":visible") ) {
 			$("#airlineRoutesDivId").hide();
 		}
@@ -395,20 +395,16 @@ class AirlineRoutes {
 	
 		this.globus = globus;
 		$("#airlineRoutesDivId").hide();
-
 		if ( ! document.getElementById("btnAirlineRoutes") ) {
 			return;
 		}
 		// listen to button
 		document.getElementById("btnAirlineRoutes").onclick = function () {
-			
 			if ( ! $('#airlineRoutesDivId').is(":visible") ) {
-								
+				// show the div
 				$("#airlineRoutesDivId").show();
-				
 				// disable the button 
 				SingletonMainClass.getInstance().enableDisableMainMenuButtons(false);
-				
 				/**
 				 * @todo - encapsulate in the MainSingleton class
 				 * get the name of the airline

@@ -107,6 +107,11 @@ class WayPointsDatabase(object):
         df_result.to_excel(self.FilePath, sheet_name= self.sheetName , index=False)
         logger.info( self.className + " ---> WayPoins=ts file {0} has been upgraded ".format( self.FilePath ) )
 
+        ''' need to read again the written dataframe to set it as the base for the next writing '''
+        ''' get dataframe of the WayPoints.xlsx file '''
+        self.df_WayPointsXlsxDataframe = pd.DataFrame(pd.read_excel(self.FilePath, sheet_name=self.sheetName , engine="openpyxl"))
+
+
     ''' one SID STAR pandas dataframe corresponds to the content of one SID - STAR xlsx file '''
     ''' Purpose : complement the WayPoints.xlsx file with the missing waypoints from the SID STAR xlsx files '''
     def writeInXlsxFileSidStarWayPoints(self , sidStarDataframe ):
