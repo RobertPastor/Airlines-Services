@@ -22,8 +22,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         logging.basicConfig(level=logging.INFO)
-        logging.basicConfig(level=logging.INFO)
-
         logger.info ( "--- manage SID STAR new generation ---")
 
         logging.basicConfig(level=logging.INFO)

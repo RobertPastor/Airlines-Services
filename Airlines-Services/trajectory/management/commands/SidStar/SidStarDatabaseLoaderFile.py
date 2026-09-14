@@ -31,7 +31,7 @@ class SidStarLoaderOne(object):
         
         assert ( isinstance( RunWayStr, str) and (len(RunWayStr)>0))
         self.RunWayStr = RunWayStr
-        
+        ''' both expected PreFixes to the file names '''
         self.SIDFileNamePrefix = "SID"
         self.STARFileNamePrefix = "STAR"
         

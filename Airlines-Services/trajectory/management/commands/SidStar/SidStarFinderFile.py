@@ -173,7 +173,6 @@ class SidStarFinder(object):
                         sidStarDataWayPointDataframe = sidStar.getSidStarDataframe()
                         logger.info ("SID STAR loading result = {0}".format(ret))
 
-
     def writeSidStarWayPoints(self):
         ''' write the SID STAR way points inside the WayPoints.xlsx file '''
         ''' effective writing is done in wayPointsExcelDatabase.writeInExcelWayPointsFile '''
@@ -209,5 +208,3 @@ class SidStarFinder(object):
                         if (sidStar.exists()):
                             sidStarWayPointDataframe = sidStar.getSidStarDataframe()
                             wayPointsExcelDatabase.writeInXlsxFileSidStarWayPoints( sidStarWayPointDataframe )
-
-
