@@ -16,26 +16,22 @@ export class PolyLine {
 	}
 	
 	removeLayer () {
-		
 		let globus = this.globus;
 		let layerName = this.getLayerName();
 		/**
 		 * @todo defined in main.js
 		 */
 		removeLayer(globus, layerName);
-		
 	}
 	
 	init( globus, wayPointsArr ) {
 		
 		this.globus = globus;
-		
 		this.paths = [];
         this.colors = [];
         this.animIndex = [];
 		
 		if ( Array.isArray(wayPointsArr)) {
-		
 			for ( let wayPointId  = 0; wayPointId < wayPointsArr.length; wayPointId++ ) {
 			
 				let srcWayPoint = wayPointsArr[wayPointId]["src"];
@@ -51,7 +47,6 @@ export class PolyLine {
 					
 					this.paths.push(path.path);
 	        		this.colors.push(path.colors);
-	            
 	        		this.animIndex.push(math.randomi(0, POINTS_NUMBER));
 				}
 			}
@@ -71,9 +66,7 @@ export class PolyLine {
                     }
         });
         let layerName = this.getLayerName();
-        let collection = new Vector(layerName, {
-	            	'entities': []
-	    });
+        let collection = new Vector(layerName, {'entities': [] });
 	    collection.add( entity );
 	    collection.addTo( globus.planet );
 	    // show some animation along the line between each SID or STAR waypoint
@@ -109,36 +102,36 @@ export class PolyLine {
 		 
          let num = POINTS_NUMBER;
 		// getInitialBearing no more in Ellipsoid for og 0.25.0
-         let brng = Ellipsoid.getBearing(start, end);
-         let dist = ell.getGreatCircleDistance(start, end);
+        let brng = Ellipsoid.getBearing(start, end);
+        let dist = ell.getGreatCircleDistance(start, end);
 
          let p25 = ell.getGreatCircleDestination(start, brng, dist * 0.25);
          let p75 = ell.getGreatCircleDestination(start, brng, dist * 0.75);
 
-         start.height = 50;
-         end.height = 50;
+        start.height = 50;
+        end.height = 50;
          
-         let h = dist / 4;
-         p25.height = h;
-         p75.height = h;
+        let h = dist / 4;
+        p25.height = h;
+        p75.height = h;
 
-         let startCart = ell.lonLatToCartesian(start),
-                endCart = ell.lonLatToCartesian(end),
-                p25Cart = ell.lonLatToCartesian(p25),
-                p75Cart = ell.lonLatToCartesian(p75);
+        let startCart = ell.lonLatToCartesian(start);
+        let endCart = ell.lonLatToCartesian(end);
+        let p25Cart = ell.lonLatToCartesian(p25);
+        let p75Cart = ell.lonLatToCartesian(p75);
 
-         let path = [];
-         let colors = [];
+        let path = [];
+        let colors = [];
          
-         let color = [math.random(0, 2), Math.random(0, 2), Math.random(0, 2)];
-         for (let i = 0; i <= num; i++) {
-             let cn = math.bezier3v(i / num, startCart, p25Cart, p75Cart, endCart);
-             path.push(cn);
-             colors.push([color[0], color[1], color[2], 0.1]);
-         }
-         return {
-                path: path,
-                colors: colors
-         };
+        let color = [math.random(0, 2), Math.random(0, 2), Math.random(0, 2)];
+        for (let i = 0; i <= num; i++) {
+            let cn = math.bezier3v(i / num, startCart, p25Cart, p75Cart, endCart);
+            path.push(cn);
+            colors.push([color[0], color[1], color[2], 0.1]);
+        }
+        return {
+            path: path,
+            colors: colors
+        };
      }
 }

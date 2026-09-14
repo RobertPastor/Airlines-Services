@@ -115,8 +115,9 @@ export function removeLayer( globus , layerName )  {
 			let layerTwo = globus.planet.getLayerByName( layerName );
 			if (layerTwo) {
 				//console.log("layerTwo is probably existing ...");
-				layerTwo._entityCollectionsTree.entityCollection.clear();
-				console.log("entity collections cleared !!!");
+				let entities = layerTwo.getEntities();
+				layerTwo.removeEntities(entities);
+				console.log("entity removed !!!");
 				resolve(true);
 			}
 		} catch (err) {
@@ -234,33 +235,29 @@ export function hideAllDiv(globus) {
 function switchAirlines(globus) {
 	
 	$( "#airlineSelectId" ).change(function() {
-		
 		// hide all div created for the other airlines
 		hideAllDiv(globus);
 		stopBusyAnimation();
-		
+		// hide displayed SidStar
+		let sidStar = SingletonSidStar.getInstance();
+
 		// selector in the main menu bar
 		let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
-		
 		/**
 		 * airlines data is made available through template index-og.html
 		 * @TODO : compute viewport based upon Lat Long of airline airports airports
 		 * */ 
 		if ( airlines && Array.isArray( airlines ) && ( airlines.length > 0 ) ) {
-
 			airlines.forEach ( function ( airline ) {
 				if (airlineName == airline["Name"] ) {
-					
 					// airline data made available through template index-og.html
 					let MinLongitude = airline["MinLongitudeDegrees"];
 					let MinLatitude  = airline["MinLatitudeDegrees"];
 					let MaxLongitude = airline["MaxLongitudeDegrees"];
 					let MaxLatitude  = airline["MaxLatitudeDegrees"];
-
 					let SouthWest = new LonLat( parseFloat(MinLongitude) , parseFloat(MinLatitude) , parseFloat("0.0") );
 					let NorthEast = new LonLat( parseFloat(MaxLongitude) , parseFloat(MaxLatitude) , parseFloat("0.0") );
 					let viewExtent = new Extent( SouthWest , NorthEast );
-
 					globus.planet.viewExtent(viewExtent);
 				}
 			});
@@ -521,14 +518,12 @@ function initMain(viewExtent) {
 	stopBusyAnimation();
 }
 
+// main entry after all css and js are loaded
 function init() {
-	
 	// Warning : the airlines object is loaded in the trajectory / templates / index-og.html
-		  
 	//let airlineList = JSON.parse('{{ airlines|escapejs }}');
 	if ( airlines && Array.isArray( airlines ) && ( airlines.length > 0 ) ) {
 		// make european Wings as the default
-		// in the airline loader , now European wings is the first one
 		let airline = airlines[0];
 		let MinLongitude = airline["MinLongitudeDegrees"];
 		let MaxLongitude = airline["MaxLongitudeDegrees"];

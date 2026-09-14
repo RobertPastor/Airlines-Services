@@ -2,10 +2,9 @@
 import { initProgressBar , initWorker , removeLayer , stopBusyAnimation } from "../main/main.js";
 import { SingletonMainClass } from "../main/mainSingletonClass.js";
 import { Entity , Vector } from "../og/og.es.js";
-import { PolyLine  } from "./polyline.js";
+import { PolyLine } from "./polyline.js";
 
 export const SingletonSidStar = (function () {
-	
 	let instance;
     function createInstance() {
         let object = new SidStar();
@@ -20,7 +19,6 @@ export const SingletonSidStar = (function () {
         }
     };
 })();
-
 
 export class SidStar {
 	
@@ -44,7 +42,6 @@ export class SidStar {
 			return;
 		}
 		// sidStar Pattern -> SID-KLAX/24R/SLI
-		
 		let globus = this.globus;
 		let layerName =  sidStarPattern.replaceAll("/", "-");
 		//console.log( "layer name with underscores only = " + layerName );
@@ -66,7 +63,6 @@ export class SidStar {
 	}
 	
 	loadSidStarOneRouteWayPoint( layerSidStarGlobusLayer , wayPoint) {
-		
 		let name = "";
 		if (wayPoint.hasOwnProperty("name")) {
 			name = wayPoint["name"];
@@ -99,9 +95,7 @@ export class SidStar {
 	}
 	
 	drawPolyline( sidStarPattern , sidStarRoutesWaypointsArray ) {
-	
 		let globus = this.globus;
-		
 		let wayPointsArr = [];
 		for (let wayPointId = 0; wayPointId < sidStarRoutesWaypointsArray.length; wayPointId++ ) {
 			
@@ -148,13 +142,10 @@ export class SidStar {
 				// insert one waypoint
 				SingletonSidStar.getInstance().loadSidStarOneRouteWayPoint( sidStarGlobusLayer, sidStarRoutesWaypointsArray[wayPointId] );
 			}
-			
 			// draw polyline between waypoints
 			SingletonSidStar.getInstance().drawPolyline( sidStarPattern , sidStarRoutesWaypointsArray );
-			
 			// set the viewport
 			SingletonMainClass.getInstance().setExtent( sidStarRoutesWaypointsArray );
-			
 		} else {
 			SingletonSidStar.getInstance().hideLayer(sidStarPattern);
 		}
@@ -162,9 +153,8 @@ export class SidStar {
 	
 	queryServer( sidStarPattern ) {
 		
-		// SidStar Pattern -> Sid-KLAX/24R/SIL
-		// SidStar Pattern -> Star-KATL/26L/MEM
-
+		// SidStar Pattern -> SID-KLAX/24R/SIL
+		// SidStar Pattern -> STAR-KATL/26L/MEM
 		this.sidStarPattern = sidStarPattern.replaceAll("/","-");;
 		
 		let globus = this.globus;
@@ -182,10 +172,8 @@ export class SidStar {
 				polyLine.removeLayer();
 			}
 		} 
-			
 		sidStarPattern = sidStarPattern.replaceAll("-","/");
 		//console.log(" SID Star with SLASH only = " + sidStarPattern);
-			
 		// init progress bar.
 		initProgressBar();
 		initWorker();
@@ -195,45 +183,41 @@ export class SidStar {
 		* @warning SID STAR pattern to send to the back end needs to be using SLASH separator
 		*/
 		$.ajax( {
-					method: 'get',
-					url :  "trajectory/sidStar/" + sidStarPattern,
-					async : true,
-					success: function(data) {
-						
-						stopBusyAnimation();
-
-						let dataJson = eval(data);
-						if ( dataJson.hasOwnProperty( "SidStar" )) {
-							let sidStarJson = dataJson["SidStar"];
-							if ( sidStarJson.hasOwnProperty( "SidStarWayPoints" ) && sidStarJson.hasOwnProperty( "DepartureArrivalRunWay" ) ) {
+			method: 'get',
+			url :  "trajectory/sidStar/" + sidStarPattern,
+			async : true,
+			success: function(data) {
+				stopBusyAnimation();
+				let dataJson = eval(data);
+				if ( dataJson.hasOwnProperty( "SidStar" )) {
+					let sidStarJson = dataJson["SidStar"];
+					if ( sidStarJson.hasOwnProperty( "SidStarWayPoints" ) && sidStarJson.hasOwnProperty( "DepartureArrivalRunWay" ) ) {
 								
-								let sidStarRoutesWaypointsArray = sidStarJson["SidStarWayPoints"];
-								//let runWayJson = sidStarJson["DepartureArrivalRunWay"]
-								SingletonSidStar.getInstance().hideShowSidStar( sidStarPattern, sidStarRoutesWaypointsArray );
-							} else {
-								console.error("Error - show SID STAR : Property SidStarWayPoints is missing - Please contact your admin");
-							}
-						} else {
-							console.error("Error - show SID STAR : Property SidStar is missing  - Please contact your admin");
-						}
-					},
-					error: function(data, status) {
-						stopBusyAnimation();
-						console.error("Error - show SID STAR : " + status + " Please contact your admin");
-						showMessage ( "Error - show SID STAR" , data );
-					},
-					complete : function() {
-						stopBusyAnimation();
-						//document.getElementById(SingletonSidStar.getInstance().getButtonId()).disabled = false
+						let sidStarRoutesWaypointsArray = sidStarJson["SidStarWayPoints"];
+						//let runWayJson = sidStarJson["DepartureArrivalRunWay"]
+						SingletonSidStar.getInstance().hideShowSidStar( sidStarPattern, sidStarRoutesWaypointsArray );
+					} else {
+						console.error("Error - show SID STAR : Property SidStarWayPoints is missing - Please contact your admin");
 					}
+				} else {
+							console.error("Error - show SID STAR : Property SidStar is missing  - Please contact your admin");
+				}
+			},
+			error: function(data, status) {
+				stopBusyAnimation();
+				console.error("Error - show SID STAR : " + status + " Please contact your admin");
+				showMessage ( "Error - show SID STAR" , data );
+			},
+			complete : function() {
+				stopBusyAnimation();
+				//document.getElementById(SingletonSidStar.getInstance().getButtonId()).disabled = false
+			}
 		} );
-		
 	}
 	
 	initSidStar( globus ) {
 		
 		// 9th May 2023 - class attributes
 		this.globus = globus;
-		
 	}
 }

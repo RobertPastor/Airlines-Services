@@ -6,12 +6,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
 export const SingletonAirlineWayPoints = (function () {
 	
 	let instance;
-
     function createInstance() {
         var object = new AirlineWayPoints();
         return object;
     }
-
     return {
         getInstance: function () {
             if (!instance) {
@@ -56,10 +54,8 @@ class AirlineWayPoints {
 	}
 
 	loadWayPoints(layerWayPoints, dataJson) {
-	
 		// get all waypoints
 		var waypoints = eval(dataJson['waypoints']);
-
 		// add the waypoints
 		for (var wayPointId = 0; wayPointId < waypoints.length; wayPointId++ ) {
 			// insert one waypoint
@@ -68,7 +64,6 @@ class AirlineWayPoints {
 	}
 
 	initWayPoints(globus, viewExtent) {
-	    
 		let show = true;
 		if ( !document.getElementById("btnWayPoints") ) {
 			return;
@@ -120,7 +115,6 @@ class AirlineWayPoints {
 						data:  data,
 						async : true,
 						success: function(data, status) {
-										
 							//alert("Data: " + data + "\nStatus: " + status);
 							var dataJson = eval(data);
 							SingletonAirlineWayPoints.getInstance().loadWayPoints ( layerWayPoints , dataJson );	
@@ -140,15 +134,12 @@ class AirlineWayPoints {
 					layerWayPoints.setVisibility(true);
 					document.getElementById("btnWayPoints").disabled = false
 				}
-				
 			} else {
 				show = true;
 				document.getElementById("btnWayPoints").innerText = "Show Airline WayPoints";
 				document.getElementById("btnWayPoints").style.backgroundColor = "yellow";
-				
 				// get the name of the airline
 				let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
-
 				// hide the airports
 				let layerName = airlineName + "-" + "WayPoints";
 				let layerWayPoints = globus.planet.getLayerByName( layerName );
@@ -156,12 +147,10 @@ class AirlineWayPoints {
 					// layer is existing
 					console.log("layer = " + layerName + " is existing");
 					layerWayPoints.setVisibility(false);
-
 				} else {
 					console.log("layer = " + layerName + " is not existing");
 				}
 			}
 		};
-	}
-	
+	}	
 }

@@ -53,7 +53,6 @@ from trajectory.Environment.Runways.RunWayFile import RunWay
 from trajectory.Environment.Constants import Meter2NauticalMiles
 from trajectory.Guidance.FixListClass import FixList
 
-
 class FlightPlan(FixList):
     
     className = ''
@@ -65,6 +64,7 @@ class FlightPlan(FixList):
     arrivalAirport = None
     
     def __init__(self, strRoute , airportsDatabase , runwaysDatabase , waypointsDatabase, directRoute):
+        logging.basicConfig(level=logging.INFO)
         logger.info("----- Flight Plan init ------")
         
         assert isinstance ( strRoute, str )
@@ -83,7 +83,7 @@ class FlightPlan(FixList):
         assert isinstance ( waypointsDatabase , WayPointsDatabase)
         self.waypointsDatabase = waypointsDatabase
         
-        logging.info( self.className + " - size of waypoints database = {0}".format(self.waypointsDatabase.getNumberOfWaypoints()))
+        logger.info( self.className + " - size of waypoints database = {0}".format(self.waypointsDatabase.getNumberOfWaypoints()))
 
         self.buildFixList()
         
@@ -129,7 +129,7 @@ class FlightPlan(FixList):
                                     TrueHeadingDegrees = self.departureRunway.TrueHeadingDegrees,
                                     LatitudeDegrees    = self.departureRunway.LatitudeDegrees,
                                     LongitudeDegrees   = self.departureRunway.LongitudeDegrees)
-        logging.info ( self.className + " : departure runway : " + str(self.departureRunway) )
+        logger.info ( self.className + " : departure runway : " + str(self.departureRunway) )
         return self.departureRunway
     
     def getArrivalRunway(self):
@@ -153,10 +153,10 @@ class FlightPlan(FixList):
         ''' fill self departure airport and self.arrivalAirport '''
         self.createFixList()
         for fix in self.getFix():
-            logging.info(self.className + ": next fix = " + fix)
+            logger.info(self.className + ": next fix = " + fix)
             wayPoint = self.waypointsDatabase.getWayPoint(fix)
             if (wayPoint):
-                logging.info("waypoint = {0} in wayPoints database".format(wayPoint))
+                logger.info("waypoint = {0} in wayPoints database".format(wayPoint))
                 self.wayPointsDict[fix] = wayPoint
             else:
                 self.deleteFix(fix)
@@ -165,19 +165,19 @@ class FlightPlan(FixList):
         self.arrivalAirport = self.airportsDatabase.getAirportFromICAOCode(ICAOcode = self.arrivalAirportICAOcode)
         assert ( not (self.arrivalAirport is None) and isinstance( self.arrivalAirport, Airport))
         
-        logging.info( self.className + " : arrival airport : " + str(self.arrivalAirport))
-        logging.info( self.className + " : arrival runway : " + str(self.arrivalRunwayName))
+        logger.info( self.className + " : arrival airport : " + str(self.arrivalAirport))
+        logger.info( self.className + " : arrival runway : " + str(self.arrivalRunwayName))
         
         self.arrivalRunway = self.getArrivalRunway()
-        logging.info ( self.className + " : arrival runway : " + str(self.arrivalRunway) )
+        logger.info ( self.className + " : arrival runway : " + str(self.arrivalRunway) )
 
         self.departureAirport = self.airportsDatabase.getAirportFromICAOCode(ICAOcode = self.departureAirportICAOcode)
         assert ( not (self.departureAirport is None) and isinstance( self.departureAirport, Airport))
         
-        logging.info( self.className + " : departure airport : " + str(self.departureAirport))
+        logger.info( self.className + " : departure airport : " + str(self.departureAirport))
         #self.departureRunway = runwaysDatabase.getFilteredRunWays(airportICAOcode = self.departureAirportICAOcode, runwayName = self.departureRunwayName)
         self.departureRunway = self.getDepartureRunway()
-        logging.info ( self.className + " : departure runway : " + str(self.departureRunway) )
+        logger.info ( self.className + " : departure runway : " + str(self.departureRunway) )
 
         #logging.debug self.className + ': fix list= ' + str(self.fixList)
         assert (self.allAnglesLessThan90degrees(minIntervalNautics = 10.0))
