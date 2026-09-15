@@ -33,10 +33,6 @@ export function initDownloadKMLfile(flightProfileControl) {
 			
 			// get the name of the airline
 			let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
-	
-			// init progress bar.
-			initProgressBar();
-			initWorker();
 			
 			let urlToSend =  "trajectory/kml/" + airlineName + "/" + BadaWrapMode + "?aircraft=" + aircraftICAOcode;
 			urlToSend += "&route=" + route;
@@ -51,6 +47,10 @@ export function initDownloadKMLfile(flightProfileControl) {
 			let req = new XMLHttpRequest();
 			req.open("GET", urlToSend, true);
 			req.responseType = "blob";
+
+			// init progress bar.
+			initProgressBar();
+			initWorker();
 	
 			req.onload = function (event) {
 				

@@ -37,9 +37,9 @@ export class SidStar {
 		let globus = this.getGlobus();
 		let layers = globus.planet.layers;
 		for (const layer of layers) {
-			console.log(layer.name);
+			//console.log(layer.name);
 			if ( layer.name.toUpperCase().startsWith("SID") || layer.name.toUpperCase().startsWith("STAR") ) {
-				// this method is found in og layer.ts
+				// this 'remove' method is found in og layer.ts
 				layer.remove();
 			}
 		}
@@ -184,6 +184,7 @@ export class SidStar {
 		} 
 		sidStarPattern = sidStarPattern.replaceAll("-","/");
 		//console.log(" SID Star with SLASH only = " + sidStarPattern);
+		
 		// init progress bar.
 		initProgressBar();
 		initWorker();

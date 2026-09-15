@@ -112,6 +112,10 @@ class AirlineFleet {
 				// get the name of the airline
 				let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
 
+				// init progress bar.
+				initProgressBar();
+				initWorker();
+
 				// use ajax to get the data 
 				$.ajax( {
 						method: 'get',

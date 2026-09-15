@@ -8,7 +8,7 @@ from django.template import loader
 from django.core import serializers
 from django.http import HttpResponse , JsonResponse
 
-from airlines.models import AirlineRoute, AirlineAircraft, Airline,    AirlineRouteWayPoints
+from airlines.models import AirlineRoute, AirlineAircraft, Airline, AirlineRouteWayPoints
 from trajectory.models import AirlineWayPoint, AirlineAirport
 from trajectory.models import BadaSynonymAircraft
 from trajectory.BadaAircraftPerformance.BadaAircraftJsonPerformanceFile import AircraftJsonPerformance
@@ -16,7 +16,6 @@ from trajectory.GuidanceOpenap.FlightPathOpenapFile import FlightPathOpenap
 
 from trajectory.views.utils import  getAirlineAircraftsFromDB, getAirlineRoutesFromDB 
 from trajectory.views.utils import  getRouteFromRequest, getAircraftFromRequest
-
 
 # Create your views here.
 def indexTrajectory(request):

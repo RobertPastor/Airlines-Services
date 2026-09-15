@@ -10,15 +10,15 @@ window.addEventListener('load', (event) => {
 
 export function initDownloadPdfPresentation() {
 	
-		// init progress bar.
-		initProgressBar();
-		initWorker();
-		
 		let urlToSend =  "pdf/downloadPresentation/";
 		
 		let req = new XMLHttpRequest();
 		req.open("GET", urlToSend, true);
 		req.responseType = "blob";
+
+		// init progress bar.
+		initProgressBar();
+		initWorker();
 
 		req.onload = function () {
 			

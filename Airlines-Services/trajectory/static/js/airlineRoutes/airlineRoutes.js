@@ -151,6 +151,10 @@ class AirlineRoutes {
 		let routeObj = new Route( id );
 		let Adep = routeObj.getAdep();
 		let Ades = routeObj.getAdes();
+
+		// init progress bar.
+		initProgressBar();
+		initWorker();
 		
 		$.ajax( {
 				method: 'get',
@@ -411,6 +415,10 @@ class AirlineRoutes {
 				 **/ 
 				let airlineName = $("#airlineSelectId option:selected").val();
 				airlineName = encodeURIComponent(airlineName);
+
+				// init progress bar.
+				initProgressBar();
+				initWorker();
 
 				// use ajax to get the data 
 				$.ajax( {

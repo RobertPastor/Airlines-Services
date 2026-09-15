@@ -129,7 +129,6 @@ class FuelPlanner {
 		
 		let adesICAOcode = document.getElementById('fuelPlannerAirlineAdesICAOcodeId');
 		adesICAOcode.value = routeSelector.split("-")[1];
-		
 	}
 	
 	hideFuelPlannerDiv() {
@@ -279,6 +278,10 @@ class FuelPlanner {
 				
 				// disable the button
 				SingletonMainClass.getInstance().enableDisableMainMenuButtons(false);
+
+				// init progress bar.
+				initProgressBar();
+				initWorker();
 
 				// use ajax to get the data 
 				$.ajax( {

@@ -815,9 +815,6 @@ class AirlineProfileCosts {
 		// listen to the radio button to select WRAP performance
 		document.getElementById(WRAPcheckboxId).addEventListener('click', function(){
 
-			initProgressBar();
-			initWorker();
-			
 			// disable the Reduced climb performance
 			let ReducedClimbPowerInputId  = SingletonFlightProfileControlClass.getInstance().getReducedClimbPowerCoeffInputId();
 			$("#"+ ReducedClimbPowerInputId ).prop('disabled', true);
@@ -830,6 +827,9 @@ class AirlineProfileCosts {
 			// disable all buttons
 			SingletonMainClass.getInstance().enableDisableMainMenuButtons(false);
 			let BadaWrapMode = SingletonFlightProfileControlClass.getInstance().getSelectedBadaWrapMode();
+
+			initProgressBar();
+			initWorker();
 
 			// use ajax to get the data 
 			$.ajax( {

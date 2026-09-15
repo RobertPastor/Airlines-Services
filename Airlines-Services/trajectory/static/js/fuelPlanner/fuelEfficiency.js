@@ -32,20 +32,19 @@ class AirlineFuelEfficiency {
 		document.getElementById("btnFuelEfficieny").onclick  = function () {
 			
 			//console.log( "click Airline Fuel Efficiency");
-			
 			SingletonMainClass.getInstance().enableDisableMainMenuButtons(false);
 			
 			// get the name of the airline
 			let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
 
-			// init progress bar.
-			initProgressBar();
-			initWorker();
-			
 			let urlToSend =  "airlines/airlineFuelEfficiency/" + airlineName;
 			let req = new XMLHttpRequest();
 			req.open("GET", urlToSend, true);
 			req.responseType = "blob";
+
+			// init progress bar.
+			initProgressBar();
+			initWorker();
 
 			req.onload = function (event) {
 				

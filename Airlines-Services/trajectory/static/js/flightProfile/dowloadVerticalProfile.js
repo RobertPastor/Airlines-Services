@@ -29,10 +29,6 @@ export function initDownloadVerticalProfile(flightProfileControl) {
 		// get the name of the airline
 		let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
 
-		// init progress bar.
-		initProgressBar();
-		initWorker();
-		
 		let urlToSend =  "trajectory/excel/" + airlineName + "/" + BadaWrapMode + "?aircraft=" + aircraftICAOcode;
 		urlToSend += "&route=" + route;
 		urlToSend += "&adepRwy=" + departureRunWay;
@@ -46,6 +42,10 @@ export function initDownloadVerticalProfile(flightProfileControl) {
 		let req = new XMLHttpRequest();
 		req.open("GET", urlToSend, true);
 		req.responseType = "blob";
+
+		// init progress bar.
+		initProgressBar();
+		initWorker();
 
 		req.onload = function () {
 			

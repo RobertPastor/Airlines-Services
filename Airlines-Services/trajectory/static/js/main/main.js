@@ -243,9 +243,12 @@ function switchAirlines(globus) {
 		hideAllDiv(globus);
 		stopBusyAnimation();
 
-		// hide displayed all SidStar layers including the polylines
+		// remove all displayed SidStar layers including the polylines
 		let sidStarInstance = SingletonSidStar.getInstance();
 		sidStarInstance.removeAllSidStarLayers();
+
+		// remove all displayed airports
+		
 
 		// selector in the main menu bar
 		let airlineName = SingletonMainClass.getInstance().getSelectedAirline();

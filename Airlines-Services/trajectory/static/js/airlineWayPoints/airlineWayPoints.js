@@ -108,6 +108,10 @@ class AirlineWayPoints {
 						clampToGround: true,
 					});
 					layerWayPoints.addTo(globus.planet);
+
+					// init progress bar.
+					initProgressBar();
+					initWorker();
 		
 					$.ajax( {
 						method: 'get',

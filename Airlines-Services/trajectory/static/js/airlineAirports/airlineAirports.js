@@ -24,7 +24,6 @@ export const SingletonAirlineAirports = (function () {
 export function showHideRoute( elem ) {
 	
 	let globus = SingletonAirlineAirports.getInstance().getGlobus();
-	
 	let layerName = elem.id ;
 	let layer = globus.planet.getLayerByName( layerName );
 	if (layer) {
@@ -41,7 +40,6 @@ export function showHideRoute( elem ) {
 	}
 	return false;
 }
-
 
 class AirlineAirports {
 	
@@ -217,29 +215,33 @@ class AirlineAirports {
 		let arr = id.split("-");
 		let Adep = arr[1];
 		let Ades = arr[2];
+
+		// init progress bar.
+		initProgressBar();
+		initWorker();
 		
 		$.ajax( {
-				method: 'get',
-				url :  "airlines/wayPointsRoute/" + Adep +"/" + Ades,
-				async : true,
-				success: function(data) {		
-						//alert("Data: " + data + "\nStatus: " + status);
-						let dataJson = eval(data);		
-						if ( dataJson.hasOwnProperty("airlineRouteWayPoints")) {	
+			method: 'get',
+			url :  "airlines/wayPointsRoute/" + Adep +"/" + Ades,
+			async : true,
+			success: function(data) {		
+				//alert("Data: " + data + "\nStatus: " + status);
+				let dataJson = eval(data);		
+				if ( dataJson.hasOwnProperty("airlineRouteWayPoints")) {	
 							let airlineRoutesWaypointsArray = dataJson["airlineRouteWayPoints"];
 							let layerName =  LayerNamePrefix + Adep + "-" + Ades;
 							//console.log( layerName );
 							SingletonAirlineAirports.getInstance().showRouteWayPoints( airlineRoutesWaypointsArray , layerName );
-						}
-				},
-				error: function(data, status) {
+				}
+			},
+			error: function(data, status) {
 					console.log("Error - show Airline Routes : " + status + " Please contact your admin");
 					showMessage("Error - Airline Routes", data);
-				},
-				complete : function() {
+			},
+			complete : function() {
 					stopBusyAnimation();
 					document.getElementById("btnAirlineRoutes").disabled = false;
-				},
+			},
 		});
 	}
 	
@@ -247,13 +249,16 @@ class AirlineAirports {
 		
 		// get the name of the airline
 		let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
+
+		// init progress bar.
+		initProgressBar();
+		initWorker();
 		
 		$.ajax( {
 				method: 'get',
 				url :  "airlines/airlineRoutes/" + airlineName,
 				async : true,
 				success: function(data) {
-								
 					//alert("Data: " + data + "\nStatus: " + status);
 					let dataJson = eval(data);		
 					if ( dataJson.hasOwnProperty("airlineRoutes")) {
@@ -404,7 +409,6 @@ class AirlineAirports {
 	
 		// 9th May 2023 - class attributes
 		this.globus = globus;
-		
 		let show = true;
 			
 		if ( !document.getElementById("btnAirports") ) {
@@ -412,7 +416,7 @@ class AirlineAirports {
 			return;
 		}
 		document.getElementById("btnAirports").onclick = function () {
-				
+			// cannot get here a this.show value from the class object
 			if (show) {
 				show = false;
 				document.getElementById("btnAirports").innerText = "Airports";					

@@ -38,7 +38,7 @@
 		
 		let htmlContent = "This help is displayed each time the user clicks on the exclamation mark ";
 		htmlContent += '<img src="/static/images/exclamation-mark.png" style="width:16px;height:16px;border:0">';
-		htmlContent += " available in the upper right corner of the navigation bar.<br>";
+		htmlContent += " available in the lower right corner of the navigation bar.<br>";
 		this.helpArray.push(htmlContent);
 		
 		let contents = [];

@@ -40,14 +40,14 @@ class WindTemperature {
 			// get the name of the airline
 			let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
 
-			// init progress bar.
-			initProgressBar();
-			initWorker();
-			
 			let urlToSend =  "trajectory/windTemperature/" + airlineName;
 			let req = new XMLHttpRequest();
 			req.open("GET", urlToSend, true);
 			req.responseType = "blob";
+
+			// init progress bar.
+			initProgressBar();
+			initWorker();
 
 			req.onload = function (event) {
 				
