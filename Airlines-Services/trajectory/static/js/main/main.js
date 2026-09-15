@@ -109,7 +109,6 @@ export function showMessage ( title, message ) {
  */
 //function removeLayer( globus , layerName ) : Promise<boolean> {
 export function removeLayer( globus , layerName )  {
-	
 	return new Promise ( (resolve, reject) => {
 		try {
 			let layerTwo = globus.planet.getLayerByName( layerName );
@@ -118,6 +117,7 @@ export function removeLayer( globus , layerName )  {
 				let entities = layerTwo.getEntities();
 				layerTwo.removeEntities(entities);
 				console.log("entity removed !!!");
+				layerTwo.remove();
 				resolve(true);
 			}
 		} catch (err) {
@@ -130,6 +130,7 @@ export function removeLayer( globus , layerName )  {
 				//console.log("layerOne is probably existing ...");
 				let entities = layerOne.getEntities();
 				layerOne.removeEntities(entities);
+				layerOne.remove();
 				console.log("entity removed !!!");
 				//layerOne.remove();
 				resolve(true);
@@ -231,7 +232,10 @@ export function hideAllDiv(globus) {
 	metars.hideMetarsDiv();
 }
 
-
+/**
+ * purpose : manages the changes of airlines
+ * @param {*} globus 
+ */
 function switchAirlines(globus) {
 	
 	$( "#airlineSelectId" ).change(function() {
@@ -239,7 +243,7 @@ function switchAirlines(globus) {
 		hideAllDiv(globus);
 		stopBusyAnimation();
 
-		// hide displayed all SidStar layers
+		// hide displayed all SidStar layers including the polylines
 		let sidStarInstance = SingletonSidStar.getInstance();
 		sidStarInstance.removeAllSidStarLayers();
 

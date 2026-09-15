@@ -10,7 +10,6 @@ import os
 import logging
 logger = logging.getLogger(__name__)
 
-
 import pandas as pd
 from trajectory.management.commands.SidStar.SidStarFinderFile import SidStarFinder
 from django.core.management.base import BaseCommand

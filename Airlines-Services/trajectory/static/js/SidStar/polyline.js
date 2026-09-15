@@ -53,6 +53,10 @@ export class PolyLine {
 		}
 	}
 	
+    /**
+     * 
+     * @returns draw a polyline
+     */
 	draw() {
 		
 		let globus = this.globus ;
@@ -70,6 +74,7 @@ export class PolyLine {
 	    collection.add( entity );
 	    collection.addTo( globus.planet );
 	    // show some animation along the line between each SID or STAR waypoint
+        // animation should follow the direction of flight towards the route for a SID, towards the airport for a STAR
 	    globus.planet.renderer.handler.defaultClock.setInterval(30, () => {
 			try {
                     let e = collection.getEntities()[0].polyline;

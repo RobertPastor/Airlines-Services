@@ -20,21 +20,6 @@ export const SingletonSidStar = (function () {
     };
 })();
 
-/**
- * 14th September 2026
- * remove all SID STAR loayers
- * This function is called each time the airline is changed
- */
-export function removeAllSidStarLayers() {
-
-	let sidStarInstance = SingletonSidStar.getInstance();
-	let globus = sidStarInstance.getGlobus();
-	let layers = globus.planet.layers();
-	for (const layer of layers) {
-		console.log(layer.name);
-	}
-}
-
 export class SidStar {
 	
 	constructor() {
@@ -45,7 +30,7 @@ export class SidStar {
 
 	/**
 		 * 14th September 2026
-		 * remove all SID STAR loayers
+		 * purpose : remove all SID STAR loayers
 		 * This function is called each time the airline is changed
 	 */
 	removeAllSidStarLayers() {
@@ -53,6 +38,10 @@ export class SidStar {
 		let layers = globus.planet.layers;
 		for (const layer of layers) {
 			console.log(layer.name);
+			if ( layer.name.toUpperCase().startsWith("SID") || layer.name.toUpperCase().startsWith("STAR") ) {
+				// this method is found in og layer.ts
+				layer.remove();
+			}
 		}
 	}
 	
@@ -125,7 +114,6 @@ export class SidStar {
 		let globus = this.globus;
 		let wayPointsArr = [];
 		for (let wayPointId = 0; wayPointId < sidStarRoutesWaypointsArray.length; wayPointId++ ) {
-			
 			if ( wayPointId >= 1) {
 				let srcWayPoint = sidStarRoutesWaypointsArray[wayPointId-1];
 				let dstWayPoint = sidStarRoutesWaypointsArray[wayPointId];
@@ -137,19 +125,15 @@ export class SidStar {
 		let polyLine = new PolyLine (sidStarPattern);
 		polyLine.init( globus, wayPointsArr );
 		polyLine.draw(); 
-		
 		// store multiple polylines
 		this.polyLineObjects[sidStarPattern] = polyLine;
 	}
 	
 	hideShowSidStar( sidStarPattern , sidStarRoutesWaypointsArray ) {
-		
 		if ( Array.isArray(sidStarRoutesWaypointsArray) && ( sidStarRoutesWaypointsArray.length > 0 ) ) {
-					
 			// because the runway is part of the SidStar waypoint and the runway is written like ADEP/RWY or ADES/RWY
 			let layerName = sidStarPattern.replaceAll("/", "-");
 			//console.log( "layer Name with underscores only = " + layerName );
-			
 			let sidStarGlobusLayer = new Vector( layerName , {
 					billboard: { 
 						src: '/static/trajectory/images/marker.png', 
