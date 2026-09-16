@@ -40,6 +40,9 @@ import { SingletonAirlineAirports } from "../airlineAirports/airlineAirports.js"
 import { SingletonAirlineWayPoints } from "../airlineWayPoints/airlineWayPoints.js";
 import { SingletonAirlineRoutes } from "../airlineRoutes/airlineRoutes.js";
 
+// 15th September 2026 - earth coordinates
+import { ogGlobeCoordinatesControl } from "../ogGlobeCoordinates/ogGlobeCoordinatesControl.js"
+
 //import { SingletonAirlineCosts } from "../airlineCosts/airlineCosts.js";
 // flight profile and profile leg costs are merged -> available in the following js
 import { SingletonProfileCosts } from "../flightProfile/computeFlightProfile.js";
@@ -248,7 +251,6 @@ function switchAirlines(globus) {
 		sidStarInstance.removeAllSidStarLayers();
 
 		// remove all displayed airports
-		
 
 		// selector in the main menu bar
 		let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
@@ -430,10 +432,7 @@ function initTools(globus, viewExtent) {
 		// 23rd August 2024 - Wind Temperature
 		let windTemperature = SingletonWindTemperature.getInstance();
 		windTemperature.initWindTemperature();
-		
-		// now finish by loading the different airlines
-		loadAirlinesSelector();
-		
+
 		// 29th September 2023 - 
 		let metarsOgControl = new MetarsOgControl();
 		globus.planet.addControl( metarsOgControl );
@@ -441,6 +440,9 @@ function initTools(globus, viewExtent) {
 		let metar = SingletonMetars.getInstance();
 		// 29th September 2023 - init listener to Metars button changes
 		metar.initMetars( globus , metarsOgControl );
+		
+		// now finish by loading the different airlines
+		loadAirlinesSelector();
 		
 		// 19th July 2023 Main Singleton Class
 		new SingletonMainClass.getInstance().init(globus);
@@ -514,9 +516,7 @@ function initMain(viewExtent) {
             autoActivated: true,
             viewExtent : viewExtent,
             controls: [
-				//new control.MouseNavigation({ autoActivate: true }),
                 new control.KeyboardNavigation({ autoActivate: true }),
-                new control.EarthCoordinates({ centerMode : false , altitudeUnit : 'm' , heightMode : 'ell' , type: 1 }),
                 new control.ScaleControl({ autoActivate: true }),
                 new control.CompassButton()
                 ],
@@ -524,6 +524,19 @@ function initMain(viewExtent) {
             resourcesSrc: "/static/js/og/res"
 	});
 	initTools (globe, viewExtent);
+
+	// embedded earth coordinates
+	let options = { centerMode : false , altitudeUnit : 'm' , heightMode : 'ell' , type: 1 };
+	let earthCoordinates = new control.EarthCoordinates(options);
+
+	// add coordinates control to the planet
+	globe.planet.addControl ( earthCoordinates );
+
+	// manage mouse move
+	if ( globe.planet.renderer ) {
+		//globe.planet.renderer.events.on("mousemove", earthCoordinates._refreshCoordinates(), this);
+	}
+
 	stopBusyAnimation();
 }
 

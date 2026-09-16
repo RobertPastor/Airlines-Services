@@ -59,7 +59,10 @@ export function showHideSidStarRoute( elem ) {
 	return false;
 }
 
-
+/**
+ * Manage all operations on an airline route
+ * Airline route is defined by a Departure and an Arrival airport
+ */
 class AirlineRoutes {
 	
 	constructor( ) {
@@ -126,12 +129,21 @@ class AirlineRoutes {
 			// insert one waypoint
 			SingletonAirlineRoutes.getInstance().loadOneRouteWayPoint( layerRouteWayPoints, airlineRoutesWaypointsArray[wayPointId] );
 		}
+		// change focus to shrink the globe view on the area containing the reoute way points
+		// setExtent is defined the js containing Main Singleton class
 		SingletonMainClass.getInstance().setExtent(airlineRoutesWaypointsArray);
+
 		// 22nd July 2023 - store the wayPoints array
 		this.LayerWayPoints[layerName] = airlineRoutesWaypointsArray;
 	}
-	
-	// write in the table the best departure runway and the best arrival runway
+
+	 /**
+	  * write in the table the best departure runway and the best arrival runway
+	  * @param {*} Adep 
+	  * @param {*} Ades 
+	  * @param {*} isAdep 
+	  * @param {*} AdepAdesRunWay 
+	  */
 	loadBestRunway( Adep, Ades, isAdep, AdepAdesRunWay ) {
 		
 		if (isAdep) {
@@ -190,6 +202,7 @@ class AirlineRoutes {
 						}
 				},
 				error: function(data, status) {
+					stopBusyAnimation();
 					console.log("Error - show Airline Routes : " + status + " Please contact your admin");
 					showMessage("Error - Airline Routes", data)
 				},
@@ -309,7 +322,6 @@ class AirlineRoutes {
 		// onclick
 	}
 	
-
 	// April 2023 - add best runway
 	// 11th June 2023 add SID and STAR
 	addOneAirlineRoute( oneAirlineRoute ) {

@@ -4,27 +4,27 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">    
     
-    <link rel='shortcut icon' type='image/x-icon' href="{% static 'images/favicon.ico' %}" />  
+  <link rel='shortcut icon' type='image/x-icon' href="{% static 'images/favicon.ico' %}" />  
     
-    <link type="text/css" rel="stylesheet" href="/static/css/jquery/jquery-ui.css" />
-    <link type="text/css" rel="stylesheet" href="/static/css/jquery/datatables/datatables.min.css" />
+  <link type="text/css" rel="stylesheet" href="/static/css/jquery/jquery-ui.css" />
+  <link type="text/css" rel="stylesheet" href="/static/css/jquery/datatables/datatables.min.css" />
     
-    <link type="text/css" rel="stylesheet" href="/static/css/w3/w3.css" />
-    <link type="text/css" rel="stylesheet" href="/static/css/main/main.css" />
-    <link type="text/css" rel="stylesheet" href="/static/css/main/fold-unfold.css" />
-    <link type="text/css" rel="stylesheet" href="/static/css/og/og.css" />
+  <link type="text/css" rel="stylesheet" href="/static/css/w3/w3.css" />
+  <link type="text/css" rel="stylesheet" href="/static/css/main/main.css" />
+  <link type="text/css" rel="stylesheet" href="/static/css/main/fold-unfold.css" />
+  <link type="text/css" rel="stylesheet" href="/static/css/og/og.css" />
     
-    <!-- 1st October 2023 - sortable -->
-    <link type="text/css" rel="stylesheet" href="/static/css/sortable/sortable.css" />
+  <!-- 1st October 2023 - sortable -->
+  <link type="text/css" rel="stylesheet" href="/static/css/sortable/sortable.css" />
     
-    <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-2.2.1.js"></script>
-    <!--
-    <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-migrate-1.4.1.min.js"></script>
-    -->
-    <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-ui-patch-browser.js"></script>
+  <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-2.2.1.js"></script>
+  <!--
+  <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-migrate-1.4.1.min.js"></script>
+  -->
+  <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-ui-patch-browser.js"></script>
 
  	<script   charset="utf-8" type="text/javascript" src="/static/js/jquery/jquery-ui.js"></script>
   <script   charset="utf-8" type="text/javascript" src="/static/js/jquery/datatables/datatables.min.js"></script>
@@ -92,16 +92,21 @@
    <script   charset="utf-8" type="module" src="/static/js/airlineSeatMilesMaximization/airlineSeatMilesMaximization.js"></script>
   -->
 
-   <!--  13th May 2023 - add fuel Planner -->
-   <script   charset="utf-8" type="module" src="/static/js/fuelPlanner/fuelPlannerControl.js"></script>
-   <script   charset="utf-8" type="module" src="/static/js/fuelPlanner/fuelPlanner.js"></script>
+  <!--  13th May 2023 - add fuel Planner -->
+  <script   charset="utf-8" type="module" src="/static/js/fuelPlanner/fuelPlannerControl.js"></script>
+  <script   charset="utf-8" type="module" src="/static/js/fuelPlanner/fuelPlanner.js"></script>
     
-   <!-- 30th December 2023 - add Fuel Efficiency -->
+  <!-- 30th December 2023 - add Fuel Efficiency -->
  	<script   charset="utf-8" type="module" src="/static/js/fuelPlanner/fuelEfficiency.js"></script>
 
  	<!-- 8th June 2023 - SID STAR -->
  	<script   charset="utf-8" type="module" src="/static/js/SidStar/SidStar.js"></script>
  	<script   charset="utf-8" type="module" src="/static/js/SidStar/polyline.js"></script>
+
+  <!-- 15th September 2026 add Globe coordinates update on mouse movement -->
+  
+  <script   charset="utf-8" type="module" src="/static/js/ogGlobeCoordinates/ogGlobeCoordinatesControl.js"></script>
+  
  	
 	<!-- 19th July 2023 - Main Singleton Class -->
 	<script   charset="utf-8" type="module" src="/static/js/main/mainSingletonClass.js"></script>
@@ -114,7 +119,7 @@
  	<!-- 30th December 2023 - sub menu Fuel Efficiency Fuel Planner -->
  	<script   charset="utf-8" type="module" src="/static/js/main/subMenuFuelControl.js"></script>
  	
-  	<!-- 22nd August 2024 - sub menu Metar and WInd Temperature -->
+  <!-- 22nd August 2024 - sub menu Metar and WInd Temperature -->
  	<script   charset="utf-8" type="module" src="/static/js/main/subMenuMeteo.js"></script>
  	
  	<!--  30th June 2023 - temporary feature - add layer cleaner -->
@@ -130,8 +135,8 @@
 
   <script   charset="utf-8" type="module" src="/static/js/main/main.js"></script>
 
-   <!--  June 2023 - airlines configuration are provided by the /flight-profile/FlightProfile/views/views.py - function index -->
-   <script>
+  <!--  June 2023 - airlines configuration are provided by the /flight-profile/FlightProfile/views/views.py - function index -->
+  <script>
     	const airlines = JSON.parse('{{ airlines|escapejs }}');
 	</script>
     

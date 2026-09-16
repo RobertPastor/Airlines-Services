@@ -165,8 +165,8 @@ def computeBadaFlightProfile(request , airlineName ):
                         runwaysDatabase = RunWaysDataBase()
                         assert runwaysDatabase.read()
 
-                        waypointsDataBase = WayPointsDatabase()
-                        assert waypointsDataBase.read()
+                        waypointsDatabase = WayPointsDatabase()
+                        assert waypointsDatabase.read()
                         
                         flightPath = FlightPath(
                                         route                  = routeAsString, 
@@ -177,7 +177,7 @@ def computeBadaFlightProfile(request , airlineName ):
                                         reducedClimbPowerCoeff = float(reducedClimbPowerCoeff) ,
                                         airportsDatabase       = airportsDatabase , 
                                         runwaysDatabase        = runwaysDatabase  ,
-                                        waypointsDataBase      = waypointsDataBase ,
+                                        waypointsDatabase      = waypointsDatabase ,
                                         directRoute            = False )
                         
                         flightPath.computeFlight(deltaTimeSeconds = 1.0)

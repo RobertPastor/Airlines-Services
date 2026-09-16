@@ -375,12 +375,12 @@ class AirlineAirports {
 
 	showHideAllAirports( showHide ) {
 			
+		// get the name of the airline
+		let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
+
 		// init progress bar.
 		initProgressBar();
 		initWorker();
-		
-		// get the name of the airline
-		let airlineName = SingletonMainClass.getInstance().getSelectedAirline();
 
 		$.ajax( {
 				method: 'get',
