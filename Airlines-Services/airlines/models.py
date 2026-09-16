@@ -2,6 +2,8 @@
 # Create your models here.
 
 from django.db import models
+import logging 
+logger = logging.getLogger(__name__)
 
 # Create your models here.
 from trajectory.models import AirlineAirport, AirlineRunWay, AirlineStandardDepartureArrivalRoute
@@ -152,7 +154,7 @@ class AirlineRoute(models.Model):
                 ''' 3th June 2023 - extend with SID when available '''
                 strRoute += self.extendRouteWithSID( Adep , AdepRunWayName , self.getFirstRouteWayPoint() )
             else:
-                #print ( "Best Departure Runway = {0}".format(self.computeBestDepartureRunWay()))
+                logger.info ( "Best Departure Runway = {0}".format(self.computeBestDepartureRunWay()))
                 AdepRunway = AirlineRunWay.objects.filter(Airport=Adep).first()
                 if AdepRunway  and ( len ( AdepRunway.Name ) > 0):
                     strRoute += "/" + AdepRunway.Name
@@ -165,7 +167,7 @@ class AirlineRoute(models.Model):
             if (AdesRunWayName):
                 ''' 6th June 2023 - extend with STAR when available '''
                 strRoute += self.extendRouteWithSTAR(Ades, AdesRunWayName, self.getLastRouteWayPoint() )
-                #print ( strRoute )
+                #logger.info ( strRoute )
                 strRoute += "-"
                 strRoute += "ADES/" + self.ArrivalAirportICAOCode
                 strRoute += "/" + AdesRunWayName

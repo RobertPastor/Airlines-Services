@@ -3,6 +3,8 @@ Created on 24 juil. 2024
 
 @author: robert
 '''
+import logging 
+logger = logging.getLogger(__name__)
 
 import json
 import os
@@ -76,30 +78,30 @@ class NoaaWeatherStationsClass(object):
     def readStations(self):
         with open( self.FilePath ) as json_data:
             self.stations = json.load(json_data)
-            #print ( type ( self.stations  ))
-            #print ( len(self.stations) )
+            #logger.info ( type ( self.stations  ))
+            #logger.info ( len(self.stations) )
             for station in self.stations:
                 
                 if len(str(station['faaId']))>=3:
                     FAAstationName = str(station['faaId'])
-                    #print ( "---- {0} ----".format(FAAstationName))
+                    #logger.info ( "---- {0} ----".format(FAAstationName))
                     noaaWeatherStation = NoaaWeatherStation.objects.filter(FAAid=FAAstationName).first()
                     if  (len(str(station['faaId']))>=3) and noaaWeatherStation :
                         weatherStationMeasure = NoaaWeatherStationMeasure.objects.filter(NoaaWeatherStationInstance=noaaWeatherStation).first()
-                        #print ( station['icaoId'] + " - " + station['site'] )
+                        #logger.info ( station['icaoId'] + " - " + station['site'] )
                         if ( weatherStationMeasure ):
                             pass
-                            #print ( "There is a station with measure {0}".format(str(weatherStationMeasure) ) )
+                            #logger.info ( "There is a station with measure {0}".format(str(weatherStationMeasure) ) )
                             self.finalStations.append(station)
         
-        #print("------- after cleaning ------------")
-        print ( "{0} - final number of weather stations = {1}".format( self.className , len(self.finalStations) ) )
+        #logger.info("------- after cleaning ------------")
+        logger.info ( "{0} - final number of weather stations = {1}".format( self.className , len(self.finalStations) ) )
         #for station in self.finalStations:
         #    FAAstationName = str(station['faaId'])
         #    ICAOstationName = str(station['icaoId'])
-        #    print ( "{0} ---- {1} ---- {2} ".format(self.className , FAAstationName,ICAOstationName))
+        #    logger.info ( "{0} ---- {1} ---- {2} ".format(self.className , FAAstationName,ICAOstationName))
             
-        #print ( len(self.finalStations) )
+        #logger.info ( len(self.finalStations) )
                     
     def isStationFAAExisting(self , stationFAAname):
         for station in self.finalStations:
@@ -158,9 +160,9 @@ class NoaaWeatherStationsClass(object):
         for station in self.finalStations:
             if ( len(str(station['icaoId'])) == 4 ) and ( float(station['lat']) > -90.0 )  :
                     
-                #print ( str(station['icaoId']) )
-                #print ( float(station['lat']) )
-                #print ( float(station['lon']) )
+                #logger.info ( str(station['icaoId']) )
+                #logger.info ( float(station['lat']) )
+                #logger.info ( float(station['lon']) )
                 
                 stationWayPoint = WayPoint(Name = str(station['icaoId']),
                                            LatitudeDegrees = float(station['lat']),
@@ -168,7 +170,7 @@ class NoaaWeatherStationsClass(object):
                                            AltitudeMeanSeaLevelMeters = 0.0)
                 
                 currentDistanceMeters = currentPosition.getDistanceMetersTo(stationWayPoint)
-                #print ( currentDistanceMeters )
+                #logger.info ( currentDistanceMeters )
                 if ( First == True ):
                     First = False
                     lowestDistanceMeters = currentDistanceMeters
@@ -187,9 +189,9 @@ class NoaaWeatherStationsClass(object):
         for station in self.finalStations:
             if ( len(str(station['icaoId'])) == 4 ) and ( float(station['lat']) > -90.0 )  :
                     
-                #print ( str(station['icaoId']) )
-                #print ( float(station['lat']) )
-                #print ( float(station['lon']) )
+                #logger.info ( str(station['icaoId']) )
+                #logger.info ( float(station['lat']) )
+                #logger.info ( float(station['lon']) )
                 
                 stationWayPoint = WayPoint(Name = str(station['faaId']),
                                            LatitudeDegrees = float(station['lat']),
@@ -197,7 +199,7 @@ class NoaaWeatherStationsClass(object):
                                            AltitudeMeanSeaLevelMeters = 0.0)
                 
                 currentDistanceMeters = currentPosition.getDistanceMetersTo(stationWayPoint)
-                #print ( currentDistanceMeters )
+                #logger.info ( currentDistanceMeters )
                 if ( First == True ):
                     First = False
                     lowestDistanceMeters = currentDistanceMeters
@@ -214,25 +216,25 @@ if __name__ == '__main__':
     noaaStations = NoaaWeatherStationsClass( fileName )
     noaaStations.readStations()
     
-    print ( "is station FAA name DEN existing = " + str(noaaStations.isStationFAAExisting( "DEN")) )
+    logger.info ( "is station FAA name DEN existing = " + str(noaaStations.isStationFAAExisting( "DEN")) )
     
     stationICAOname = "KDEN"
-    print( "is station ICAO KDEN existing = " + str(noaaStations.isStationICAOExisting( "KDEN")) )
+    logger.info( "is station ICAO KDEN existing = " + str(noaaStations.isStationICAOExisting( "KDEN")) )
     
-    print ( "get DEN ICAO station = " + str(noaaStations.getStationICAOName( "DEN") ) )
+    logger.info ( "get DEN ICAO station = " + str(noaaStations.getStationICAOName( "DEN") ) )
     
     stationFAAname = "DEN"
-    print ( "station = {0} - latitude degrees = {1}".format( stationFAAname , noaaStations.getStationLatitudeDegrees( stationFAAname ) ) )
-    print ( "station = {0} - longitude degrees = {1}".format( stationFAAname , noaaStations.getStationLongitudeDegrees( stationFAAname ) ) )
-    print ( "station = {0} - elevation meters = {1}".format( stationFAAname , noaaStations.getStationElevationMeters( stationFAAname ) ) )
-    print ( "station = {0} - elevation feet = {1}".format( stationFAAname , noaaStations.getStationElevationFeet( stationFAAname ) ) )
+    logger.info ( "station = {0} - latitude degrees = {1}".format( stationFAAname , noaaStations.getStationLatitudeDegrees( stationFAAname ) ) )
+    logger.info ( "station = {0} - longitude degrees = {1}".format( stationFAAname , noaaStations.getStationLongitudeDegrees( stationFAAname ) ) )
+    logger.info ( "station = {0} - elevation meters = {1}".format( stationFAAname , noaaStations.getStationElevationMeters( stationFAAname ) ) )
+    logger.info ( "station = {0} - elevation feet = {1}".format( stationFAAname , noaaStations.getStationElevationFeet( stationFAAname ) ) )
     
     stationFAAname = "JFK"
-    print ( "station = {0} - elevation meters = {1}".format( stationFAAname , noaaStations.getStationElevationMeters( stationFAAname ) ) )
+    logger.info ( "station = {0} - elevation meters = {1}".format( stationFAAname , noaaStations.getStationElevationMeters( stationFAAname ) ) )
     
     currentPosition = WayPoint(Name = "NearKATL",
                                            LatitudeDegrees = 33.70,
                                            LongitudeDegrees = -84.500,
                                            AltitudeMeanSeaLevelMeters = 0.0)
-    print ( "nearest weather station = {0}".format ( noaaStations.getNearestWeatherStationICAOname(currentPosition) ) )
+    logger.info ( "nearest weather station = {0}".format ( noaaStations.getNearestWeatherStationICAOname(currentPosition) ) )
 

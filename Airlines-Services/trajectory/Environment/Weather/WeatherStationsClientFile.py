@@ -4,6 +4,9 @@ Created on 5 oct. 2024
 @author: robert
 '''
 
+import logging 
+logger = logging.getLogger(__name__)
+
 from trajectory.Environment.Weather.WindTemperature.NoaaStations.NoaaWeatherStationsFile import NoaaWeatherStationsClass
 from trajectory.Guidance.WayPointFile import WayPoint
 from trajectory.models import NoaaWeatherStation
@@ -29,7 +32,7 @@ class WeatherStationsClient(object):
         
         self.className = self.__class__.__name__
         
-        print ("{0} -- init --".format(self.className))
+        logger.info ("{0} -- init --".format(self.className))
         
         fileName = "noaa-stations.json"
         self.nooaWeatherStations = NoaaWeatherStationsClass(fileName)
@@ -81,7 +84,6 @@ class WeatherStationsClient(object):
                 levelsFeetList = noaaWeatherStation.getWeatherStationForecastsLevels()
                 # create the y list for the interpolation
                 WindSpeedForecastsList = noaaWeatherStation.getWeatherStationForecastsWindSpeed()
-                
                 try:
                     self.latestInterpolatedWindSpeedKnots = np.interp( altitudeMeanSeaLevelFeet , levelsFeetList , WindSpeedForecastsList )
                 except:

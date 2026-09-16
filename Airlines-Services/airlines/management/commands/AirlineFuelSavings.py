@@ -15,7 +15,7 @@ from django.core.management.base import BaseCommand
 from airlines.models import Airline, AirlineAircraft, AirlineRoute, AirlineCosts
 from trajectory.models import BadaSynonymAircraft
 from trajectory.BadaAircraftPerformance.BadaAircraftJsonPerformanceFile import AircraftJsonPerformance
-from trajectory.Guidance.FlightPathOpenapFile import FlightPathOpenap
+from trajectory.GuidanceOpenap.FlightPathOpenapFile import FlightPathOpenap
 
 import logging
 logger = logging.getLogger(__name__)
@@ -52,8 +52,8 @@ class Command(BaseCommand):
                         
                         acPerformance = AircraftJsonPerformance(aircraftICAOcode, badaAircraft.getAircraftJsonPerformanceFile())
                         if ( acPerformance.read() ):
-                            #print ( "Max TakeOff Weight kilograms = {0}".format(acPerformance.getMaximumMassKilograms() ) )   
-                            #print ( "Max Operational Altitude Feet = {0}".format(acPerformance.getMaxOpAltitudeFeet() ) )
+                            #logger.info ( "Max TakeOff Weight kilograms = {0}".format(acPerformance.getMaximumMassKilograms() ) )   
+                            #logger.info ( "Max Operational Altitude Feet = {0}".format(acPerformance.getMaxOpAltitudeFeet() ) )
                             
                             for reducedClimbPowerCoeff in range(16):
                             
@@ -74,4 +74,4 @@ class Command(BaseCommand):
 
         hours, rest = divmod(seconds_elapsed, 3600)
         minutes, seconds = divmod(rest, 60)
-        print ( "hours = {0} - minutes = {1} - seconds = {2}".format( hours, minutes, seconds))
+        logger.info ( "hours = {0} - minutes = {1} - seconds = {2}".format( hours, minutes, seconds))

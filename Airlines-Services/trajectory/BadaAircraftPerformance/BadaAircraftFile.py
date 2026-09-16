@@ -26,6 +26,7 @@ Created on 12 octobre 2014
         
 '''
 import logging
+logger = logging.getLogger(__name__)
 
 from trajectory.BadaAircraftPerformance.BadaAircraftConfigurationFile import AircraftConfiguration
 from trajectory.Guidance.WayPointFile import WayPoint
@@ -65,8 +66,8 @@ class BadaAircraft(AircraftConfiguration):
         return str(strAC)
     
     def dump(self):
-        logging.info ( self.className + ' ICAO code = {0}'.format(self.ICAOcode) )
-        logging.info ( self.className + ' aircraft full name = {0}'.format(self.aircraftFullName) )
+        logger.info ( self.className + ' ICAO code = {0}'.format(self.ICAOcode) )
+        logger.info ( self.className + ' aircraft full name = {0}'.format(self.aircraftFullName) )
 
     def getLandingLengthMeters(self):
         return self.groundMovement.getLandingLengthMeters()

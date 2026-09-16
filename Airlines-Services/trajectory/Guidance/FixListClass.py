@@ -6,6 +6,8 @@ Created on 11 août 2023
 
 import os
 import logging
+logger = logging.getLogger(__name__)
+
 from trajectory.Guidance.ConstraintsFile import analyseConstraint
 
 '''
@@ -32,8 +34,8 @@ class FixList(object):
         self.directRoute = directRoute
         
         script_name = os.path.basename(__file__)        
-        self.className = script_name.split("\\.")[0]
-        
+        self.className = self.__class__.__name__
+
         self.fixList = []
         
         self.departureAirportIcaoCode = ""
@@ -43,7 +45,7 @@ class FixList(object):
         self.arrivalRunwayName = ""
         
         assert isinstance(strRoute, (str))
-        logging.debug (self.className + ': route= ' + strRoute)
+        logging.debug (self.className + ' -  route= ' + strRoute)
         self.strRoute = strRoute
         
     def getFixList(self):
@@ -73,7 +75,7 @@ class FixList(object):
             
     def createFixList(self):
 
-        logging.info (self.className + ': ================ create Fix List =================' )
+        logger.info (self.className + ' ================ create Fix List =================' )
         self.fixList = []
         index = 0
         for fix in self.strRoute.split('-'):
@@ -85,14 +87,13 @@ class FixList(object):
                     ''' ADEP is the first fix of the route '''
                     if len(str(fix).split('/')) >= 2:
                         self.departureAirportICAOcode = str(fix).split('/')[1]
-                        logging.debug (self.className + ': departure airport= {0}'.format( self.departureAirportICAOcode))
+                        logging.debug (self.className + ' - departure airport= {0}'.format( self.departureAirportICAOcode))
     
                     self.departureRunwayName = ''
                     if len(str(fix).split('/')) >= 3:
                         self.departureRunwayName = str(fix).split('/')[2]
-                        
                 else:
-                    raise ValueError (self.className + ': ADEP must be the first fix in the route!!!')
+                    raise ValueError (self.className + ' - ADEP must be the first fix in the route!!!')
                 
             elif  str(fix).startswith('ADES'):
                 ''' check if Destination Airport is last item of the list '''
@@ -100,18 +101,18 @@ class FixList(object):
                     ''' ADES is the last fix of the route '''
                     if len(str(fix).split('/')) >= 2:
                         self.arrivalAirportICAOcode = str(fix).split('/')[1]
-                        logging.debug (self.className + ': arrival airport= {0}'.format( self.arrivalAirportICAOcode))
+                        logging.debug (self.className + ' - arrival airport= {0}'.format( self.arrivalAirportICAOcode))
 
                     self.arrivalRunwayName = ''
                     if len(str(fix).split('/')) >= 3:
                         self.arrivalRunwayName = str(fix).split('/')[2]
                 else:
-                    raise ValueError (self.classeName + ': ADES must be the last fix of the route!!!' )
+                    raise ValueError (self.classeName + ' - ADES must be the last fix of the route!!!' )
 
             else:
                 ''' do not take the 1st one (ADEP) and the last one (ADES) '''
                 constraintFound, levelConstraint, speedConstraint = analyseConstraint(index, fix)
-                #logging.info self.className + ': constraint found= {0}'.format(constraintFound)
+                logger.info ( self.className + ': constraint found= {0}'.format(constraintFound) )
                 if constraintFound == True:
                     constraint = {}
                     constraint['fixIndex'] = index
@@ -122,8 +123,7 @@ class FixList(object):
                     self.fixList.append(fix)
 
             index += 1
-            
-        print(self.fixList)
+        logger.info(self.fixList)
         
     #def insertIntermediateBetweenAirports(self):
     #    if ( self.directRoute ):

@@ -28,7 +28,6 @@ Created on 22 february 2015
 
 import math
 import logging 
-
 logger = logging.getLogger(__name__)
 
 from trajectory.Environment.Constants import  MaxRateOfClimbFeetPerMinutes , MaxRateOfDescentFeetPerMinutes, Knots2MetersPerSecond

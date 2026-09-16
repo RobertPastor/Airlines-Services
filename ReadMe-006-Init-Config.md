@@ -565,6 +565,7 @@ $ python manage.py NoaaWeatherStationsLoad
  --- about to delete NOAA Weather Stations ---
  --- NOAA Weather Stations - delete done ---
 NoaaWeatherStationsClass - final number of weather stations = 0
+
 (virtualEnv)
 rober@RobertPastor MINGW64 ~/git/Airlines-Services/Airlines-Services (master)
 $
